@@ -1,29 +1,13 @@
-# README #
+## Quick Start
 
-This README would normally document whatever steps are necessary to get your application up and running.
+1.  Clone the repo `git clone https://github.com/reduction-admin/react-reduction.git`
+2.  Go to your project folder from your terminal
+3.  Run: `npm install` or `yarn install`
+4.  After install, run: `npm run start` or `yarn start`
+5.  It will open your browser(http://localhost:3000)
 
-### What is this repository for? ###
+## Note
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+React Reduction is built on top of [Create React App](https://github.com/facebook/create-react-app), which means all features that create-react-app supports are available.
 
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+To enable basic Google Analytics page tracking, you can add "REACT_APP_GOOGLE_ANALYTICS" variable in .env(or create env.production) file. For example, `REACT_APP_GOOGLE_ANALYTICS=xxxxxx` like this.
