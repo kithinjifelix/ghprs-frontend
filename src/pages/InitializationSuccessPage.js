@@ -5,33 +5,29 @@ import {
   Card,
   CardBody,
   CardHeader,
+  CardText,
   Col,
   Row,
 } from 'reactstrap';
-import Iframe from 'react-iframe'
 
-const DashboardPage = (props) => {
+const InitializationSuccessPage = (props) => {
 
   return (
     <Page
       className="DashboardPage"
-      title="Dashboard"
+      title="Template"
       breadcrumbs={[{ name: 'Dashboard', active: true }]}
     >
       <Row>
         <Col lg="12" md="12" sm="12" xs="12">
           <Card>
             <CardHeader>
-              Dashboards
+              Template Initialized successfully
             </CardHeader>
             <CardBody>
-              <Iframe url="http://52.251.58.64:3000/browse/3"
-                width="100%"
-                height="100%"
-                id="myId"
-                className="myClassname"
-                display="initial"
-                position="relative" />
+            <CardText>
+                Template initialized successfully. To access the Initialized templated head to the downloads section.
+              </CardText>
             </CardBody>
           </Card>
         </Col>
@@ -50,4 +46,4 @@ const mapActionToProps = {
 
 };
 
-export default connect(mapStateToProps, mapActionToProps)(DashboardPage);
+export default connect(mapStateToProps, mapActionToProps)(InitializationSuccessPage);

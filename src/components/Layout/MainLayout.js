@@ -2,8 +2,6 @@ import { Content, Footer, Header, Sidebar } from 'components/Layout';
 import React from 'react';
 import {
   MdImportantDevices,
-  // MdCardGiftcard,
-  MdLoyalty,
 } from 'react-icons/md';
 import NotificationSystem from 'react-notification-system';
 import { NOTIFICATION_SYSTEM_STYLE } from 'utils/constants';
@@ -31,23 +29,10 @@ class MainLayout extends React.Component {
 
       this.notificationSystem.addNotification({
         title: <MdImportantDevices />,
-        message: 'Welome to Reduction Admin!',
+        message: 'Welome to GHPRS!',
         level: 'info',
       });
     }, 1500);
-
-    setTimeout(() => {
-      if (!this.notificationSystem) {
-        return;
-      }
-
-      this.notificationSystem.addNotification({
-        title: <MdLoyalty />,
-        message:
-          'Reduction is carefully designed template powered by React and Bootstrap4!',
-        level: 'info',
-      });
-    }, 2500);
   }
 
   // close sidebar when

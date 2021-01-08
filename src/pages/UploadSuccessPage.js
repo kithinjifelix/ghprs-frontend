@@ -5,33 +5,29 @@ import {
   Card,
   CardBody,
   CardHeader,
+  CardText,
   Col,
   Row,
 } from 'reactstrap';
-import Iframe from 'react-iframe'
 
-const DashboardPage = (props) => {
+const UploadSuccessPage = (props) => {
 
   return (
     <Page
       className="DashboardPage"
-      title="Dashboard"
+      title="Template"
       breadcrumbs={[{ name: 'Dashboard', active: true }]}
     >
       <Row>
         <Col lg="12" md="12" sm="12" xs="12">
           <Card>
             <CardHeader>
-              Dashboards
+              File Uploaded successfully
             </CardHeader>
             <CardBody>
-              <Iframe url="http://52.251.58.64:3000/browse/3"
-                width="100%"
-                height="100%"
-                id="myId"
-                className="myClassname"
-                display="initial"
-                position="relative" />
+            <CardText>
+               File was uploaded successfully and is being processed. Once done and approved the data will be available for viewing in the Dashboard page.
+              </CardText>
             </CardBody>
           </Card>
         </Col>
@@ -50,4 +46,4 @@ const mapActionToProps = {
 
 };
 
-export default connect(mapStateToProps, mapActionToProps)(DashboardPage);
+export default connect(mapStateToProps, mapActionToProps)(UploadSuccessPage);
