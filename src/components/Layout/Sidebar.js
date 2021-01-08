@@ -30,6 +30,18 @@ const navTemplates = [
 
 const navComponents = [
   { to: '/', name: 'Document Manager', exact: false, Icon: MdRadioButtonChecked },
+  { to: 'https://www.datim.org/dhis', name: 'DATIM', exact: false, Icon: MdRadioButtonChecked },
+  { to: 'https://pepfar-panorama.org/', name: 'Panaroma Dashboard', exact: false, Icon: MdRadioButtonChecked },
+  { to: 'https://sites.google.com/a/usaid.gov/gh-oha/home/reports-resources/quarterly-reporting-guidance-and-resources', name: 'OHA Dashboard', exact: false, Icon: MdRadioButtonChecked },
+  { to: 'https://www.pepfar.net/OGAC-HQ/icpi/Products/Forms/AllItems.aspx', name: 'Partner Performance Report', exact: false, Icon: MdRadioButtonChecked },
+  { to: 'http://hmis.reachproject.or.tz/MonthlyReporting/', name: 'Monthly Portal', exact: false, Icon: MdRadioButtonChecked },
+  { to: 'https://usaidtanzaniaiprs.com/index.cfm', name: 'IP Reporting System', exact: false, Icon: MdRadioButtonChecked },
+  { to: 'https://statcompiler.com/en/', name: 'STAT Compiler', exact: false, Icon: MdRadioButtonChecked },
+  { to: 'https://data.unicef.org/', name: 'UNICEF (MICS)', exact: false, Icon: MdRadioButtonChecked },
+  { to: 'http://apps.who.int/gho/data/node.home', name: 'Global Health Data ', exact: false, Icon: MdRadioButtonChecked },
+  { to: 'https://data.worldbank.org/', name: 'World Bank', exact: false, Icon: MdRadioButtonChecked },
+  { to: 'http://datatopics.worldbank.org/sdi/', name: 'World Bank Service Delivery Indicators', exact: false, Icon: MdRadioButtonChecked },
+  { to: '/Observatory', name: 'WHO Global Health Observatory', exact: false, Icon: MdRadioButtonChecked },
 ];
 
 const navItems = [
