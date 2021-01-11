@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux'
-import dashBoardReducer from './dashboardReducer'
+import userReducer from './userReducer'
+import lookupReducer from './lookupReducer'
 
 export default combineReducers({
-  dashboards: dashBoardReducer,
+  users: userReducer,
+  lookups: lookupReducer,
   })

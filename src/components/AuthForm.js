@@ -1,9 +1,25 @@
 import logo200Image from 'assets/img/logo/logo_200.png';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { withRouter } from "react-router-dom";
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
+import NotificationSystem from 'react-notification-system';
+import { NOTIFICATION_SYSTEM_STYLE } from 'utils/constants';
+
+import { authentication } from "../_services/authentication";
+
 
 class AuthForm extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+      remember: false,
+    };
+  }
+
   get isLogin() {
     return this.props.authState === STATE_LOGIN;
   }
@@ -20,6 +36,24 @@ class AuthForm extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    authentication.login(this.state.username, this.state.password, this.state.remember).then(
+      (user) => {
+        this.props.history.push("/");
+      },
+      (error) => {
+        setTimeout(() => {
+          if (!this.notificationSystem) {
+            return;
+          }
+    
+          this.notificationSystem.addNotification({
+            title: "Error",
+            message: 'Invalid username or Password!',
+            level: 'error',
+          });
+        }, 500);
+      }
+    );
   };
 
   renderButtonText() {
@@ -64,16 +98,16 @@ class AuthForm extends React.Component {
         )}
         <FormGroup>
           <Label for={usernameLabel}>{usernameLabel}</Label>
-          <Input {...usernameInputProps} />
+          <Input {...usernameInputProps} onChange={(e) => this.setState({ username: e.target.value })} />
         </FormGroup>
         <FormGroup>
           <Label for={passwordLabel}>{passwordLabel}</Label>
-          <Input {...passwordInputProps} />
+          <Input {...passwordInputProps} onChange={(e) => this.setState({ password: e.target.value })} />
         </FormGroup>
         {this.isSignup && (
           <FormGroup>
             <Label for={confirmPasswordLabel}>{confirmPasswordLabel}</Label>
-            <Input {...confirmPasswordInputProps} />
+            <Input {...confirmPasswordInputProps} onChange={(e) => this.setState({ remember: e.target.value })} />
           </FormGroup>
         )}
         <FormGroup check>
@@ -91,7 +125,7 @@ class AuthForm extends React.Component {
           {this.renderButtonText()}
         </Button>
 
-        <div className="text-center pt-1">
+        {/* <div className="text-center pt-1">
           <h6>or</h6>
           <h6>
             {this.isSignup ? (
@@ -104,9 +138,16 @@ class AuthForm extends React.Component {
               </a>
             )}
           </h6>
-        </div>
+        </div> */}
 
         {children}
+        <NotificationSystem
+          dismissible={false}
+          ref={notificationSystem =>
+            (this.notificationSystem = notificationSystem)
+          }
+          style={NOTIFICATION_SYSTEM_STYLE}
+        />
       </Form>
     );
   }
@@ -145,7 +186,7 @@ AuthForm.defaultProps = {
     type: 'password',
     placeholder: 'confirm your password',
   },
-  onLogoClick: () => {},
+  onLogoClick: () => { },
 };
 
-export default AuthForm;
+export default withRouter(AuthForm);

@@ -17,7 +17,8 @@ const TemplateInitializationPage = React.lazy(() => import('pages/TemplateInitia
 const UploadSuccessPage = React.lazy(() => import('pages/UploadSuccessPage'));
 const InitializationSuccessPage = React.lazy(() => import('pages/InitializationSuccessPage'));
 const TemplateDownloadPage = React.lazy(() => import('pages/TemplateDownloadPage'));
-
+const UsersPage = React.lazy(() => import('pages/UsersPage'));
+const RegisterPage = React.lazy(() => import('pages/RegisterPage'));
 
 const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split('/').pop()}`;
@@ -51,10 +52,12 @@ class App extends React.Component {
                 <React.Suspense fallback={<PageSpinner />}>
                   <PrivateRoute exact path="/" component={DashboardPage} />
                   <PrivateRoute exact path="/upload-Template" component={TemplateUploadPage} />
-                  <PrivateRoute exact path="/initialize-Template" component={TemplateInitializationPage} />
+                  <PrivateRoute exact path="/initialize-Template" roles={['Administrator']} component={TemplateInitializationPage} />
                   <PrivateRoute exact path="/uploaded" component={UploadSuccessPage} />
-                  <PrivateRoute exact path="/initialized" component={InitializationSuccessPage} />
+                  <PrivateRoute exact path="/initialized" roles={['Administrator']} component={InitializationSuccessPage} />
                   <PrivateRoute exact path="/download-Template" component={TemplateDownloadPage} />
+                  <PrivateRoute exact path="/users" roles={['Administrator']} component={UsersPage} />
+                  <PrivateRoute exact path="/register" roles={['Administrator']} component={RegisterPage} />
                 </React.Suspense>
               </MainLayout>
               <Redirect to="/" />

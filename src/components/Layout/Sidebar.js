@@ -8,8 +8,8 @@ import {
   MdLink,
   MdExtension,
   MdFileUpload,
-  MdFileDownload
-
+  MdFileDownload,
+  MdFace,
 } from 'react-icons/md';
 import { NavLink } from 'react-router-dom';
 import {
@@ -21,16 +21,29 @@ import {
   NavLink as BSNavLink,
 } from 'reactstrap';
 import bn from 'utils/bemnames';
+import { authentication } from '../../_services/authentication';
 
-const navTemplates = [
-  { to: '/initialize-Template', name: 'Initialize', exact: true, Icon: MdExtension },
-  { to: '/upload-Template', name: 'Upload', exact: true, Icon: MdFileUpload },
-  { to: '/download-Template', name: 'Downloads', exact: true, Icon:   MdFileDownload},
+let navTemplates = [];
+if (authentication.currentRole === 'Administrator') {
+  navTemplates = [
+    { to: '/initialize-Template', name: 'Initialize', exact: true, Icon: MdExtension },
+    { to: '/upload-Template', name: 'Submit Data', exact: true, Icon: MdFileUpload },
+    { to: '/download-Template', name: 'Downloads', exact: true, Icon: MdFileDownload },
+  ];
+} else if (authentication.currentRole === 'User') {
+  navTemplates = [
+    { to: '/upload-Template', name: 'Submit Data', exact: true, Icon: MdFileUpload },
+    { to: '/download-Template', name: 'Downloads', exact: true, Icon: MdFileDownload },
+  ];
+}
+
+const navAdmin = [
+  { to: '/users', name: 'Users', exact: false, Icon: MdFace },
 ];
 
 const navComponents = [
   { to: '/', name: 'Document Manager', exact: false, Icon: MdRadioButtonChecked },
-  { to: 'https://www.datim.org/dhis', name: 'DATIM', exact: false, Icon: MdRadioButtonChecked },
+  { to: 'https://www.datim.org/dhis', name: 'DATIM', exact: true, Icon: MdRadioButtonChecked },
   { to: 'https://pepfar-panorama.org/', name: 'Panaroma Dashboard', exact: false, Icon: MdRadioButtonChecked },
   { to: 'https://sites.google.com/a/usaid.gov/gh-oha/home/reports-resources/quarterly-reporting-guidance-and-resources', name: 'OHA Dashboard', exact: false, Icon: MdRadioButtonChecked },
   { to: 'https://www.pepfar.net/OGAC-HQ/icpi/Products/Forms/AllItems.aspx', name: 'Partner Performance Report', exact: false, Icon: MdRadioButtonChecked },
@@ -54,6 +67,7 @@ class Sidebar extends React.Component {
   state = {
     isOpenLinks: false,
     isOpenTemplates: false,
+    isOpenAdmin: false,
   };
 
   handleClick = name => () => {
@@ -131,6 +145,46 @@ class Sidebar extends React.Component {
               ))}
             </Collapse>
 
+            {(authentication.currentRole === 'Administrator') && (<NavItem
+              className={bem.e('nav-item')}
+              onClick={this.handleClick('Admin')}
+            >
+              <BSNavLink className={bem.e('nav-item-collapse')}>
+                <div className="d-flex">
+                  <MdWeb className={bem.e('nav-item-icon')} />
+                  <span className=" align-self-start">Admin</span>
+                </div>
+                <MdKeyboardArrowDown
+                  className={bem.e('nav-item-icon')}
+                  style={{
+                    padding: 0,
+                    transform: this.state.isOpenAdmin
+                      ? 'rotate(0deg)'
+                      : 'rotate(-90deg)',
+                    transitionDuration: '0.3s',
+                    transitionProperty: 'transform',
+                  }}
+                />
+              </BSNavLink>
+            </NavItem>)}
+            <Collapse isOpen={this.state.isOpenAdmin}>
+              {navAdmin.map(({ to, name, exact, Icon }, index) => (
+                <NavItem key={index} className={bem.e('nav-item')}>
+                  <BSNavLink
+                    id={`navItem-${name}-${index}`}
+                    className="text-uppercase"
+                    tag={NavLink}
+                    to={to}
+                    activeClassName="active"
+                    exact={exact}
+                  >
+                    <Icon className={bem.e('nav-item-icon')} />
+                    <span className="">{name}</span>
+                  </BSNavLink>
+                </NavItem>
+              ))}
+            </Collapse>
+
             <NavItem
               className={bem.e('nav-item')}
               onClick={this.handleClick('Links')}
@@ -156,16 +210,13 @@ class Sidebar extends React.Component {
             <Collapse isOpen={this.state.isOpenLinks}>
               {navComponents.map(({ to, name, exact, Icon }, index) => (
                 <NavItem key={index} className={bem.e('nav-item')}>
-                  <BSNavLink
+                  <a
+                    href={to} target="_blank" rel="noopener noreferrer"
                     id={`navItem-${name}-${index}`}
-                    tag={NavLink}
-                    to={to}
-                    activeClassName="active"
-                    exact={exact}
                   >
                     <Icon className={bem.e('nav-item-icon')} />
                     <span className="">{name}</span>
-                  </BSNavLink>
+                  </a>
                 </NavItem>
               ))}
             </Collapse>
