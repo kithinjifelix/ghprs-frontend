@@ -24,3 +24,13 @@ export const USERS_ERROR = 'USERS_ERROR'
 export const LOOKUP_GENDER = 'LOOKUP_GENDER'
 export const LOOKUP_MARITAL_STATUS = 'LOOKUP_MARITAL_STATUS'
 export const LOOKUP_ERROR = 'LOOKUP_ERROR'
+
+/**
+ * @TYPES
+ * ===============================================
+ * TEMPLATE
+ */
+export const TEMPLATE_INITIALIZE = 'TEMPLATE_INITIALIZE'
+export const TEMPLATE_UPLOAD = 'TEMPLATE_UPLOAD'
+export const TEMPLATE_GET_ALL = 'TEMPLATE_GET_ALL'
+export const TEMPLATE_ERROR = 'TEMPLATE_ERROR'

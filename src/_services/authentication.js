@@ -10,7 +10,6 @@ const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('
 
 const currentRole = JSON.parse(localStorage.getItem('currentUser')) ? jwt_decode(JSON.parse(localStorage.getItem('currentUser')).token)['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] : '';
 const currentUsername =  JSON.parse(localStorage.getItem('currentUser')) ? jwt_decode(JSON.parse(localStorage.getItem('currentUser')).token)['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'] : '';
-console.log(jwt_decode(JSON.parse(localStorage.getItem('currentUser')).token));
 export const authentication = {
     login,
     logout,

@@ -64,7 +64,6 @@ const RegisterPage = (props) => {
     const onError = () => {
       toast.error("Something went wrong");
     };
-    console.log(values);
     props.register(values, onSuccess, onError);
 
   };

@@ -9,6 +9,19 @@ import {
   Row,
 } from 'reactstrap';
 import Iframe from 'react-iframe'
+var jwt = require("jsonwebtoken");
+
+var METABASE_SITE_URL = "http://52.251.58.64:3000";
+var METABASE_SECRET_KEY = "80334b54cc4c696b67e0d20c2bc461b9d867781b4234af3819030209cbde6751";
+
+var payload = {
+  resource: { dashboard: 1 },
+  params: {},
+  exp: Math.round(Date.now() / 1000) + (10 * 60) // 10 minute expiration
+};
+var token = jwt.sign(payload, METABASE_SECRET_KEY);
+
+var iframeUrl = METABASE_SITE_URL + "/embed/dashboard/" + token + "#bordered=true&titled=true";
 
 const DashboardPage = (props) => {
 
@@ -25,9 +38,9 @@ const DashboardPage = (props) => {
               Dashboards
             </CardHeader>
             <CardBody>
-              <Iframe url="http://52.251.58.64:3000/browse/3"
+              <Iframe url={iframeUrl}
                 width="100%"
-                height="100%"
+                height="600px"
                 id="myId"
                 className="myClassname"
                 display="initial"

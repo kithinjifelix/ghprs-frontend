@@ -9,6 +9,7 @@ import {
   MdExtension,
   MdFileUpload,
   MdFileDownload,
+  MdDone,
   MdFace,
 } from 'react-icons/md';
 import { NavLink } from 'react-router-dom';
@@ -27,8 +28,9 @@ let navTemplates = [];
 if (authentication.currentRole === 'Administrator') {
   navTemplates = [
     { to: '/initialize-Template', name: 'Initialize', exact: true, Icon: MdExtension },
-    { to: '/upload-Template', name: 'Submit Data', exact: true, Icon: MdFileUpload },
     { to: '/download-Template', name: 'Downloads', exact: true, Icon: MdFileDownload },
+    { to: '/upload-Template', name: 'Submit Data', exact: true, Icon: MdFileUpload },
+    { to: '/review', name: 'Review Data Submissions', exact: true, Icon: MdDone },
   ];
 } else if (authentication.currentRole === 'User') {
   navTemplates = [

@@ -1,5 +1,5 @@
-import { connect } from "react-redux";
-import React, { } from "react";
+import { connect } from 'react-redux';
+import React, { useState } from 'react';
 import Page from 'components/Page';
 import {
     Button,
@@ -14,30 +14,37 @@ import {
     FormText,
     Row,
 } from 'reactstrap';
-import useForm from "../functions/UseForm";
+import { initialize } from "../actions/template";
+import { toast } from "react-toastify";
+import useForm from '../functions/UseForm';
 
 const initializeTemplate = {
-    fileName: '',
+    name: '',
     description: '',
+    file: '',
 };
 
-const category = [
-    { name: 'Category 1', id: 1},
-    { name: 'Category 2', id: 2},
-    { name: 'Category 3', id: 3},
-  ];
+const TemplateInitializationPage = props => {
+    const [file, setFile] = useState();
 
-const TemplateInitializationPage = (props) => {
+    const saveFile = e => {
+        setFile(e.target.files[0]);
+    };
 
-    const { values, handleInputChange } = useForm(
-        initializeTemplate
-    );
+    const { values, handleInputChange, resetForm } = useForm(initializeTemplate);
 
     const handleSubmit = event => {
         event.preventDefault();
-
-        console.log(values);
-        props.history.push("/initialized");
+        values.file = file;
+        const onSuccess = () => {
+            toast.success("Template Initialized");
+            resetForm();
+            props.history.push("/initialized");
+        };
+        const onError = () => {
+            toast.error("Something went wrong");
+        };
+        props.initialize(values, onSuccess, onError);
     };
 
     return (
@@ -49,9 +56,7 @@ const TemplateInitializationPage = (props) => {
             <Row>
                 <Col lg="12" md="12" sm="12" xs="12">
                     <Card>
-                        <CardHeader>
-                            Initialize Template
-            </CardHeader>
+                        <CardHeader>Initialize Template</CardHeader>
                         <CardBody>
                             <Row>
                                 <Col md={6}>
@@ -62,7 +67,7 @@ const TemplateInitializationPage = (props) => {
                                                 type="text"
                                                 name="name"
                                                 placeholder="Name"
-                                                value={values.name}
+                                                defaultValue={values.name}
                                                 onChange={handleInputChange}
                                             />
                                         </FormGroup>
@@ -72,46 +77,21 @@ const TemplateInitializationPage = (props) => {
                                                 type="text"
                                                 name="description"
                                                 placeholder="Description"
-                                                value={values.description}
+                                                defaultValue={values.description}
                                                 onChange={handleInputChange}
                                             />
-                                        </FormGroup>
-                                        <FormGroup>
-                                            <Label for="category">Category</Label>
-                                            <Input
-                                                type="select"
-                                                name="category"
-                                                id="category"
-                                                placeholder="Category"
-                                                value={values.category}
-                                                onChange={handleInputChange}
-                                            >
-                                                <option value=""> </option>
-                                                {category.map(({ name, id }) => (
-                                                    <option key={id} value={id}>
-                                                        {name}
-                                                    </option>
-                                                ))}
-                                            </Input>
                                         </FormGroup>
                                         <FormGroup>
                                             <Label for="excelFile">File</Label>
-                                            <Input type="file" name="file" />
-                                            <FormText color="muted">
-                                                Upload filled out excel template
-                                            </FormText>
-                                        </FormGroup>
-                                        <FormGroup>
-                                            <Label for="read">Sheets To Be Read</Label>
                                             <Input
-                                                type="text"
-                                                name="read"
-                                                placeholder="Sheets To Be Read"
-                                                value={values.read}
-                                                onChange={handleInputChange}
+                                                type="file"
+                                                name="file"
+                                                placeholder="File"
+                                                defaultValue={values.file}
+                                                onChange={saveFile}
                                             />
                                             <FormText color="muted">
-                                                Separate with commas
+                                                Upload filled out excel template
                                             </FormText>
                                         </FormGroup>
                                         <FormGroup check row>
@@ -126,16 +106,19 @@ const TemplateInitializationPage = (props) => {
             </Row>
         </Page>
     );
-}
+};
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return {
-
+        template: state.templates.template,
     };
 };
 
 const mapActionToProps = {
-
+    initialize: initialize,
 };
 
-export default connect(mapStateToProps, mapActionToProps)(TemplateInitializationPage);
+export default connect(
+    mapStateToProps,
+    mapActionToProps,
+)(TemplateInitializationPage);
