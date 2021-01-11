@@ -11,6 +11,7 @@ import {
   MdFileDownload,
   MdDone,
   MdFace,
+  MdViewList,
 } from 'react-icons/md';
 import { NavLink } from 'react-router-dom';
 import {
@@ -35,6 +36,7 @@ if (authentication.currentRole === 'Administrator') {
 } else if (authentication.currentRole === 'User') {
   navTemplates = [
     { to: '/upload-Template', name: 'Submit Data', exact: true, Icon: MdFileUpload },
+    { to: '/submissions', name: 'View Submissions', exact: true, Icon: MdViewList },
     { to: '/download-Template', name: 'Downloads', exact: true, Icon: MdFileDownload },
   ];
 }

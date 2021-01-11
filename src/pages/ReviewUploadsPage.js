@@ -56,7 +56,7 @@ const ReviewUploadsPage = (props) => {
   const handleReview = event => {
     event.preventDefault();
     const onSuccess = () => {
-      toast.success("Template Initialized");
+      toast.success("Success");
       resetForm();
       props.fetchUploads();
     };

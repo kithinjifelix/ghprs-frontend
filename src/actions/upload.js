@@ -23,6 +23,26 @@ export const fetchAll = (onSuccess, onError) => (dispatch) => {
     });
 };
 
+export const getByUser = (onSuccess, onError) => (dispatch) => {
+  axios
+    .get(`${url}uploads/user`)
+    .then((response) => {
+      dispatch({
+        type: ACTION_TYPES.UPLOAD_GET_BY_USER,
+        payload: response.data,
+      });
+      if (onSuccess) {
+        onSuccess();
+      }
+    })
+    .catch((error) => {
+      if (onError) {
+        onError();
+        toast.error("Something went wrong fetching Uploads");
+      }
+    });
+};
+
 export const getById = (id, onSuccess, onError) => (dispatch) => {
   axios
     .get(`${url}uploads/${id}`)
