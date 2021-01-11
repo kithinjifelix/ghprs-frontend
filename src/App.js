@@ -19,6 +19,7 @@ const InitializationSuccessPage = React.lazy(() => import('pages/InitializationS
 const TemplateDownloadPage = React.lazy(() => import('pages/TemplateDownloadPage'));
 const UsersPage = React.lazy(() => import('pages/UsersPage'));
 const RegisterPage = React.lazy(() => import('pages/RegisterPage'));
+const ReviewUploadsPage = React.lazy(() => import('pages/ReviewUploadsPage'));
 
 const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split('/').pop()}`;
@@ -58,6 +59,7 @@ class App extends React.Component {
                   <PrivateRoute exact path="/download-Template" component={TemplateDownloadPage} />
                   <PrivateRoute exact path="/users" roles={['Administrator']} component={UsersPage} />
                   <PrivateRoute exact path="/register" roles={['Administrator']} component={RegisterPage} />
+                  <PrivateRoute exact path="/review" roles={['Administrator']} component={ReviewUploadsPage} />
                 </React.Suspense>
               </MainLayout>
               <Redirect to="/" />

@@ -6,7 +6,7 @@ const initialState = {
     error: {},
 };
 
-const lookupReducer = (state = initialState, action) => {
+const templateReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case ACTION_TYPES.TEMPLATE_GET_ALL:
@@ -15,10 +15,7 @@ const lookupReducer = (state = initialState, action) => {
         case ACTION_TYPES.TEMPLATE_INITIALIZE:
             return { ...state, template: action.payload };
 
-        case ACTION_TYPES.TEMPLATE_UPLOAD:
-            return { ...state, template: action.payload };
-
-        case ACTION_TYPES.LOOKUP_ERROR:
+        case ACTION_TYPES.TEMPLATE_ERROR:
             return { ...state, error: action.payload };
 
         default:
@@ -26,4 +23,4 @@ const lookupReducer = (state = initialState, action) => {
     }
 };
 
-export default lookupReducer;
+export default templateReducer;

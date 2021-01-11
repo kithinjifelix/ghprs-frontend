@@ -36,7 +36,7 @@ export const initialize = (data, onSuccess, onError) => (dispatch) => {
           payload: response.data,
         });
         onSuccess && onSuccess();
-        toast.success("User Registered Successfully!");
+        toast.success("Template initialized Successfully!");
       })
       .catch((error) => {
         dispatch({

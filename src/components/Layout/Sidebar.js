@@ -29,7 +29,7 @@ if (authentication.currentRole === 'Administrator') {
   navTemplates = [
     { to: '/initialize-Template', name: 'Initialize', exact: true, Icon: MdExtension },
     { to: '/download-Template', name: 'Downloads', exact: true, Icon: MdFileDownload },
-    { to: '/upload-Template', name: 'Submit Data', exact: true, Icon: MdFileUpload },
+    //{ to: '/upload-Template', name: 'Submit Data', exact: true, Icon: MdFileUpload },
     { to: '/review', name: 'Review Data Submissions', exact: true, Icon: MdDone },
   ];
 } else if (authentication.currentRole === 'User') {
@@ -215,6 +215,7 @@ class Sidebar extends React.Component {
                   <a
                     href={to} target="_blank" rel="noopener noreferrer"
                     id={`navItem-${name}-${index}`}
+                    style={{colour: '#ffff !important;'}}
                   >
                     <Icon className={bem.e('nav-item-icon')} />
                     <span className="">{name}</span>

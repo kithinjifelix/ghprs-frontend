@@ -31,6 +31,16 @@ export const LOOKUP_ERROR = 'LOOKUP_ERROR'
  * TEMPLATE
  */
 export const TEMPLATE_INITIALIZE = 'TEMPLATE_INITIALIZE'
-export const TEMPLATE_UPLOAD = 'TEMPLATE_UPLOAD'
 export const TEMPLATE_GET_ALL = 'TEMPLATE_GET_ALL'
 export const TEMPLATE_ERROR = 'TEMPLATE_ERROR'
+
+/**
+ * @TYPES
+ * ===============================================
+ * UPLOAD
+ */
+export const UPLOAD_UPLOAD = 'UPLOAD_UPLOAD'
+export const UPLOAD_REVIEW = 'UPLOAD_REVIEW'
+export const UPLOAD_GET_ALL = 'UPLOAD_GET_ALL'
+export const UPLOAD_GET_BY_ID = 'UPLOAD_GET_BY_ID'
+export const UPLOAD_ERROR = 'UPLOAD_ERROR'

@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import React, { } from "react";
+import React, { useEffect, useState } from "react";
 import Page from 'components/Page';
 import {
     Button,
@@ -14,30 +14,47 @@ import {
     FormText,
     Row,
 } from 'reactstrap';
-import useForm from "../functions/UseForm";
+import { upload } from "../actions/upload";
+import { fetchAll } from "../actions/template";
+import { toast } from "react-toastify";
+import { authentication } from '../_services/authentication';
+import useForm from '../functions/UseForm';
 
 const uploadTemplate = {
-    fileName: '',
-    description: '',
+    file: '',
+    templateId: 0,
+    currentUser:'',
 };
-
-const category = [
-    { name: 'Category 1', id: 1},
-    { name: 'Category 2', id: 2},
-    { name: 'Category 3', id: 3},
-  ];
 
 const TemplateUploadPage = (props) => {
 
-    const { values, handleInputChange } = useForm(
+    const [file, setFile] = useState();
+
+    const saveFile = e => {
+        setFile(e.target.files[0]);
+    };
+
+    useEffect(() => {
+        props.fetchTemplates();
+    }, []);
+
+    const { values, handleInputChange, resetForm } = useForm(
         uploadTemplate
     );
 
     const handleSubmit = event => {
         event.preventDefault();
-
-        console.log(values);
-        props.history.push("/uploaded");
+        values.file = file;
+        values.currentUser = authentication.currentUsername
+        const onSuccess = () => {
+            toast.success("Template Initialized");
+            resetForm();
+            props.history.push("/uploaded");
+        };
+        const onError = () => {
+            toast.error("Something went wrong");
+        };
+        props.upload(values, onSuccess, onError);
     };
 
     return (
@@ -56,18 +73,18 @@ const TemplateUploadPage = (props) => {
                             <Row>
                                 <Col md={6}>
                                     <Form onSubmit={handleSubmit}>
-                                    <FormGroup>
-                                            <Label for="category">Category</Label>
+                                        <FormGroup>
+                                            <Label for="templateId">Template</Label>
                                             <Input
                                                 type="select"
-                                                name="category"
-                                                id="category"
-                                                placeholder="Category"
-                                                value={values.category}
+                                                name="templateId"
+                                                id="templateId"
+                                                placeholder="Template"
+                                                value={values.template}
                                                 onChange={handleInputChange}
                                             >
                                                 <option value=""> </option>
-                                                {category.map(({ name, id }) => (
+                                                {props.templates.map(({ name, id }) => (
                                                     <option key={id} value={id}>
                                                         {name}
                                                     </option>
@@ -76,7 +93,13 @@ const TemplateUploadPage = (props) => {
                                         </FormGroup>
                                         <FormGroup>
                                             <Label for="excelFile">File</Label>
-                                            <Input type="file" name="file" />
+                                            <Input
+                                                type="file"
+                                                name="file"
+                                                placeholder="File"
+                                                defaultValue={values.file}
+                                                onChange={saveFile}
+                                            />
                                             <FormText color="muted">
                                                 Upload filled out excel template
                                             </FormText>
@@ -97,12 +120,14 @@ const TemplateUploadPage = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-
+        upload: state.uploads.upload,
+        templates: state.templates.list
     };
 };
 
 const mapActionToProps = {
-
+    upload: upload,
+    fetchTemplates: fetchAll,
 };
 
 export default connect(mapStateToProps, mapActionToProps)(TemplateUploadPage);
