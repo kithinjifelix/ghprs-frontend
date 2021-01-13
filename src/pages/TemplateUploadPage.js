@@ -99,6 +99,7 @@ const TemplateUploadPage = (props) => {
                                                 placeholder="File"
                                                 defaultValue={values.file}
                                                 onChange={saveFile}
+                                                accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                                             />
                                             <FormText color="muted">
                                                 Upload filled out excel template

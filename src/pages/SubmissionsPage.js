@@ -9,6 +9,7 @@ import {
 import { MdFileDownload } from "react-icons/md";
 import { getByUser, getById } from "../actions/upload";
 import MaterialTable from 'material-table'
+import moment from 'moment';
 
 const status = [
   { id: 0, name: 'Pending' },
@@ -17,6 +18,7 @@ const status = [
 ]
 
 const SubmissionsPage = (props) => {
+  
   useEffect(() => {
     props.fetchUploads();
   }, []);
@@ -32,12 +34,16 @@ const SubmissionsPage = (props) => {
           <MaterialTable
             columns={[
               { title: 'Name', field: 'name' },
+              { title: 'User', field: 'user' },
+              { title: 'Submission Date', field: 'date' },
               { title: 'Status', field: 'status' },
               { title: 'Comments', field: 'comments' },
               { title: 'Actions', field: 'actions' }
             ]}
             data={props.uploads.map((row) => ({
               name: row.name,
+              user: row.user.userName,
+              date: moment(row.createdAt).format('YYYY-MMM-DD'),
               status: status.find(o => o.id === row.status).name,
               comments: row.comments,
               actions: (

@@ -19,6 +19,7 @@ import { toast } from "react-toastify";
 import { MdFileDownload, MdModeEdit } from "react-icons/md";
 import { fetchAll, getById, review } from "../actions/upload";
 import MaterialTable from 'material-table'
+import moment from 'moment';
 import useForm from '../functions/UseForm';
 
 const reviewForm = {
@@ -77,12 +78,16 @@ const ReviewUploadsPage = (props) => {
           <MaterialTable
             columns={[
               { title: 'Name', field: 'name' },
+              { title: 'User', field: 'user' },
+              { title: 'Submission Date', field: 'date' },
               { title: 'Status', field: 'status' },
               { title: 'Comments', field: 'comments' },
               { title: 'Actions', field: 'actions' }
             ]}
             data={props.uploads.map((row) => ({
               name: row.name,
+              user: row.user.userName,
+              date: moment(row.createdAt).format('YYYY-MMM-DD'),
               status: status.find(o => o.id === row.status).name,
               comments: row.comments,
               actions: (

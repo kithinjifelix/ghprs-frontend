@@ -74,7 +74,7 @@ const RegisterPage = (props) => {
         <Row>
           <Col xl={12} lg={12} md={12}>
             <Card>
-              <CardHeader>Child Details</CardHeader>
+              <CardHeader>User Details</CardHeader>
               <CardBody>
                 <Row form>
                   <Col md={6}>
@@ -135,39 +135,6 @@ const RegisterPage = (props) => {
                         value={values.phoneNumber}
                         onChange={handleInputChange}
                       />
-                    </FormGroup>
-                  </Col>
-                  <Col md={6}>
-                    <FormGroup>
-                      <Label for="dateOfBirth">Date of Birth</Label>
-                      <Input
-                        type="date"
-                        name="dateOfBirth"
-                        id="dateOfBirth"
-                        placeholder="Date of Birth"
-                        value={values.dateOfBirth}
-                        onChange={handleInputChange}
-                      />
-                    </FormGroup>
-                  </Col>
-                  <Col md={6}>
-                    <FormGroup>
-                      <Label for="genderId">Gender</Label>
-                      <Input
-                        type="select"
-                        name="genderId"
-                        id="genderId"
-                        placeholder="Select Gender"
-                        value={values.genderId}
-                        onChange={handleInputChange}
-                      >
-                        <option value=""> </option>
-                        {props.gender.map(({ name, id }) => (
-                          <option key={id} value={id}>
-                            {name}
-                          </option>
-                        ))}
-                      </Input>
                     </FormGroup>
                   </Col>
                   <Col md={6}>

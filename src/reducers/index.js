@@ -3,10 +3,12 @@ import userReducer from './userReducer'
 import lookupReducer from './lookupReducer'
 import templateReducer from './templateReducer'
 import uploadReducer from './uploadReducer'
+import linkReducer from './linkReducer'
 
 export default combineReducers({
   users: userReducer,
   lookups: lookupReducer,
   templates: templateReducer,
   uploads: uploadReducer,
+  links: linkReducer,
   })

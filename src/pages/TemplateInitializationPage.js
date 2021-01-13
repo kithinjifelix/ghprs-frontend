@@ -21,6 +21,7 @@ import useForm from '../functions/UseForm';
 const initializeTemplate = {
     name: '',
     description: '',
+    version: 1,
     file: '',
 };
 
@@ -82,6 +83,16 @@ const TemplateInitializationPage = props => {
                                             />
                                         </FormGroup>
                                         <FormGroup>
+                                            <Label for="version">Version</Label>
+                                            <Input
+                                                type="number"
+                                                name="version"
+                                                placeholder="Version"
+                                                defaultValue={values.version}
+                                                onChange={handleInputChange}
+                                            />
+                                        </FormGroup>
+                                        <FormGroup>
                                             <Label for="excelFile">File</Label>
                                             <Input
                                                 type="file"
@@ -89,6 +100,7 @@ const TemplateInitializationPage = props => {
                                                 placeholder="File"
                                                 defaultValue={values.file}
                                                 onChange={saveFile}
+                                                accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                                             />
                                             <FormText color="muted">
                                                 Upload filled out excel template

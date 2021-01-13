@@ -21,6 +21,8 @@ const UsersPage = React.lazy(() => import('pages/UsersPage'));
 const RegisterPage = React.lazy(() => import('pages/RegisterPage'));
 const ReviewUploadsPage = React.lazy(() => import('pages/ReviewUploadsPage'));
 const SubmissionsPage = React.lazy(() => import('pages/SubmissionsPage'));
+const LinksPage = React.lazy(() => import('pages/LinksPage'));
+const AddLinksPage = React.lazy(() => import('pages/AddLinksPage'));
 
 const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split('/').pop()}`;
@@ -62,6 +64,8 @@ class App extends React.Component {
                   <PrivateRoute exact path="/register" roles={['Administrator']} component={RegisterPage} />
                   <PrivateRoute exact path="/review" roles={['Administrator']} component={ReviewUploadsPage} />
                   <PrivateRoute exact path="/submissions" roles={['User']} component={SubmissionsPage} />
+                  <PrivateRoute exact path="/links" roles={['Administrator']} component={LinksPage} />
+                  <PrivateRoute exact path="//add-link" roles={['Administrator']} component={AddLinksPage} />
                 </React.Suspense>
               </MainLayout>
               <Redirect to="/" />

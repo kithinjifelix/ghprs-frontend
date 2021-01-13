@@ -1,5 +1,6 @@
 import SourceLink from 'components/SourceLink';
 import React from 'react';
+import { connect } from "react-redux";
 import {
   MdDashboard,
   MdKeyboardArrowDown,
@@ -24,6 +25,8 @@ import {
 } from 'reactstrap';
 import bn from 'utils/bemnames';
 import { authentication } from '../../_services/authentication';
+import * as ACTION_TYPES from "../../actions/types";
+import { links } from "../../actions/links";
 
 let navTemplates = [];
 if (authentication.currentRole === 'Administrator') {
@@ -43,22 +46,7 @@ if (authentication.currentRole === 'Administrator') {
 
 const navAdmin = [
   { to: '/users', name: 'Users', exact: false, Icon: MdFace },
-];
-
-const navComponents = [
-  { to: '/', name: 'Document Manager', exact: false, Icon: MdRadioButtonChecked },
-  { to: 'https://www.datim.org/dhis', name: 'DATIM', exact: true, Icon: MdRadioButtonChecked },
-  { to: 'https://pepfar-panorama.org/', name: 'Panaroma Dashboard', exact: false, Icon: MdRadioButtonChecked },
-  { to: 'https://sites.google.com/a/usaid.gov/gh-oha/home/reports-resources/quarterly-reporting-guidance-and-resources', name: 'OHA Dashboard', exact: false, Icon: MdRadioButtonChecked },
-  { to: 'https://www.pepfar.net/OGAC-HQ/icpi/Products/Forms/AllItems.aspx', name: 'Partner Performance Report', exact: false, Icon: MdRadioButtonChecked },
-  { to: 'http://hmis.reachproject.or.tz/MonthlyReporting/', name: 'Monthly Portal', exact: false, Icon: MdRadioButtonChecked },
-  { to: 'https://usaidtanzaniaiprs.com/index.cfm', name: 'IP Reporting System', exact: false, Icon: MdRadioButtonChecked },
-  { to: 'https://statcompiler.com/en/', name: 'STAT Compiler', exact: false, Icon: MdRadioButtonChecked },
-  { to: 'https://data.unicef.org/', name: 'UNICEF (MICS)', exact: false, Icon: MdRadioButtonChecked },
-  { to: 'http://apps.who.int/gho/data/node.home', name: 'Global Health Data ', exact: false, Icon: MdRadioButtonChecked },
-  { to: 'https://data.worldbank.org/', name: 'World Bank', exact: false, Icon: MdRadioButtonChecked },
-  { to: 'http://datatopics.worldbank.org/sdi/', name: 'World Bank Service Delivery Indicators', exact: false, Icon: MdRadioButtonChecked },
-  { to: '/Observatory', name: 'WHO Global Health Observatory', exact: false, Icon: MdRadioButtonChecked },
+  { to: '/links', name: 'Links', exact: false, Icon: MdLink },
 ];
 
 const navItems = [
@@ -68,10 +56,17 @@ const navItems = [
 const bem = bn.create('sidebar');
 
 class Sidebar extends React.Component {
+
+  componentDidMount() {
+    this.props.fetchExternalLinks("external", ACTION_TYPES.LINK_EXTERNAL);
+    this.props.fetchDashboardLinks("dashboard", ACTION_TYPES.LINK_DASHBOARDS);
+  }
+
   state = {
     isOpenLinks: false,
     isOpenTemplates: false,
     isOpenAdmin: false,
+    externalLinks: [],
   };
 
   handleClick = name => () => {
@@ -212,14 +207,15 @@ class Sidebar extends React.Component {
               </BSNavLink>
             </NavItem>
             <Collapse isOpen={this.state.isOpenLinks}>
-              {navComponents.map(({ to, name, exact, Icon }, index) => (
+              {this.props.externalLinks.map(({ url, name}, index) => (
                 <NavItem key={index} className={bem.e('nav-item')}>
                   <a
-                    href={to} target="_blank" rel="noopener noreferrer"
+                  className="external"
+                    href={url} target="_blank" rel="noopener noreferrer"
                     id={`navItem-${name}-${index}`}
-                    style={{colour: '#ffff !important;'}}
+                    style={{ colour: '#fff !important;' }}
                   >
-                    <Icon className={bem.e('nav-item-icon')} />
+                    <MdRadioButtonChecked className={bem.e('nav-item-icon')} />
                     <span className="">{name}</span>
                   </a>
                 </NavItem>
@@ -232,4 +228,16 @@ class Sidebar extends React.Component {
   }
 }
 
-export default Sidebar;
+const mapStateToProps = (state) => {
+  return {
+    externalLinks: state.links.external,
+    dashboards: state.links.dashboards,
+  };
+};
+
+const mapActionToProps = {
+  fetchExternalLinks: links,
+  fetchDashboardLinks: links,
+};
+
+export default connect(mapStateToProps, mapActionToProps)(Sidebar);
