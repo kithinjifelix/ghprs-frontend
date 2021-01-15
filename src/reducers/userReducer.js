@@ -12,6 +12,9 @@ const userReducer = (state = initialState, action) => {
     case ACTION_TYPES.GET_USERS:
       return { ...state, list: [...action.payload] };
 
+    case ACTION_TYPES.GET_USER_BY_ID:
+      return { ...state, user: action.payload };
+
     case ACTION_TYPES.REGISTER:
       return { ...state, registered: action.payload };
 

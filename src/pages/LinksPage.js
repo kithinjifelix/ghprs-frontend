@@ -9,9 +9,10 @@ import {
   Row,
   NavLink as BSNavLink,
 } from 'reactstrap';
+import { toast } from "react-toastify";
 import { NavLink, Link } from 'react-router-dom';
-import { MdEdit } from "react-icons/md";
-import { fetchAll } from "../actions/links";
+import { MdEdit, MdDelete } from "react-icons/md";
+import { fetchAll, remove } from "../actions/links";
 import MaterialTable from 'material-table'
 
 const type = [
@@ -26,6 +27,17 @@ const LinksPage = (props) => {
   useEffect(() => {
     props.fetchLinks();
   }, []);
+
+  const handleDelete = (id) => {
+    const onSuccess = () => {
+      toast.success("Success");
+      props.fetchLinks();
+    };
+    const onError = () => {
+      toast.error("Something went wrong");
+    };
+    props.remove(id, onSuccess, onError);
+  };
 
   return (
     <Page
@@ -64,16 +76,26 @@ const LinksPage = (props) => {
               url: row.url,
               type: type.find(o => o.id === row.linkType).name,
               actions: (
-                <BSNavLink
-                  id={`profile${row.id}`}
-                  tag={NavLink}
-                  to={`/link/${row.id}`}
-                  activeClassName="active"
-                  exact={true}
-                >
-                  <MdEdit size="15" />{" "}
-                  <span style={{ color: "#000" }}>Edit</span>
-                </BSNavLink>
+                <div>
+                  <BSNavLink
+                    id={`profile${row.id}`}
+                    tag={NavLink}
+                    to={`/link/${row.id}`}
+                    activeClassName="active"
+                    exact={true}
+                  >
+                    <MdEdit size="15" />{" "}
+                    <span style={{ color: "#000" }}>Edit</span>
+                  </BSNavLink>
+                  <Button
+                    size="sm"
+                    color="link"
+                    onClick={() => handleDelete(row.id)}
+                  >
+                    <MdDelete size="15" />{" "}
+                    <span style={{ color: "#000" }}>Delete </span>
+                  </Button>
+                </div>
               ),
             }))}
             title="Links"
@@ -92,6 +114,7 @@ const mapStateToProps = (state) => {
 
 const mapActionToProps = {
   fetchLinks: fetchAll,
+  remove: remove,
 };
 
 export default connect(mapStateToProps, mapActionToProps)(LinksPage);

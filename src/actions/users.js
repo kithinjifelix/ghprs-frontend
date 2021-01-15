@@ -23,6 +23,26 @@ export const fetchAll = (onSuccess, onError) => (dispatch) => {
     });
 };
 
+export const getById = (id, onSuccess, onError) => (dispatch) => {
+  axios
+    .get(`${url}users/${id}`)
+    .then((response) => {
+      dispatch({
+        type: ACTION_TYPES.GET_USER_BY_ID,
+        payload: response.data,
+      });
+      if (onSuccess) {
+        onSuccess();
+      }
+    })
+    .catch((error) => {
+      if (onError) {
+        onError();
+        toast.error("Something went wrong fetching user");
+      }
+    });
+};
+
 export const register = (data, onSuccess, onError) => (dispatch) => {
     axios
       .post(`${url}authentication/register`, data)

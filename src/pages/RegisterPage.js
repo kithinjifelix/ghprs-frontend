@@ -15,10 +15,11 @@ import {
 } from 'reactstrap';
 import * as ACTION_TYPES from "../actions/types";
 import { lookup } from "../actions/lookups";
-import { register } from "../actions/users";
+import { register, getById } from "../actions/users";
 import useForm from "../functions/UseForm";
 import { toast } from "react-toastify";
 
+let Title = '';
 const userRegistration = {
   userName: "",
   password: "",
@@ -26,16 +27,23 @@ const userRegistration = {
   phoneNumber: "",
   roleId: 0,
   name: "",
-  genderId: 0,
-  maritalStatusId: 3,
-  dateOfBirth: ""
-}
+};
 
 const RegisterPage = (props) => {
 
   const { values, handleInputChange, resetForm } = useForm(
     userRegistration
   );
+
+  useEffect(() => {
+    const { match: { params } } = props;
+    if (params.id) {
+      props.fetchUser(params.id);
+      Title = 'Profile';
+    } else {
+      Title = 'Register';
+    }
+  }, []);
 
   useEffect(() => {
     props.fetchGenders("gender", ACTION_TYPES.LOOKUP_GENDER);
@@ -46,11 +54,12 @@ const RegisterPage = (props) => {
       "maritalStatus",
       ACTION_TYPES.LOOKUP_MARITAL_STATUS,
     );
+    console.log(values);
   }, []);
 
   const role = [
-    { name: 'Administrator', id: 0},
-    { name: 'User', id: 1},
+    { name: 'Administrator', id: 0 },
+    { name: 'User', id: 1 },
   ];
 
 
@@ -69,7 +78,7 @@ const RegisterPage = (props) => {
   };
 
   return (
-    <Page title="Register User" breadcrumbs={[{ name: 'User', active: true }]}>
+    <Page title={Title} breadcrumbs={[{ name: 'User', active: true }]}>
       <Form onSubmit={handleSubmit}>
         <Row>
           <Col xl={12} lg={12} md={12}>
@@ -191,6 +200,7 @@ const RegisterPage = (props) => {
 const mapStateToProps = (state) => {
   return {
     registred: state.users.registred,
+    user: state.users.user,
     gender: state.lookups.genders,
     maritalStatus: state.lookups.maritalStatuses,
   };
@@ -200,6 +210,7 @@ const mapActionToProps = {
   register: register,
   fetchGenders: lookup,
   fetchMaritalStatus: lookup,
+  fetchUser: getById,
 };
 
 export default connect(mapStateToProps, mapActionToProps)(RegisterPage);

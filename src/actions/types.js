@@ -13,6 +13,7 @@ export const UNAUTHORISED_ERROR = 'UNAUTHORISED_ERROR'
  * Users
  */
 export const GET_USERS = 'GET_USERS'
+export const GET_USER_BY_ID = 'GET_USER_BY_ID'
 export const REGISTER = 'REGISTER'
 export const USERS_ERROR = 'USERS_ERROR'
 
@@ -53,7 +54,9 @@ export const UPLOAD_ERROR = 'UPLOAD_ERROR'
  * ===============================================
  * LINKS
  */
+export const LINK_ADD = 'LINK_ADD'
 export const LINK_GET_ALL = 'LINK_GET_ALL'
+export const LINK_GET_BY_ID = 'LINK_GET_BY_ID'
 export const LINK_EXTERNAL = 'LINK_EXTERNAL'
 export const LINK_DASHBOARDS = 'LINK_DASHBOARDS'
 export const LINK_REPORTS = 'LINK_REPORTS'

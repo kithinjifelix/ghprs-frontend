@@ -12,6 +12,7 @@ import './styles/reduction.scss';
 import { PrivateRoute } from "./PrivateRoute"
 
 const DashboardPage = React.lazy(() => import('pages/DashboardPage'));
+const HomePage = React.lazy(() => import('pages/HomePage'));
 const TemplateUploadPage = React.lazy(() => import('pages/TemplateUploadPage'));
 const TemplateInitializationPage = React.lazy(() => import('pages/TemplateInitializationPage'));
 const UploadSuccessPage = React.lazy(() => import('pages/UploadSuccessPage'));
@@ -22,7 +23,7 @@ const RegisterPage = React.lazy(() => import('pages/RegisterPage'));
 const ReviewUploadsPage = React.lazy(() => import('pages/ReviewUploadsPage'));
 const SubmissionsPage = React.lazy(() => import('pages/SubmissionsPage'));
 const LinksPage = React.lazy(() => import('pages/LinksPage'));
-const AddLinksPage = React.lazy(() => import('pages/AddLinksPage'));
+const AddLinksPage = React.lazy(() => import('pages/AddLinkPage'));
 
 const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split('/').pop()}`;
@@ -54,7 +55,8 @@ class App extends React.Component {
 
               <MainLayout breakpoint={this.props.breakpoint}>
                 <React.Suspense fallback={<PageSpinner />}>
-                  <PrivateRoute exact path="/" component={DashboardPage} />
+                  <PrivateRoute exact path="/" component={HomePage} />
+                  <PrivateRoute exact path="/dashboard" component={DashboardPage} />
                   <PrivateRoute exact path="/upload-Template" component={TemplateUploadPage} />
                   <PrivateRoute exact path="/initialize-Template" roles={['Administrator']} component={TemplateInitializationPage} />
                   <PrivateRoute exact path="/uploaded" component={UploadSuccessPage} />
@@ -65,7 +67,9 @@ class App extends React.Component {
                   <PrivateRoute exact path="/review" roles={['Administrator']} component={ReviewUploadsPage} />
                   <PrivateRoute exact path="/submissions" roles={['User']} component={SubmissionsPage} />
                   <PrivateRoute exact path="/links" roles={['Administrator']} component={LinksPage} />
-                  <PrivateRoute exact path="//add-link" roles={['Administrator']} component={AddLinksPage} />
+                  <PrivateRoute exact path="/add-link" roles={['Administrator']} component={AddLinksPage} />
+                  <PrivateRoute exact path="/add-link/:id" roles={['Administrator']} component={AddLinksPage} />
+                  <PrivateRoute exact path="/profile/:id" roles={['Administrator']} component={RegisterPage} />
                 </React.Suspense>
               </MainLayout>
               <Redirect to="/" />

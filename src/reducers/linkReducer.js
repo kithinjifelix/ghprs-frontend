@@ -2,6 +2,7 @@ import * as ACTION_TYPES from "../actions/types";
 
 const initialState = {
   list: [],
+  link: {},
   external: [],
   dashboards: [],
   reports: [],
@@ -11,6 +12,13 @@ const initialState = {
 
 const linkReducer = (state = initialState, action) => {
   switch (action.type) {
+
+    case ACTION_TYPES.LINK_ADD:
+      return { ...state, link: action.payload };
+
+    case ACTION_TYPES.LINK_GET_BY_ID:
+      return { ...state, link: action.payload };
+
     case ACTION_TYPES.LINK_GET_ALL:
       return { ...state, list: [...action.payload] };
 

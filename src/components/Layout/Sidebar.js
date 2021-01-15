@@ -13,6 +13,8 @@ import {
   MdDone,
   MdFace,
   MdViewList,
+  MdSettings,
+  MdReceipt,
 } from 'react-icons/md';
 import { NavLink } from 'react-router-dom';
 import {
@@ -50,7 +52,7 @@ const navAdmin = [
 ];
 
 const navItems = [
-  { to: '/', name: 'Dashboard', exact: true, Icon: MdDashboard },
+  { to: '/', name: 'Home', exact: true, Icon: MdDashboard },
 ];
 
 const bem = bn.create('sidebar');
@@ -65,6 +67,7 @@ class Sidebar extends React.Component {
   state = {
     isOpenLinks: false,
     isOpenTemplates: false,
+    isOpenDashboards: false,
     isOpenAdmin: false,
     externalLinks: [],
   };
@@ -104,13 +107,54 @@ class Sidebar extends React.Component {
                 </BSNavLink>
               </NavItem>
             ))}
+
+            <NavItem
+              className={bem.e('nav-item')}
+              onClick={this.handleClick('Dashboards')}
+            >
+              <BSNavLink className={bem.e('nav-item-collapse')}>
+                <div className="d-flex">
+                  <MdWeb className={bem.e('nav-item-icon')} />
+                  <span className=" align-self-start">Dashboards</span>
+                </div>
+                <MdKeyboardArrowDown
+                  className={bem.e('nav-item-icon')}
+                  style={{
+                    padding: 0,
+                    transform: this.state.isOpenDashboards
+                      ? 'rotate(0deg)'
+                      : 'rotate(-90deg)',
+                    transitionDuration: '0.3s',
+                    transitionProperty: 'transform',
+                  }}
+                />
+              </BSNavLink>
+            </NavItem>
+            <Collapse isOpen={this.state.isOpenDashboards}>
+              {this.props.dashboards.map(({ url, name, key }, index) => (
+                <NavItem key={index} className={bem.e('nav-item')}>
+                  <BSNavLink
+                    id={`navItem-${name}-${index}`}
+                    className="text-uppercase"
+                    tag={NavLink}
+                    to={`/dashboard?url=${url}&key=${key}`}
+                    activeClassName="active"
+                    exact={true}
+                  >
+                    <MdRadioButtonChecked className={bem.e('nav-item-icon')} />
+                    <span className="">{name}</span>
+                  </BSNavLink>
+                </NavItem>
+              ))}
+            </Collapse>
+
             <NavItem
               className={bem.e('nav-item')}
               onClick={this.handleClick('Templates')}
             >
               <BSNavLink className={bem.e('nav-item-collapse')}>
                 <div className="d-flex">
-                  <MdWeb className={bem.e('nav-item-icon')} />
+                  <MdReceipt className={bem.e('nav-item-icon')} />
                   <span className=" align-self-start">Templates</span>
                 </div>
                 <MdKeyboardArrowDown
@@ -150,7 +194,7 @@ class Sidebar extends React.Component {
             >
               <BSNavLink className={bem.e('nav-item-collapse')}>
                 <div className="d-flex">
-                  <MdWeb className={bem.e('nav-item-icon')} />
+                  <MdSettings className={bem.e('nav-item-icon')} />
                   <span className=" align-self-start">Admin</span>
                 </div>
                 <MdKeyboardArrowDown
@@ -207,13 +251,12 @@ class Sidebar extends React.Component {
               </BSNavLink>
             </NavItem>
             <Collapse isOpen={this.state.isOpenLinks}>
-              {this.props.externalLinks.map(({ url, name}, index) => (
+              {this.props.externalLinks.map(({ url, name }, index) => (
                 <NavItem key={index} className={bem.e('nav-item')}>
                   <a
-                  className="external"
+                    className="external"
                     href={url} target="_blank" rel="noopener noreferrer"
                     id={`navItem-${name}-${index}`}
-                    style={{ colour: '#fff !important;' }}
                   >
                     <MdRadioButtonChecked className={bem.e('nav-item-icon')} />
                     <span className="">{name}</span>
