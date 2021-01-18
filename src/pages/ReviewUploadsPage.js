@@ -49,7 +49,7 @@ const ReviewUploadsPage = (props) => {
   const { values, handleInputChange, resetForm } = useForm(
     reviewForm
   );
-  
+
   const fetchData = (s) => {
     setUploadStatus(s)
     props.fetchUploads(s);
@@ -120,7 +120,7 @@ const ReviewUploadsPage = (props) => {
               { title: 'Name', field: 'name' },
               { title: 'User', field: 'user' },
               { title: 'Submission Date', field: 'date' },
-              { title: 'Status', field: 'status' },
+              { title: 'Period', field: 'period' },
               { title: 'Comments', field: 'comments' },
               { title: 'Actions', field: 'actions' }
             ]}
@@ -128,7 +128,7 @@ const ReviewUploadsPage = (props) => {
               name: row.name,
               user: row.user.userName,
               date: moment(row.createdAt).format('YYYY-MMM-DD'),
-              status: status.find(o => o.id === row.status).name,
+              period: `${moment(row.startDate).format('YYYY-MMM-DD') === '0001-Jan-01' ? '' : moment(row.startDate).format('YYYY-MMM-DD')} - ${moment(row.startDate).format('YYYY-MMM-DD') === '0001-Jan-01' ? '' : moment(row.endDate).format('YYYY-MMM-DD')}`,
               comments: row.comments,
               actions: (
                 <div>

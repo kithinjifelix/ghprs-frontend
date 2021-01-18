@@ -67,12 +67,12 @@ export const updateStatus = (id, status, onSuccess, onError) => (dispatch) => {
 };
 
 export const initialize = (data, onSuccess, onError) => (dispatch) => {
-  console.log(data);
   var formData =new FormData();
   formData.append('file', data.file);
   formData.append('name', data.name);
   formData.append('description', data.description);
   formData.append('version', data.version);
+  formData.append('frequency', data.frequency);
   formData.append('status', data.status);
     axios
       .post(`${url}templates/initialize`, formData)

@@ -19,20 +19,32 @@ import { fetchAll } from "../actions/template";
 import { toast } from "react-toastify";
 import { authentication } from '../_services/authentication';
 import useForm from '../functions/UseForm';
+import DateRangePicker from 'react-bootstrap-daterangepicker';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-daterangepicker/daterangepicker.css';
 
 const uploadTemplate = {
     file: '',
     templateId: 0,
-    currentUser:'',
+    currentUser: '',
+    startDate: '',
+    endDate: '',
 };
 
 const TemplateUploadPage = (props) => {
 
     const [file, setFile] = useState();
+    const [startDate, setStartDate] = useState();
+    const [endDate, setEndDate] = useState();
 
     const saveFile = e => {
         setFile(e.target.files[0]);
     };
+
+    const handleCallback = (start, end) => {
+        setStartDate(start.format('YYYY-MM-DD'))
+        setEndDate(end.format('YYYY-MM-DD'));
+    }
 
     useEffect(() => {
         props.fetchTemplates();
@@ -45,6 +57,9 @@ const TemplateUploadPage = (props) => {
     const handleSubmit = event => {
         event.preventDefault();
         values.file = file;
+
+        values.startDate = startDate ? startDate: '0001-JAN-01';
+        values.endDate = endDate ? endDate : '0001-JAN-01';
         values.currentUser = authentication.currentUsername
         const onSuccess = () => {
             toast.success("Template Initialized");
@@ -90,6 +105,15 @@ const TemplateUploadPage = (props) => {
                                                     </option>
                                                 ))}
                                             </Input>
+                                        </FormGroup>
+                                        <FormGroup>
+                                            <Label for="period">Period</Label>
+                                            <DateRangePicker
+                                                initialSettings={{ startDate: new Date(), endDate: new Date() }}
+                                                onCallback={handleCallback}
+                                            >
+                                                <input type="text" className="form-control" />
+                                            </DateRangePicker>
                                         </FormGroup>
                                         <FormGroup>
                                             <Label for="excelFile">File</Label>

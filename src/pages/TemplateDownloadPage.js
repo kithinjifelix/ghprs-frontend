@@ -27,7 +27,15 @@ let templateId = 0;
 const status = [
   { id: 0, name: 'Active' },
   { id: 1, name: 'Archived' },
-]
+];
+
+const frequency = [
+  { name: 'Weekly', id: 0 },
+  { name: 'Monthly', id: 1 },
+  { name: 'Quarterly', id: 2 },
+  { name: 'Yearly', id: 3 },
+  { name: 'Adhoc', id: 4 },
+];
 
 const statusForm = {
   status: 0
@@ -79,6 +87,7 @@ const TemplateDownloadPage = (props) => {
               { title: 'Name', field: 'name' },
               { title: 'Description', field: 'description' },
               { title: 'Version', field: 'version' },
+              { title: 'Frequency', field: 'frequency' },
               { title: 'Status', field: 'status' },
               { title: 'Actions', field: 'actions' }
             ]}
@@ -86,6 +95,7 @@ const TemplateDownloadPage = (props) => {
               name: row.name,
               description: row.description,
               version: row.version,
+              frequency: frequency.find(o => o.id === row.frequency).name,
               status: status.find(o => o.id === row.status).name,
               actions: (
                 <div>

@@ -22,6 +22,7 @@ const initializeTemplate = {
     name: '',
     description: '',
     version: 1,
+    frequency: 0,
     file: '',
 };
 
@@ -31,6 +32,14 @@ const TemplateInitializationPage = props => {
     const saveFile = e => {
         setFile(e.target.files[0]);
     };
+
+    const frequency = [
+        { name: 'Weekly', id: 0 },
+        { name: 'Monthly', id: 1 },
+        { name: 'Quarterly', id: 2 },
+        { name: 'Yearly', id: 3 },
+        { name: 'Adhoc', id: 4 },
+    ];
 
     const { values, handleInputChange, resetForm } = useForm(initializeTemplate);
 
@@ -91,6 +100,24 @@ const TemplateInitializationPage = props => {
                                                 defaultValue={values.version}
                                                 onChange={handleInputChange}
                                             />
+                                        </FormGroup>
+                                        <FormGroup>
+                                            <Label for="frequency">Frequency</Label>
+                                            <Input
+                                                type="select"
+                                                name="frequency"
+                                                id="frequency"
+                                                placeholder="Select Frequency"
+                                                value={values.frequency}
+                                                onChange={handleInputChange}
+                                            >
+                                                <option value=""> </option>
+                                                {frequency.map(({ name, id }) => (
+                                                    <option key={id} value={id}>
+                                                        {name}
+                                                    </option>
+                                                ))}
+                                            </Input>
                                         </FormGroup>
                                         <FormGroup>
                                             <Label for="excelFile">File</Label>

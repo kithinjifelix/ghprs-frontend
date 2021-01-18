@@ -36,6 +36,7 @@ const SubmissionsPage = (props) => {
               { title: 'Name', field: 'name' },
               { title: 'User', field: 'user' },
               { title: 'Submission Date', field: 'date' },
+              { title: 'Period', field: 'period' },
               { title: 'Status', field: 'status' },
               { title: 'Comments', field: 'comments' },
               { title: 'Actions', field: 'actions' }
@@ -44,6 +45,7 @@ const SubmissionsPage = (props) => {
               name: row.name,
               user: row.user.userName,
               date: moment(row.createdAt).format('YYYY-MMM-DD'),
+              period: `${moment(row.startDate).format('YYYY-MMM-DD') === '0001-Jan-01'? '' : moment(row.startDate).format('YYYY-MMM-DD')} - ${moment(row.startDate).format('YYYY-MMM-DD') === '0001-Jan-01'? '' : moment(row.endDate).format('YYYY-MMM-DD')}`,
               status: status.find(o => o.id === row.status).name,
               comments: row.comments,
               actions: (

@@ -88,6 +88,8 @@ export const upload = (data, onSuccess, onError) => (dispatch) => {
   formData.append('file', data.file);
   formData.append('templateId', data.templateId);
   formData.append('currentUser', data.currentUser);
+  formData.append('startDate', data.startDate);
+  formData.append('endDate', data.endDate);
     axios
       .post(`${url}uploads/upload`, formData)
       .then((response) => {
