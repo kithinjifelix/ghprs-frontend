@@ -3,6 +3,11 @@ import { url } from "../api";
 import React, { useEffect, useState } from "react";
 import Page from 'components/Page';
 import {
+  Button,
+  ButtonGroup,
+  Card,
+  CardBody,
+  Col,
   Form,
   FormGroup,
   Input,
@@ -11,13 +16,11 @@ import {
   ModalBody,
   ModalFooter,
   ModalHeader,
-  Button,
-  Col,
   Row,
 } from 'reactstrap';
 import { toast } from "react-toastify";
 import { MdFileDownload, MdModeEdit } from "react-icons/md";
-import { fetchAll, getById, review } from "../actions/upload";
+import { getByStatus, getById, review } from "../actions/upload";
 import MaterialTable from 'material-table'
 import moment from 'moment';
 import useForm from '../functions/UseForm';
@@ -37,14 +40,20 @@ let userId = 0;
 
 const ReviewUploadsPage = (props) => {
   const [modal, setModal] = useState(false);
+  const [uploadStatus, setUploadStatus] = useState(0);
 
   useEffect(() => {
-    props.fetchUploads();
+    props.fetchUploads(uploadStatus);
   }, []);
 
   const { values, handleInputChange, resetForm } = useForm(
     reviewForm
   );
+  
+  const fetchData = (s) => {
+    setUploadStatus(s)
+    props.fetchUploads(s);
+  };
 
   const toggleReview = (id) => {
     userId = id;
@@ -59,7 +68,7 @@ const ReviewUploadsPage = (props) => {
     const onSuccess = () => {
       toast.success("Success");
       resetForm();
-      props.fetchUploads();
+      props.fetchUploads(uploadStatus);
     };
     const onError = () => {
       toast.error("Something went wrong");
@@ -73,6 +82,37 @@ const ReviewUploadsPage = (props) => {
       title="Review"
       breadcrumbs={[{ name: 'Review', active: true }]}
     >
+      <Row>
+        <Col xl={12} lg={12} md={12}>
+          <Card>
+            <CardBody>
+              <ButtonGroup>
+                <Button
+                  color="primary"
+                  onClick={() => fetchData(0)}
+                  active={uploadStatus === 0}
+                >
+                  Pending
+          </Button>
+                <Button
+                  color="primary"
+                  onClick={() => fetchData(1)}
+                  active={uploadStatus === 1}
+                >
+                  Approved
+          </Button>
+                <Button
+                  color="primary"
+                  onClick={() => fetchData(2)}
+                  active={uploadStatus === 2}
+                >
+                  Denied
+          </Button>
+              </ButtonGroup>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
       <Row>
         <Col lg="12" md="12" sm="12" xs="12">
           <MaterialTable
@@ -176,7 +216,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapActionToProps = {
-  fetchUploads: fetchAll,
+  fetchUploads: getByStatus,
   getUpload: getById,
   review: review,
 };

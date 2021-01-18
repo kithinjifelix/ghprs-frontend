@@ -43,6 +43,26 @@ export const getByUser = (onSuccess, onError) => (dispatch) => {
     });
 };
 
+export const getByStatus = (status, onSuccess, onError) => (dispatch) => {
+  axios
+    .get(`${url}uploads/status/${status}`)
+    .then((response) => {
+      dispatch({
+        type: ACTION_TYPES.UPLOAD_GET_BY_STATUS,
+        payload: response.data,
+      });
+      if (onSuccess) {
+        onSuccess();
+      }
+    })
+    .catch((error) => {
+      if (onError) {
+        onError();
+        toast.error("Something went wrong fetching Uploads");
+      }
+    });
+};
+
 export const getById = (id, onSuccess, onError) => (dispatch) => {
   axios
     .get(`${url}uploads/${id}`)

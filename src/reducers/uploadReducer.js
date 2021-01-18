@@ -21,6 +21,9 @@ const uploadReducer = (state = initialState, action) => {
         case ACTION_TYPES.UPLOAD_GET_BY_USER:
             return { ...state, list: [...action.payload] };
 
+        case ACTION_TYPES.UPLOAD_GET_BY_STATUS:
+            return { ...state, list: [...action.payload] };
+
         case ACTION_TYPES.UPLOAD_ERROR:
             return { ...state, error: action.payload };
 
