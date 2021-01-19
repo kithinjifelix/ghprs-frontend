@@ -131,13 +131,13 @@ class Sidebar extends React.Component {
               </BSNavLink>
             </NavItem>
             <Collapse isOpen={this.state.isOpenDashboards}>
-              {this.props.dashboards.map(({ url, name, key }, index) => (
+              {this.props.dashboards.map(({ url, name, number, key }, index) => (
                 <NavItem key={index} className={bem.e('nav-item')}>
                   <BSNavLink
                     id={`navItem-${name}-${index}`}
                     className="text-uppercase"
                     tag={NavLink}
-                    to={`/dashboard?url=${url}&key=${key}`}
+                    to={`/dashboard?url=${url}&key=${key}&number=${number}`}
                     activeClassName="active"
                     exact={true}
                   >

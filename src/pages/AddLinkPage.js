@@ -24,6 +24,7 @@ const addLink = {
     name: "",
     url: "",
     linkType: 0,
+    number: 0,
     key: "",
 };
 
@@ -116,6 +117,21 @@ const AddLinkPage = (props) => {
                                                     </option>
                                                 ))}
                                             </Input>
+                                        </FormGroup>
+                                    </Col>
+                                    <Col md={6}>
+                                        <FormGroup>
+                                            <Label for="number">Number</Label>
+                                            <Input
+                                                type="text"
+                                                name="number"
+                                                placeholder="Number"
+                                                value={values.number}
+                                                onChange={handleInputChange}
+                                            />
+                                            <FormText color="muted">
+                                                Metabase Dashboard Number
+                                            </FormText>
                                         </FormGroup>
                                     </Col>
                                     <Col md={6}>

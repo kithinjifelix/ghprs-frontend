@@ -18,13 +18,14 @@ const DashboardPage = (props) => {
     const params = new URLSearchParams(search);
     const url = params.get('url');
     const key = params.get('key');
+    const number = params.get('number');
 
 
     var METABASE_SITE_URL = url;
     var METABASE_SECRET_KEY = key;
 
     var payload = {
-        resource: { dashboard: 1 },
+        resource: { dashboard: number },
         params: {},
         exp: Math.round(Date.now() / 1000) + (10 * 60) // 10 minute expiration
     };

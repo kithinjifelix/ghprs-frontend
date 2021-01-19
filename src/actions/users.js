@@ -61,9 +61,7 @@ export const register = (data, onSuccess, onError) => (dispatch) => {
         });
         onError();
         if (
-          error.response === undefined ||
-          error.response.data.apierror.message === null ||
-          error.response.data.apierror.message === ""
+          error.response === undefined
         ) {
           toast.error("Something went wrong");
         } else {

@@ -69,12 +69,14 @@ const LinksPage = (props) => {
               { title: 'Name', field: 'name' },
               { title: 'URL', field: 'url' },
               { title: 'Link Type', field: 'type' },
+              { title: 'Number', field: 'number' },
               { title: 'Actions', field: 'actions' }
             ]}
             data={props.links.map((row) => ({
               name: row.name,
               url: row.url,
               type: type.find(o => o.id === row.linkType).name,
+              number: row.number,
               actions: (
                 <div>
                   <BSNavLink
