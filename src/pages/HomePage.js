@@ -15,7 +15,7 @@ var METABASE_SITE_URL = "http://52.251.58.64:3000";
 var METABASE_SECRET_KEY = "80334b54cc4c696b67e0d20c2bc461b9d867781b4234af3819030209cbde6751";
 
 var payload = {
-  resource: { dashboard: 1 },
+  resource: { dashboard: 9 },
   params: {},
   exp: Math.round(Date.now() / 1000) + (10 * 60) // 10 minute expiration
 };

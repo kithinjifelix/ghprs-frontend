@@ -18,8 +18,7 @@ const DashboardPage = (props) => {
     const params = new URLSearchParams(search);
     const url = params.get('url');
     const key = params.get('key');
-    const number = params.get('number');
-
+    const number = parseInt(params.get('number'), 10);
 
     var METABASE_SITE_URL = url;
     var METABASE_SECRET_KEY = key;
