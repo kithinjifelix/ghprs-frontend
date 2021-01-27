@@ -254,7 +254,7 @@ class Sidebar extends React.Component {
               {this.props.externalLinks.map(({ url, name }, index) => (
                 <NavItem key={index} className={bem.e('nav-item')}>
                   <a
-                    className="external"
+                    className="nav-link"
                     href={url} target="_blank" rel="noopener noreferrer"
                     id={`navItem-${name}-${index}`}
                   >
