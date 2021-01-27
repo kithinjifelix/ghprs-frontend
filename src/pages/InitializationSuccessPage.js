@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Page from 'components/Page';
 import {
   Button,
@@ -13,6 +13,8 @@ import {
   Label,
   Row,
 } from 'reactstrap';
+import * as ACTION_TYPES from "../actions/types";
+import { lookup } from "../actions/lookups";
 
 const columns = [
   { columnName: 'date', type: 'VARCHAR' },
@@ -29,14 +31,13 @@ const columns = [
   { columnName: 'hts_tst_pos.u15.f', type: 'VARCHAR' },
 ];
 
-const dataTypes = [
-  { name: 'TEXT', value: 'VARCHAR' },
-  { name: 'DATE', value: 'Date' },
-  { name: 'NUMBER', value: 'NUMERIC' },
-];
-
 const InitializationSuccessPage = (props) => {
+
   const [loading] = useState(false);
+
+  useEffect(() => {
+    props.fetchDataTypes("dataType", ACTION_TYPES.LOOKUP_DATA_TYPE);
+  }, []);
 
   const handleInputChange = e => {
 
@@ -67,21 +68,20 @@ const InitializationSuccessPage = (props) => {
                           <Label for={`ghprs-${index}`}>{columnName}</Label>
                         </Col>
                         <Col md={4}>
-                          <Input
+                          { props.dataTypes && (<Input
                             type="select"
                             name="typeId"
                             id="typeId"
                             placeholder="Select Type"
                             onChange={handleInputChange}
-                            defaultValue="VARCHAR"
                           >
                             <option value=""> </option>
-                            {dataTypes.map(({ name, value }) => (
+                            {props.dataTypes.map(({ name, value }) => (
                               <option key={value} value={value}>
                                 {name}
                               </option>
                             ))}
-                          </Input>
+                          </Input>)}
                         </Col>
                         <Col md={4}></Col>
                       </Row>
@@ -112,12 +112,12 @@ const InitializationSuccessPage = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-
+    dataTypes: state.lookups.dataTypes,
   };
 };
 
 const mapActionToProps = {
-
+  fetchDataTypes: lookup,
 };
 
 export default connect(mapStateToProps, mapActionToProps)(InitializationSuccessPage);
