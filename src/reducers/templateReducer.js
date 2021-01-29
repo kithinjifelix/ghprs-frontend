@@ -3,6 +3,7 @@ import * as ACTION_TYPES from "../actions/types";
 const initialState = {
     list: [],
     template: {},
+    workSheets: [],
     error: {},
 };
 
@@ -13,10 +14,13 @@ const templateReducer = (state = initialState, action) => {
             return { ...state, list: [...action.payload] };
 
         case ACTION_TYPES.TEMPLATE_INITIALIZE:
-            return { ...state, template: action.payload };
+            return { ...state, workSheets: action.payload };
+
+        case ACTION_TYPES.TEMPLATE_WORKSHEET_UPDATE:
+            return state;
 
         case ACTION_TYPES.TEMPLATE_GET_BY_ID:
-            return { ...state, template: action.payload };
+            return { ...state, worksheets: action.payload };
 
         case ACTION_TYPES.TEMPLATE_UPDATE_STATUS:
             return { ...state, template: action.payload };

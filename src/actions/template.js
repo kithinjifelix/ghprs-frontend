@@ -96,3 +96,49 @@ export const initialize = (data, onSuccess, onError) => (dispatch) => {
       });
   };
 
+  export const updateDataType = (workSheetId, columns, onSuccess, onError) => (dispatch) => {
+    axios
+      .put(`${url}templates/workSheet/update/${workSheetId}`, columns)
+      .then((response) => {
+        onSuccess && onSuccess();
+        toast.success("Updated Successfully!");
+      })
+      .catch((error) => {
+        dispatch({
+          type: ACTION_TYPES.TEMPLATE_ERROR,
+          payload: "Something went wrong",
+        });
+        onError();
+        console.log(error);
+        toast.error("Something went wrong");
+        
+      });
+  };
+
+  export const createWorkSheetTables =  (worksheets, onSuccess, onError) => (dispatch) => {
+    axios
+      .post(`${url}templates/tables`, worksheets)
+      .then((response) => {
+        onSuccess && onSuccess();
+        toast.success("Tables Created Successfully!");
+      })
+      .catch((error) => {
+        dispatch({
+          type: ACTION_TYPES.TEMPLATE_ERROR,
+          payload: "Something went wrong",
+        });
+        onError();
+        console.log(error);
+        toast.error("Something went wrong");
+        
+      });
+  };
+
+  export const updateDataTypeInput = (workSheetId, column) => (dispatch) => {
+    const payload = {workSheetId: workSheetId, name: column.name, type: column.type }
+    dispatch({
+      type: ACTION_TYPES.TEMPLATE_WORKSHEET_UPDATE,
+      payload: payload,
+    });
+  };
+
