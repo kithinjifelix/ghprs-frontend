@@ -19,11 +19,13 @@ const UploadSuccessPage = React.lazy(() => import('pages/UploadSuccessPage'));
 const DataTypePage = React.lazy(() => import('pages/DataTypePage'));
 const TemplateDownloadPage = React.lazy(() => import('pages/TemplateDownloadPage'));
 const UsersPage = React.lazy(() => import('pages/UsersPage'));
+const OrganizationsPage = React.lazy(() => import('pages/OrganizationsPage'));
 const RegisterPage = React.lazy(() => import('pages/RegisterPage'));
 const ReviewUploadsPage = React.lazy(() => import('pages/ReviewUploadsPage'));
 const SubmissionsPage = React.lazy(() => import('pages/SubmissionsPage'));
 const LinksPage = React.lazy(() => import('pages/LinksPage'));
 const AddLinksPage = React.lazy(() => import('pages/AddLinkPage'));
+const AddOrganizationPage = React.lazy(() => import('pages/AddOrganizationPage'));
 
 const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split('/').pop()}`;
@@ -63,12 +65,15 @@ class App extends React.Component {
                   <PrivateRoute exact path="/data-types" roles={['Administrator']} component={DataTypePage} />
                   <PrivateRoute exact path="/download-Template" component={TemplateDownloadPage} />
                   <PrivateRoute exact path="/users" roles={['Administrator']} component={UsersPage} />
+                  <PrivateRoute exact path="/organizations" roles={['Administrator']} component={OrganizationsPage} />
                   <PrivateRoute exact path="/register" roles={['Administrator']} component={RegisterPage} />
                   <PrivateRoute exact path="/review" roles={['Administrator']} component={ReviewUploadsPage} />
                   <PrivateRoute exact path="/submissions" roles={['User']} component={SubmissionsPage} />
                   <PrivateRoute exact path="/links" roles={['Administrator']} component={LinksPage} />
                   <PrivateRoute exact path="/add-link" roles={['Administrator']} component={AddLinksPage} />
                   <PrivateRoute exact path="/add-link/:id" roles={['Administrator']} component={AddLinksPage} />
+                  <PrivateRoute exact path="/organization" roles={['Administrator']} component={AddOrganizationPage} />
+                  <PrivateRoute exact path="/organization/:id" roles={['Administrator']} component={AddOrganizationPage} />
                   <PrivateRoute exact path="/profile/:id" roles={['Administrator']} component={RegisterPage} />
                 </React.Suspense>
               </MainLayout>

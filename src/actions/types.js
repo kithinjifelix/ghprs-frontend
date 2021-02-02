@@ -20,6 +20,16 @@ export const USERS_ERROR = 'USERS_ERROR'
 /**
  * @TYPES
  * ===============================================
+ * Organizations
+ */
+export const GET_ORGANIZATIONS = 'GET_ORGANIZATIONS'
+export const GET_ORGANIZATION_BY_ID = 'GET_ORGANIZATION_BY_ID'
+export const REGISTER_ORGANIZATION = 'REGISTER_ORGANIZATION'
+export const ORGANIZATIONS_ERROR = 'ORGANIZATIONS_ERROR'
+
+/**
+ * @TYPES
+ * ===============================================
  * LOOKUP
  */
 export const LOOKUP_GENDER = 'LOOKUP_GENDER'

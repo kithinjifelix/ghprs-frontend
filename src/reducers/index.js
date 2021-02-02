@@ -4,6 +4,7 @@ import lookupReducer from './lookupReducer'
 import templateReducer from './templateReducer'
 import uploadReducer from './uploadReducer'
 import linkReducer from './linkReducer'
+import organizationsReducer from './organizationsReducer'
 
 export default combineReducers({
   users: userReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   templates: templateReducer,
   uploads: uploadReducer,
   links: linkReducer,
+  organizations: organizationsReducer,
   })

@@ -5,6 +5,7 @@ import {
 } from 'react-icons/md';
 import NotificationSystem from 'react-notification-system';
 import { NOTIFICATION_SYSTEM_STYLE } from 'utils/constants';
+import { ToastContainer } from "react-toastify";
 
 class MainLayout extends React.Component {
   static isSidebarOpen() {
@@ -89,6 +90,7 @@ class MainLayout extends React.Component {
           }
           style={NOTIFICATION_SYSTEM_STYLE}
         />
+        <ToastContainer autoClose={3000} hideProgressBar />
       </main>
     );
   }

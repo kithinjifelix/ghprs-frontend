@@ -15,6 +15,7 @@ import {
   MdViewList,
   MdSettings,
   MdReceipt,
+  MdLocationCity,
 } from 'react-icons/md';
 import { NavLink } from 'react-router-dom';
 import {
@@ -47,6 +48,7 @@ if (authentication.currentRole === 'Administrator') {
 }
 
 const navAdmin = [
+  { to: '/organizations', name: 'Organizations', exact: false, Icon: MdLocationCity },
   { to: '/users', name: 'Users', exact: false, Icon: MdFace },
   { to: '/links', name: 'Links', exact: false, Icon: MdLink },
 ];

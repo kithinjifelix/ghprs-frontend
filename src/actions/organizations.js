@@ -5,10 +5,10 @@ import * as ACTION_TYPES from "./types";
 
 export const fetchAll = (onSuccess, onError) => (dispatch) => {
   axios
-    .get(`${url}users`)
+    .get(`${url}organizations`)
     .then((response) => {
       dispatch({
-        type: ACTION_TYPES.GET_USERS,
+        type: ACTION_TYPES.GET_ORGANIZATIONS,
         payload: response.data,
       });
       if (onSuccess) {
@@ -18,17 +18,17 @@ export const fetchAll = (onSuccess, onError) => (dispatch) => {
     .catch((error) => {
       if (onError) {
         onError();
-        toast.error("Something went wrong fetching users");
+        toast.error("Something went wrong fetching organizations");
       }
     });
 };
 
 export const getById = (id, onSuccess, onError) => (dispatch) => {
   axios
-    .get(`${url}users/${id}`)
+    .get(`${url}organizations/${id}`)
     .then((response) => {
       dispatch({
-        type: ACTION_TYPES.GET_USER_BY_ID,
+        type: ACTION_TYPES.GET_ORGANIZATION_BY_ID,
         payload: response.data,
       });
       if (onSuccess) {
@@ -38,25 +38,25 @@ export const getById = (id, onSuccess, onError) => (dispatch) => {
     .catch((error) => {
       if (onError) {
         onError();
-        toast.error("Something went wrong fetching user");
+        toast.error("Something went wrong fetching organization");
       }
     });
 };
 
 export const register = (data, onSuccess, onError) => (dispatch) => {
     axios
-      .post(`${url}authentication/register`, data)
+      .post(`${url}organizations`, data)
       .then((response) => {
         dispatch({
-          type: ACTION_TYPES.REGISTER,
+          type: ACTION_TYPES.REGISTER_ORGANIZATION,
           payload: response.data,
         });
         onSuccess && onSuccess();
-        toast.success("User Registered Successfully!");
+        toast.success("Organization Registered Successfully!");
       })
       .catch((error) => {
         dispatch({
-          type: ACTION_TYPES.USERS_ERROR,
+          type: ACTION_TYPES.ORGANIZATIONS_ERROR,
           payload: "Something went wrong",
         });
         onError();
