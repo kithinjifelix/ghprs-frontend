@@ -22,6 +22,7 @@ const UsersPage = React.lazy(() => import('pages/UsersPage'));
 const OrganizationsPage = React.lazy(() => import('pages/OrganizationsPage'));
 const RegisterPage = React.lazy(() => import('pages/RegisterPage'));
 const ReviewUploadsPage = React.lazy(() => import('pages/ReviewUploadsPage'));
+const ReviewDetailsPage = React.lazy(() => import('pages/ReviewDetailsPage'));
 const SubmissionsPage = React.lazy(() => import('pages/SubmissionsPage'));
 const LinksPage = React.lazy(() => import('pages/LinksPage'));
 const AddLinksPage = React.lazy(() => import('pages/AddLinkPage'));
@@ -68,6 +69,7 @@ class App extends React.Component {
                   <PrivateRoute exact path="/organizations" roles={['Administrator']} component={OrganizationsPage} />
                   <PrivateRoute exact path="/register" roles={['Administrator']} component={RegisterPage} />
                   <PrivateRoute exact path="/review" roles={['Administrator']} component={ReviewUploadsPage} />
+                  <PrivateRoute exact path="/review-details/:id" roles={['Administrator']} component={ReviewDetailsPage} />
                   <PrivateRoute exact path="/submissions" roles={['User']} component={SubmissionsPage} />
                   <PrivateRoute exact path="/links" roles={['Administrator']} component={LinksPage} />
                   <PrivateRoute exact path="/add-link" roles={['Administrator']} component={AddLinksPage} />

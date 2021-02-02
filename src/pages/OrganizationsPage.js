@@ -53,19 +53,21 @@ const OrganizationsPage = (props) => {
           <MaterialTable
             columns={[
               { title: 'Organization Name', field: 'organizationname' },
+              { title: 'Short Name', field: 'shortName' },
               { title: 'Description', field: 'description' },
               { title: 'Status', field: 'status' },
               { title: 'Actions', field: 'actions' }
             ]}
             data={props.organizations.map((row) => ({
               organizationname: row.name,
+              shortName: row.shortName,
               description: row.description,
               status: status.find(o => o.id === row.status).name,
               actions: (
                 <BSNavLink
-                  id={`profile${row.id}`}
+                  id={`organization${row.id}`}
                   tag={NavLink}
-                  to={`/profile/${row.id}`}
+                  to={`/organization/${row.id}`}
                   activeClassName="active"
                   exact={true}
                 >

@@ -3,6 +3,7 @@ import * as ACTION_TYPES from "../actions/types";
 const initialState = {
     list: [],
     upload: {},
+    view: {},
     error: {},
 };
 
@@ -17,6 +18,9 @@ const uploadReducer = (state = initialState, action) => {
 
         case ACTION_TYPES.UPLOAD_GET_BY_ID:
             return { ...state, upload: action.payload };
+
+        case ACTION_TYPES.UPLOAD_VIEW_BY_ID:
+            return { ...state, view: action.payload };
 
         case ACTION_TYPES.UPLOAD_GET_BY_USER:
             return { ...state, list: [...action.payload] };

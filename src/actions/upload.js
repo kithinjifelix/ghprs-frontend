@@ -83,6 +83,26 @@ export const getById = (id, onSuccess, onError) => (dispatch) => {
     });
 };
 
+export const viewById = (id, onSuccess, onError) => (dispatch) => {
+  axios
+    .get(`${url}uploads/view/${id}`)
+    .then((response) => {
+      dispatch({
+        type: ACTION_TYPES.UPLOAD_VIEW_BY_ID,
+        payload: response.data,
+      });
+      if (onSuccess) {
+        onSuccess();
+      }
+    })
+    .catch((error) => {
+      if (onError) {
+        onError();
+        toast.error("Something went wrong fetching Upload");
+      }
+    });
+};
+
 export const upload = (data, onSuccess, onError) => (dispatch) => {
   var formData =new FormData();
   formData.append('file', data.file);

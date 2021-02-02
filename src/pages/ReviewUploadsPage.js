@@ -17,9 +17,11 @@ import {
   ModalFooter,
   ModalHeader,
   Row,
+  NavLink as BSNavLink,
 } from 'reactstrap';
+import { NavLink } from 'react-router-dom';
 import { toast } from "react-toastify";
-import { MdFileDownload, MdModeEdit } from "react-icons/md";
+import { MdFileDownload, MdModeEdit, MdRemoveRedEye } from "react-icons/md";
 import { getByStatus, getById, review } from "../actions/upload";
 import MaterialTable from 'material-table'
 import moment from 'moment';
@@ -132,6 +134,16 @@ const ReviewUploadsPage = (props) => {
               comments: row.comments,
               actions: (
                 <div>
+                  <BSNavLink
+                  id={`profile${row.id}`}
+                  tag={NavLink}
+                  to={`/profile/${row.id}`}
+                  activeClassName="active"
+                  exact={true}
+                >
+                  <MdRemoveRedEye size="15" />{" "}
+                  <span style={{ color: "#000" }}>View</span>
+                </BSNavLink>
                   <a
                     href={`${url}uploads/download/${row.id}`} target="_blank" rel="noopener noreferrer"
                     id={`navItem-${row.name}-${row.id}`}
