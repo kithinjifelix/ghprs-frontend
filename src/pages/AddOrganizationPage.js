@@ -49,7 +49,7 @@ const AddOrganizationPage = (props) => {
             toast.success("Organization Added Successfully");
             resetForm();
             console.log(props);
-            //props.history.push("/organizations");
+            props.history.push("/organizations");
         };
         const onError = () => {
             toast.error("Something went wrong");

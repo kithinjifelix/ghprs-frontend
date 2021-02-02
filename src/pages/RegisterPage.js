@@ -15,6 +15,7 @@ import {
 } from 'reactstrap';
 import * as ACTION_TYPES from "../actions/types";
 import { lookup } from "../actions/lookups";
+import { fetchAll } from "../actions/organizations";
 import { register, getById } from "../actions/users";
 import useForm from "../functions/UseForm";
 import { toast } from "react-toastify";
@@ -26,6 +27,7 @@ const userRegistration = {
   email: "",
   phoneNumber: "",
   roleId: 0,
+  organizationId: 1,
   name: "",
 };
 
@@ -47,6 +49,10 @@ const RegisterPage = (props) => {
 
   useEffect(() => {
     props.fetchGenders("gender", ACTION_TYPES.LOOKUP_GENDER);
+  }, []);
+
+  useEffect(() => {
+    props.getOrganizations();
   }, []);
 
   useEffect(() => {
@@ -166,6 +172,26 @@ const RegisterPage = (props) => {
                       </Input>
                     </FormGroup>
                   </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label for="organizationId">Organization</Label>
+                      <Input
+                        type="select"
+                        name="organizationId"
+                        id="organizationId"
+                        placeholder="Select Organization"
+                        value={values.organizationId}
+                        onChange={handleInputChange}
+                      >
+                        <option value=""> </option>
+                        {props.organizations.map(({ name, id }) => (
+                          <option key={id} value={id}>
+                            {name}
+                          </option>
+                        ))}
+                      </Input>
+                    </FormGroup>
+                  </Col>
                 </Row>
               </CardBody>
             </Card>
@@ -202,6 +228,7 @@ const mapStateToProps = (state) => {
     registred: state.users.registred,
     user: state.users.user,
     gender: state.lookups.genders,
+    organizations: state.organizations.list,
     maritalStatus: state.lookups.maritalStatuses,
   };
 };
@@ -211,6 +238,7 @@ const mapActionToProps = {
   fetchGenders: lookup,
   fetchMaritalStatus: lookup,
   fetchUser: getById,
+  getOrganizations: fetchAll,
 };
 
 export default connect(mapStateToProps, mapActionToProps)(RegisterPage);
