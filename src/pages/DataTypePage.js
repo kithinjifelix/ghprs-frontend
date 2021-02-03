@@ -60,7 +60,7 @@ const DataTypePage = (props) => {
     const onError = () => {
       toast.error("Something went wrong");
     };
-    
+
     props.update(props.workSheets[sheet].id, props.workSheets[sheet].columns, onSuccess, onError);
   };
 
@@ -72,7 +72,7 @@ const DataTypePage = (props) => {
     const onError = () => {
       toast.error("Something went wrong");
     };
-    
+
     props.finish(props.workSheets, onSuccess, onError);
   };
 
@@ -84,7 +84,7 @@ const DataTypePage = (props) => {
     >
       {props.workSheets.length > 0 && (<Form onSubmit={handleSubmit}>
         <Row>
-          <Col lg="3" md="3" sm="3" xs="3">
+          <Col lg="12" md="12" sm="12" xs="12">
             <Card>
               <CardHeader>Work Sheets</CardHeader>
               <CardBody>
@@ -110,7 +110,9 @@ const DataTypePage = (props) => {
               </CardBody>
             </Card>
           </Col>
-          <Col lg="9" md="9" sm="9" xs="9">
+        </Row>
+        <Row>
+          <Col lg="12" md="12" sm="12" xs="12">
             <Card>
               <CardHeader>Column Data Types</CardHeader>
               <CardBody>

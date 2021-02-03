@@ -135,9 +135,9 @@ const ReviewUploadsPage = (props) => {
               actions: (
                 <div>
                   <BSNavLink
-                  id={`profile${row.id}`}
+                  id={`review-details${row.id}`}
                   tag={NavLink}
-                  to={`/profile/${row.id}`}
+                  to={`/review-details/${row.id}`}
                   activeClassName="active"
                   exact={true}
                 >

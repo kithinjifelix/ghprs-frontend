@@ -8,79 +8,82 @@ import {
     CardBody,
     CardHeader,
     Col,
-    Form,
-    FormGroup,
-    Input,
-    Label,
     Row,
+    Table,
 } from 'reactstrap';
 import { viewById } from "../actions/upload";
 
 const ReviewDetailsPage = (props) => {
+    const [loading, setLoading] = useState(false);
+    const [dataIndex, setDataIndex] = useState(0);
+    const [sheet, setSheet] = useState(0);
+
 
     useEffect(() => {
         const { match: { params } } = props;
         props.fetchUpload(params.id);
     }, []);
 
-    const [loading] = useState(false);
-    const [sheet, setSheet] = useState(0);
-    const [columns, setColumns] = useState([]);
-
-
-
-    const getWorkSheetColumns = (index) => {
-        const c = props.workSheets[index].columns;
-        setColumns(c);
-    };
-
-    useEffect(() => {
-        if (props.workSheets.length > 0) {
-            getWorkSheetColumns(0);
-        }
-    }, []);
-
-    const fetchColumns = (index) => {
+    const fetchWorkSheets = (index) => {
         setSheet(index);
-        getWorkSheetColumns(index);
+        setDataIndex(index);
     };
 
+    if (props.data.length > 0) {
+        if (loading) {
+            setLoading(false);
+        }
+    };
 
     return (
         <Page
             className="DashboardPage"
             title="Upload Details"
-            breadcrumbs={[{ name: 'Review/Upload Details', active: true }]}
+            breadcrumbs={[{ name: 'Review / Upload Details', active: true }]}
         >
-                <Row>
-                    <Col lg="3" md="3" sm="3" xs="3">
-                        <Card>
-                            <CardHeader>Work Sheets</CardHeader>
-                            <CardBody>
-                                <ButtonGroup vertical>
-                                    {props.workSheets.map(({ name }, index) => (
-                                        <Button
-                                            key={`Button-Worksheet-${index}`}
-                                            color="primary"
-                                            onClick={() => fetchColumns(index)}
-                                            active={sheet === index}
-                                        >
-                                            {name}
-                                        </Button>
+            {!loading && (<Row>
+                <Col lg="12" md="12" sm="12" xs="12">
+                    <Card>
+                        <CardHeader>Work Sheets</CardHeader>
+                        <CardBody>
+                            <ButtonGroup>
+                                {props.data.map(({ workSheet }, index) => (
+                                    <Button
+                                        key={`Button-Worksheet-${index}`}
+                                        color="primary"
+                                        onClick={() => fetchWorkSheets(index)}
+                                        active={sheet === index}
+                                    >
+                                        {workSheet}
+                                    </Button>
+                                ))}
+                            </ButtonGroup>
+                        </CardBody>
+                    </Card>
+                </Col>
+            </Row>)}
+            {!loading && (<Row>
+                <Col lg="12" md="12" sm="12" xs="12">
+                    <Card>
+                        <CardHeader>Data</CardHeader>
+                        <CardBody>
+                            <Table bordered responsive>
+                                <thead>
+                                    <tr>{props.data.length > 0 && (Object.keys(props.data[dataIndex].data[0]).map(col => <th key={`header-${col}`}>{col}</th>))}</tr>
+                                </thead>
+                                <tbody>
+                                    {props.data.length > 0 && (Object.values(props.data[dataIndex].data).map((row, index) =>
+                                        <tr key={`${row[index]}-row`}>
+                                            {Object.entries(row).map(([key, value]) => <td key={`${key}`}>{value}</td>)}
+                                        </tr>
                                     ))}
-                                </ButtonGroup>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                    <Col lg="9" md="9" sm="9" xs="9">
-                        <Card>
-                            <CardHeader>Data</CardHeader>
-                            <CardBody>
+                                </tbody>
+                            </Table>
+                        </CardBody>
+                    </Card>
 
-                            </CardBody>
-                        </Card>
-                    </Col>
-                </Row>
+                </Col>
+            </Row>)}
         </Page>
     );
 }
