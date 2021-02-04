@@ -88,7 +88,10 @@ const DataTypePage = (props) => {
             <Card>
               <CardHeader>Work Sheets</CardHeader>
               <CardBody>
-                <ButtonGroup vertical>
+                <ButtonGroup
+                  vertical
+                  style={{ margin: "10px" }}
+                >
                   {props.workSheets.map(({ name }, index) => (
                     <Button
                       key={`Button-Worksheet-${index}`}
@@ -100,9 +103,8 @@ const DataTypePage = (props) => {
                     </Button>
                   ))}
                 </ButtonGroup>
-              </CardBody>
-              <CardBody>
                 <Button
+                  style={{ margin: "10px" }}
                   onClick={() => handleFinish()}
                 >
                   Finish
