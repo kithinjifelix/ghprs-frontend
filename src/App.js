@@ -63,7 +63,8 @@ class App extends React.Component {
                   <PrivateRoute exact path="/upload-Template" component={TemplateUploadPage} />
                   <PrivateRoute exact path="/initialize-Template" roles={['Administrator']} component={TemplateInitializationPage} />
                   <PrivateRoute exact path="/uploaded" component={UploadSuccessPage} />
-                  <PrivateRoute exact path="/data-types" roles={['Administrator']} component={DataTypePage} />
+                  <PrivateRoute exact path="/configure" roles={['Administrator']} component={DataTypePage} />
+                  <PrivateRoute exact path="/configure/:id" roles={['Administrator']} component={DataTypePage} />
                   <PrivateRoute exact path="/download-Template" component={TemplateDownloadPage} />
                   <PrivateRoute exact path="/users" roles={['Administrator']} component={UsersPage} />
                   <PrivateRoute exact path="/organizations" roles={['Administrator']} component={OrganizationsPage} />

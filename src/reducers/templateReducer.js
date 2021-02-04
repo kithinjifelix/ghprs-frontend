@@ -16,6 +16,9 @@ const templateReducer = (state = initialState, action) => {
         case ACTION_TYPES.TEMPLATE_INITIALIZE:
             return { ...state, workSheets: action.payload };
 
+        case ACTION_TYPES.TEMPLATE_CONFIGURE:
+            return { ...state, workSheets: action.payload };
+
         case ACTION_TYPES.TEMPLATE_WORKSHEET_UPDATE:
             return state;
 

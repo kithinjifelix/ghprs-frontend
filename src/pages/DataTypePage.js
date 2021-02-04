@@ -16,7 +16,7 @@ import {
 } from 'reactstrap';
 import * as ACTION_TYPES from "../actions/types";
 import { lookup } from "../actions/lookups";
-import { updateDataType, updateDataTypeInput, createWorkSheetTables } from "../actions/template";
+import { updateDataType, updateDataTypeInput, createWorkSheetTables, configure } from "../actions/template";
 import { toast } from "react-toastify";
 
 const DataTypePage = (props) => {
@@ -24,12 +24,21 @@ const DataTypePage = (props) => {
   const [loading] = useState(false);
   const [sheet, setSheet] = useState(0);
   const [columns, setColumns] = useState([]);
+  const [dataIndex, setDataIndex] = useState(0);
+
+  useEffect(() => {
+    const { match: { params } } = props;
+    if (params.id) {
+      props.fetch(params.id);
+    }
+  }, []);
 
   useEffect(() => {
     props.fetchDataTypes("dataType", ACTION_TYPES.LOOKUP_DATA_TYPE);
   }, []);
 
   const getWorkSheetColumns = (index) => {
+    setDataIndex(index);
     const c = props.workSheets[index].columns;
     setColumns(c);
   };
@@ -89,7 +98,6 @@ const DataTypePage = (props) => {
               <CardHeader>Work Sheets</CardHeader>
               <CardBody>
                 <ButtonGroup
-                  vertical
                   style={{ margin: "10px" }}
                 >
                   {props.workSheets.map(({ name }, index) => (
@@ -120,7 +128,7 @@ const DataTypePage = (props) => {
               <CardBody>
                 {!loading && (
                   <FormGroup>
-                    {columns.map(({ type, name }, index) => (
+                    {props.workSheets[dataIndex].columns.map(({ type, name }, index) => (
                       <Row key={`Row-${index}`} >
                         <Col md={4}>
                           <Label for={`ghprs-${index}`}>{name}</Label>
@@ -177,6 +185,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapActionToProps = {
+  fetch: configure,
   fetchDataTypes: lookup,
   update: updateDataType,
   updateInput: updateDataTypeInput,

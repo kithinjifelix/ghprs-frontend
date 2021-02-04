@@ -49,7 +49,7 @@ const TemplateInitializationPage = props => {
         const onSuccess = () => {
             toast.success("Template Initialized");
             resetForm();
-            props.history.push("/data-types");
+            props.history.push("/configure");
         };
         const onError = () => {
             toast.error("Something went wrong");

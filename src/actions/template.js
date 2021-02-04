@@ -43,6 +43,26 @@ export const getById = (id, onSuccess, onError) => (dispatch) => {
     });
 };
 
+export const configure = (id, onSuccess, onError) => (dispatch) => {
+  axios
+    .get(`${url}templates/configure/${id}`)
+    .then((response) => {
+      dispatch({
+        type: ACTION_TYPES.TEMPLATE_CONFIGURE,
+        payload: response.data,
+      });
+      if (onSuccess) {
+        onSuccess();
+      }
+    })
+    .catch((error) => {
+      if (onError) {
+        onError();
+        toast.error("Something went wrong!");
+      }
+    });
+};
+
 export const updateStatus = (id, status, onSuccess, onError) => (dispatch) => {
   axios
     .put(`${url}templates/${id}/status/${status}`)

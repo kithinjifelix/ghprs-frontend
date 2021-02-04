@@ -14,9 +14,11 @@ import {
   Button,
   Col,
   Row,
+  NavLink as BSNavLink,
 } from 'reactstrap';
+import { NavLink } from 'react-router-dom';
 import { toast } from "react-toastify";
-import { MdFileDownload, MdModeEdit } from "react-icons/md";
+import { MdFileDownload, MdModeEdit, MdSettings } from "react-icons/md";
 import { fetchAll, getById, updateStatus } from "../actions/template";
 import MaterialTable from 'material-table'
 import { authentication } from "../_services/authentication";
@@ -25,8 +27,9 @@ import useForm from '../functions/UseForm';
 let templateId = 0;
 
 const status = [
-  { id: 0, name: 'Active' },
-  { id: 1, name: 'Archived' },
+  { id: 0, name: 'Not Configured' },
+  { id: 1, name: 'Active' },
+  { id: 2, name: 'Archived' },
 ];
 
 const frequency = [
@@ -99,6 +102,16 @@ const TemplateDownloadPage = (props) => {
               status: status.find(o => o.id === row.status).name,
               actions: (
                 <div>
+                  {(authentication.currentRole === 'Administrator' && row.status === 0) && (<BSNavLink
+                  id={`configure${row.id}`}
+                  tag={NavLink}
+                  to={`/configure/${row.id}`}
+                  activeClassName="active"
+                  exact={true}
+                >
+                  <MdSettings size="15" />{" "}
+                  <span style={{ color: "#000" }}>Configure</span>
+                </BSNavLink>)}
                   <a
                     href={`${url}templates/download/${row.id}`} target="_blank" rel="noopener noreferrer"
                     id={`navItem-${row.name}-${row.id}`}
