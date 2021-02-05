@@ -32,11 +32,10 @@ const reviewForm = {
   status: 0
 };
 
-const status = [
-  { id: 0, name: 'Pending' },
+const reviewStatus = [
   { id: 1, name: 'Approved' },
   { id: 2, name: 'Denied' },
-]
+];
 
 let userId = 0;
 
@@ -95,21 +94,28 @@ const ReviewUploadsPage = (props) => {
                   active={uploadStatus === 0}
                 >
                   Pending
-          </Button>
+                </Button>
                 <Button
                   color="primary"
                   onClick={() => fetchData(1)}
                   active={uploadStatus === 1}
                 >
                   Approved
-          </Button>
+                </Button>
                 <Button
                   color="primary"
                   onClick={() => fetchData(2)}
                   active={uploadStatus === 2}
                 >
                   Denied
-          </Button>
+                </Button>
+                <Button
+                  color="primary"
+                  onClick={() => fetchData(3)}
+                  active={uploadStatus === 3}
+                >
+                  Over-Written
+                </Button>
               </ButtonGroup>
             </CardBody>
           </Card>
@@ -181,7 +187,7 @@ const ReviewUploadsPage = (props) => {
                 onChange={handleInputChange}
               >
                 <option value=""> </option>
-                {status.map(({ name, id }) => (
+                {reviewStatus.map(({ name, id }) => (
                   <option key={id} value={id}>
                     {name}
                   </option>
