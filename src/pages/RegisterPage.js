@@ -72,7 +72,7 @@ const RegisterPage = (props) => {
   const handleSubmit = event => {
     event.preventDefault();
     const onSuccess = () => {
-      toast.success("Registration Successful");
+      toast.success("User registered Successfully");
       resetForm();
       props.history.push("/users");
     };

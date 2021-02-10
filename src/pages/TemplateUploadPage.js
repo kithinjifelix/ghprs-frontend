@@ -62,7 +62,7 @@ const TemplateUploadPage = (props) => {
         values.endDate = endDate ? endDate : '0001-JAN-01';
         values.currentUser = authentication.currentUsername
         const onSuccess = () => {
-            toast.success("Template Initialized");
+            toast.success("Template uploaded successfully");
             resetForm();
             props.history.push("/uploaded");
         };

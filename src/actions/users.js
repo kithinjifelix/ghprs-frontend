@@ -52,7 +52,7 @@ export const register = (data, onSuccess, onError) => (dispatch) => {
           payload: response.data,
         });
         onSuccess && onSuccess();
-        toast.success("User Registered Successfully!");
+        //toast.success("User Registered Successfully!");
       })
       .catch((error) => {
         dispatch({

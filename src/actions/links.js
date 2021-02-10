@@ -72,7 +72,7 @@ export const add = (data, onSuccess, onError) => (dispatch) => {
         payload: response.data,
       });
       onSuccess && onSuccess();
-      toast.success("Link Added Successfully!");
+      //toast.success("Link Added Successfully!");
     })
     .catch((error) => {
       dispatch({

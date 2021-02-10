@@ -38,6 +38,7 @@ const DataTypePage = (props) => {
   }, []);
 
   const getWorkSheetColumns = (index) => {
+    console.log('done')
     setDataIndex(index);
     const c = props.workSheets[index].columns;
     setColumns(c);
@@ -57,8 +58,15 @@ const DataTypePage = (props) => {
   const handleInputChange = e => {
     const { name, value } = e.target
     let column = columns[name];
-    column.type = value;
-    props.updateInput(sheet, column);
+    if (column.type) {
+      column.type = value;
+      props.updateInput(sheet, column);
+    } else {
+      getWorkSheetColumns(0);
+      column.type = value;
+      props.updateInput(sheet, column);
+    }
+    
   };
 
   const handleSubmit = event => {
@@ -75,7 +83,7 @@ const DataTypePage = (props) => {
 
   const handleFinish = event => {
     const onSuccess = () => {
-      toast.success("Updated Successfully");
+      toast.success("Tables Created Successfully");
       props.history.push("/");
     };
     const onError = () => {

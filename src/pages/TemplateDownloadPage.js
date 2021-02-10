@@ -67,7 +67,7 @@ const TemplateDownloadPage = (props) => {
   const handleStatus = event => {
     event.preventDefault();
     const onSuccess = () => {
-      toast.success("Success");
+      toast.success("Status updated successfully");
       resetForm();
       props.fetchTemplates();
     };

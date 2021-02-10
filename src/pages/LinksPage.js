@@ -30,7 +30,7 @@ const LinksPage = (props) => {
 
   const handleDelete = (id) => {
     const onSuccess = () => {
-      toast.success("Success");
+      toast.success("Deleted Successfully");
       props.fetchLinks();
     };
     const onError = () => {

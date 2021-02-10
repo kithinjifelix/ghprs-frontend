@@ -72,7 +72,7 @@ export const updateStatus = (id, status, onSuccess, onError) => (dispatch) => {
         payload: response.data,
       });
       onSuccess && onSuccess();
-      toast.success("Updated Successfully!");
+      //toast.success("Updated Successfully!");
     })
     .catch((error) => {
       dispatch({
@@ -102,7 +102,7 @@ export const initialize = (data, onSuccess, onError) => (dispatch) => {
           payload: response.data,
         });
         onSuccess && onSuccess();
-        toast.success("Template initialized Successfully!");
+        //toast.success("Template initialized Successfully!");
       })
       .catch((error) => {
         dispatch({
@@ -121,7 +121,7 @@ export const initialize = (data, onSuccess, onError) => (dispatch) => {
       .put(`${url}templates/workSheet/update/${workSheetId}`, columns)
       .then((response) => {
         onSuccess && onSuccess();
-        toast.success("Updated Successfully!");
+        //toast.success("Updated Successfully!");
       })
       .catch((error) => {
         dispatch({
@@ -140,7 +140,7 @@ export const initialize = (data, onSuccess, onError) => (dispatch) => {
       .post(`${url}templates/tables`, worksheets)
       .then((response) => {
         onSuccess && onSuccess();
-        toast.success("Tables Created Successfully!");
+        //toast.success("Tables Created Successfully!");
       })
       .catch((error) => {
         dispatch({

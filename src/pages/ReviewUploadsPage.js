@@ -67,7 +67,7 @@ const ReviewUploadsPage = (props) => {
   const handleReview = event => {
     event.preventDefault();
     const onSuccess = () => {
-      toast.success("Success");
+      toast.success("Reviewed Successfully");
       resetForm();
       props.fetchUploads(uploadStatus);
     };
