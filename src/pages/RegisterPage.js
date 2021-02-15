@@ -149,18 +149,6 @@ const RegisterPage = (props) => {
                   </Col>
                   <Col md={6}>
                     <FormGroup>
-                      <Label for="phoneNumber">Phone Number *</Label>
-                      <Input
-                        type="text"
-                        name="phoneNumber"
-                        placeholder="Phone Number"
-                        value={values.phoneNumber}
-                        onChange={handleInputChange}
-                      />
-                    </FormGroup>
-                  </Col>
-                  <Col md={6}>
-                    <FormGroup>
                       <Label for="roleId">Role *</Label>
                       <Input
                         type="select"
@@ -198,8 +186,6 @@ const RegisterPage = (props) => {
                         ))}
                       </Input>
                     </FormGroup>
-                  </Col>
-                  <Col md={6}>
                   </Col>
                   <Col md={6}>
                     <FormGroup>
