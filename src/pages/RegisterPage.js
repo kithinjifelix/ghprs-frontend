@@ -9,6 +9,7 @@ import {
   Col,
   Form,
   FormGroup,
+  FormText,
   Input,
   Label,
   Row,
@@ -94,7 +95,7 @@ const RegisterPage = (props) => {
                 <Row form>
                   <Col md={6}>
                     <FormGroup>
-                      <Label for="name">Name</Label>
+                      <Label for="name">Name *</Label>
                       <Input
                         type="text"
                         name="name"
@@ -106,7 +107,7 @@ const RegisterPage = (props) => {
                   </Col>
                   <Col md={6}>
                     <FormGroup>
-                      <Label for="userName">User Name</Label>
+                      <Label for="userName">User Name *</Label>
                       <Input
                         type="text"
                         name="userName"
@@ -118,7 +119,7 @@ const RegisterPage = (props) => {
                   </Col>
                   <Col md={6}>
                     <FormGroup>
-                      <Label for="email">Email</Label>
+                      <Label for="email">Email *</Label>
                       <Input
                         type="text"
                         name="email"
@@ -126,11 +127,14 @@ const RegisterPage = (props) => {
                         value={values.email}
                         onChange={handleInputChange}
                       />
+                      <FormText color="muted">
+                        Must be a valid email address format 'example@email.com'
+                      </FormText>
                     </FormGroup>
                   </Col>
                   <Col md={6}>
                     <FormGroup>
-                      <Label for="password">Password</Label>
+                      <Label for="password">Password *</Label>
                       <Input
                         type="password"
                         name="password"
@@ -138,11 +142,14 @@ const RegisterPage = (props) => {
                         value={values.password}
                         onChange={handleInputChange}
                       />
+                      <FormText color="muted">
+                        Passwords must be at least 6 characters. Passwords must have at least one digit ('0'-'9'). Passwords must have at least one lowercase ('a'-'z'). Passwords must have at least one uppercase ('A'-'Z').
+                      </FormText>
                     </FormGroup>
                   </Col>
                   <Col md={6}>
                     <FormGroup>
-                      <Label for="phoneNumber">Phone Number</Label>
+                      <Label for="phoneNumber">Phone Number *</Label>
                       <Input
                         type="text"
                         name="phoneNumber"
@@ -154,7 +161,7 @@ const RegisterPage = (props) => {
                   </Col>
                   <Col md={6}>
                     <FormGroup>
-                      <Label for="roleId">Role</Label>
+                      <Label for="roleId">Role *</Label>
                       <Input
                         type="select"
                         name="roleId"
@@ -174,7 +181,7 @@ const RegisterPage = (props) => {
                   </Col>
                   <Col md={6}>
                     <FormGroup>
-                      <Label for="organizationId">Organization</Label>
+                      <Label for="organizationId">Organization *</Label>
                       <Input
                         type="select"
                         name="organizationId"
@@ -190,6 +197,16 @@ const RegisterPage = (props) => {
                           </option>
                         ))}
                       </Input>
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                    <Label></Label>
+                      <FormText color="muted">
+                        * Required Fields
+                      </FormText>
                     </FormGroup>
                   </Col>
                 </Row>

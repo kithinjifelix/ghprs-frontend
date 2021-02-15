@@ -49,7 +49,7 @@ const LinksPage = (props) => {
         <Col xl={12} lg={12} md={12}>
           <Card>
             <CardBody>
-              <Link to="/add-link">
+              <Link to="/link">
                 <Button
                   variant="contained"
                   color="primary"

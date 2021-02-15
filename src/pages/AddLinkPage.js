@@ -1,6 +1,6 @@
 import Page from 'components/Page';
 import { connect } from "react-redux";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Button,
     Card,
@@ -18,29 +18,42 @@ import { add, getById } from "../actions/links";
 import useForm from "../functions/UseForm";
 import { toast } from "react-toastify";
 
-let Title = '';
-
-const addLink = {
-    name: "",
-    url: "",
-    linkType: 0,
-    number: 0,
-    key: "",
-};
-
 const AddLinkPage = (props) => {
+    const initialValues = {
+        name: "",
+        url: "",
+        linkType: 0,
+        number: 0,
+        key: "",
+    };
 
-    const { values, handleInputChange, resetForm } = useForm(
-        addLink
+    const [title, setTitle] = useState('');
+    const [edit, setEdit] = useState(false);
+
+    const { values, handleInputChange, resetForm, setValues } = useForm(
+        initialValues
     );
 
     useEffect(() => {
         const { match: { params } } = props;
         if (params.id) {
-            props.fetchUser(params.id);
-            Title = 'Edit Link';
+            const onSuccess = () => {
+                setValues({
+                    name: props.link.name,
+                    url: props.link.url,
+                    linkType: props.link.linkType,
+                    number: props.link.number,
+                    key: props.link.key,
+                });
+            };
+            const onError = () => {
+                toast.error("Something went wrong");
+            };
+            props.fetchLink(params.id, onSuccess, onError);
+            setTitle('Edit Link');
+            setEdit(true);
         } else {
-            Title = 'Add Link';
+            setTitle('Add Link');
         }
     }, []);
 
@@ -54,20 +67,23 @@ const AddLinkPage = (props) => {
 
     const handleSubmit = event => {
         event.preventDefault();
-        const onSuccess = () => {
-            toast.success("Link Added Successfully");
-            resetForm();
-            props.history.push("/links");
-        };
-        const onError = () => {
-            toast.error("Something went wrong");
-        };
-        props.add(values, onSuccess, onError);
-
+        if (edit) {
+            console.log(values);
+        } else {
+            const onSuccess = () => {
+                toast.success("Link Added Successfully");
+                resetForm();
+                props.history.push("/links");
+            };
+            const onError = () => {
+                toast.error("Something went wrong");
+            };
+            props.add(values, onSuccess, onError);
+        }
     };
 
     return (
-        <Page title={Title} breadcrumbs={[{ name: 'Add Link', active: true }]}>
+        <Page title={title} breadcrumbs={[{ name: title, active: true }]}>
             <Form onSubmit={handleSubmit}>
                 <Row>
                     <Col xl={12} lg={12} md={12}>
@@ -77,19 +93,19 @@ const AddLinkPage = (props) => {
                                 <Row form>
                                     <Col md={6}>
                                         <FormGroup>
-                                            <Label for="name">Name</Label>
+                                            <Label for="name">Name *</Label>
                                             <Input
                                                 type="text"
                                                 name="name"
                                                 placeholder="Name"
-                                                value={values.name}
+                                                defaultValue={values.name}
                                                 onChange={handleInputChange}
                                             />
                                         </FormGroup>
                                     </Col>
                                     <Col md={6}>
                                         <FormGroup>
-                                            <Label for="url">URL</Label>
+                                            <Label for="url">URL *</Label>
                                             <Input
                                                 type="text"
                                                 name="url"
@@ -101,7 +117,7 @@ const AddLinkPage = (props) => {
                                     </Col>
                                     <Col md={6}>
                                         <FormGroup>
-                                            <Label for="linkTypeId">Link Type</Label>
+                                            <Label for="linkTypeId">Link Type *</Label>
                                             <Input
                                                 type="select"
                                                 name="linkType"
@@ -146,6 +162,16 @@ const AddLinkPage = (props) => {
                                             />
                                             <FormText color="muted">
                                                 Add key where needed for token generation
+                                            </FormText>
+                                        </FormGroup>
+                                    </Col>
+                                    <Col md={6}>
+                                    </Col>
+                                    <Col md={6}>
+                                        <FormGroup>
+                                            <Label></Label>
+                                            <FormText color="muted">
+                                                * Required Fields
                                             </FormText>
                                         </FormGroup>
                                     </Col>

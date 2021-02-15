@@ -73,8 +73,8 @@ class App extends React.Component {
                   <PrivateRoute exact path="/review-details/:id" roles={['Administrator']} component={ReviewDetailsPage} />
                   <PrivateRoute exact path="/submissions" roles={['User']} component={SubmissionsPage} />
                   <PrivateRoute exact path="/links" roles={['Administrator']} component={LinksPage} />
-                  <PrivateRoute exact path="/add-link" roles={['Administrator']} component={AddLinksPage} />
-                  <PrivateRoute exact path="/add-link/:id" roles={['Administrator']} component={AddLinksPage} />
+                  <PrivateRoute exact path="/link" roles={['Administrator']} component={AddLinksPage} />
+                  <PrivateRoute exact path="/link/:id" roles={['Administrator']} component={AddLinksPage} />
                   <PrivateRoute exact path="/organization" roles={['Administrator']} component={AddOrganizationPage} />
                   <PrivateRoute exact path="/organization/:id" roles={['Administrator']} component={AddOrganizationPage} />
                   <PrivateRoute exact path="/profile/:id" roles={['Administrator']} component={RegisterPage} />
