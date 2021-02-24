@@ -30,7 +30,7 @@ const AddLinkPage = (props) => {
     const [title, setTitle] = useState('');
     const [edit, setEdit] = useState(false);
 
-    const { values, handleInputChange, resetForm, setValues } = useForm(
+    const { values, handleInputChange, resetForm } = useForm(
         initialValues
     );
 
@@ -38,13 +38,8 @@ const AddLinkPage = (props) => {
         const { match: { params } } = props;
         if (params.id) {
             const onSuccess = () => {
-                setValues({
-                    name: props.link.name,
-                    url: props.link.url,
-                    linkType: props.link.linkType,
-                    number: props.link.number,
-                    key: props.link.key,
-                });
+                console.log(props)
+                
             };
             const onError = () => {
                 toast.error("Something went wrong");
@@ -98,7 +93,7 @@ const AddLinkPage = (props) => {
                                                 type="text"
                                                 name="name"
                                                 placeholder="Name"
-                                                defaultValue={values.name}
+                                                value={values.name}
                                                 onChange={handleInputChange}
                                             />
                                         </FormGroup>

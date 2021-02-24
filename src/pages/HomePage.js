@@ -11,7 +11,7 @@ import {
 import Iframe from 'react-iframe'
 var jwt = require("jsonwebtoken");
 
-var METABASE_SITE_URL = "http://52.251.58.64:3000";
+var METABASE_SITE_URL = "http://52.167.6.24:3000";
 var METABASE_SECRET_KEY = "80334b54cc4c696b67e0d20c2bc461b9d867781b4234af3819030209cbde6751";
 
 var payload = {

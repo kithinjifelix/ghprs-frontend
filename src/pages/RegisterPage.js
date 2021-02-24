@@ -34,14 +34,31 @@ const userRegistration = {
 
 const RegisterPage = (props) => {
 
-  const { values, handleInputChange, resetForm } = useForm(
+  const { values, handleInputChange, resetForm, setValues } = useForm(
     userRegistration
   );
 
   useEffect(() => {
     const { match: { params } } = props;
     if (params.id) {
-      props.fetchUser(params.id);
+      const onSuccess = () => {
+        console.log(props);
+        toast.success("User Loaded");
+        const profileValues = {
+          userName: "Test",
+          password: "Part",
+          email: "sdfjkdfkl",
+          phoneNumber: "",
+          roleId: 0,
+          organizationId: 1,
+          name: "",
+        };
+        setValues(profileValues);
+      };
+      const onError = () => {
+        toast.error("Could not fetch user");
+      };
+      props.fetchUser(params.id, onSuccess, onError);
       Title = 'Profile';
     } else {
       Title = 'Register';
@@ -61,7 +78,6 @@ const RegisterPage = (props) => {
       "maritalStatus",
       ACTION_TYPES.LOOKUP_MARITAL_STATUS,
     );
-    console.log(values);
   }, []);
 
   const role = [
