@@ -4,6 +4,7 @@ const initialState = {
     list: [],
     template: {},
     workSheets: [],
+    exists: {},
     error: {},
 };
 
@@ -27,6 +28,9 @@ const templateReducer = (state = initialState, action) => {
 
         case ACTION_TYPES.TEMPLATE_UPDATE_STATUS:
             return { ...state, template: action.payload };
+
+        case ACTION_TYPES.TEMPLATE_EXISTS:
+            return { ...state, exists: action.payload };
 
         case ACTION_TYPES.TEMPLATE_ERROR:
             return { ...state, error: action.payload };

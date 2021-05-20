@@ -14,7 +14,7 @@ import {
     FormText,
     Row,
 } from 'reactstrap';
-import { initialize } from "../actions/template";
+import { exists, initialize } from "../actions/template";
 import { toast } from "react-toastify";
 import useForm from '../functions/UseForm';
 
@@ -42,6 +42,11 @@ const TemplateInitializationPage = props => {
     ];
 
     const { values, handleInputChange, resetForm } = useForm(initializeTemplate);
+
+    const handleNameChange = e => {
+        handleInputChange(e);
+        props.exists(e.target.value);
+    }
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -78,8 +83,11 @@ const TemplateInitializationPage = props => {
                                                 name="name"
                                                 placeholder="Name"
                                                 defaultValue={values.name}
-                                                onChange={handleInputChange}
+                                                onChange={handleNameChange}
                                             />
+                                            <FormText color="muted">
+                                                {props.version.item1 ? `Template version ${props.version.item2} exists. Version ${props.version.item2 + 1} will be created` : `Version : ${props.version.item2 ? props.version.item2 : 1}`}
+                                            </FormText>
                                         </FormGroup>
                                         <FormGroup>
                                             <Label for="description">Description</Label>
@@ -88,16 +96,6 @@ const TemplateInitializationPage = props => {
                                                 name="description"
                                                 placeholder="Description"
                                                 defaultValue={values.description}
-                                                onChange={handleInputChange}
-                                            />
-                                        </FormGroup>
-                                        <FormGroup>
-                                            <Label for="version">Version</Label>
-                                            <Input
-                                                type="number"
-                                                name="version"
-                                                placeholder="Version"
-                                                defaultValue={values.version}
                                                 onChange={handleInputChange}
                                             />
                                         </FormGroup>
@@ -150,11 +148,14 @@ const TemplateInitializationPage = props => {
 const mapStateToProps = state => {
     return {
         template: state.templates.template,
+        version: state.templates.exists,
     };
 };
 
 const mapActionToProps = {
     initialize: initialize,
+    exists: exists,
+
 };
 
 export default connect(
