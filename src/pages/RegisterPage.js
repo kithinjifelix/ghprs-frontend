@@ -14,15 +14,18 @@ import {
   Label,
   Row,
 } from 'reactstrap';
+import { url } from "../api";
 import * as ACTION_TYPES from "../actions/types";
 import { lookup } from "../actions/lookups";
 import { fetchAll } from "../actions/organizations";
 import { register, getById } from "../actions/users";
 import useForm from "../functions/UseForm";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 let Title = '';
 const userRegistration = {
+  userName: "",
   password: "",
   email: "",
   phoneNumber: "",
@@ -31,22 +34,40 @@ const userRegistration = {
   name: "",
 };
 
+let name="";
+let email="";
+let password="";
+let organizationId="";
+let userid="";
+
 const RegisterPage = (props) => {
 
-  const { values, handleInputChange, resetForm } = useForm(
+  const { values, handleInputChange, resetForm, setValues } = useForm(
     userRegistration
   );
+
 
   useEffect(() => {
     const { match: { params } } = props;
     if (params.id) {
       const onSuccess = () => {
         toast.success("User Loaded");
+        const profileValues = {
+          userName: "",
+          password: "",
+          email: "",
+          phoneNumber: "",
+          roleId: 0,
+          organizationId: 1,
+          name: "",
+        };
+        setValues(profileValues);
       };
       const onError = () => {
         toast.error("Could not fetch user");
       };
       props.fetchUser(params.id, onSuccess, onError);
+
       Title = 'Profile';
     } else {
       Title = 'Register';
@@ -61,6 +82,56 @@ const RegisterPage = (props) => {
     props.getOrganizations();
   }, []);
 
+
+useEffect(()=>{
+    const { match: { params } } = props;
+    if(params.id){
+        async function fetchData(){
+            try{
+              axios.get(`${url}users/`+params.id)
+              .then((response) => {
+                console.log("started");
+                userid=params.id;
+                email = response.data.email;
+                name = response.data.person.name;
+                organizationId = response.data.organization.id;
+                console.log(response.data);
+                console.log("end");
+              });
+            }catch(e){
+                console.log("error");
+                console.error(e);
+                console.log("error");
+            }
+        }
+        fetchData();
+    }
+
+},[]);
+
+useEffect(()=>{
+    if(document.getElementById("email").value === "" && email !== ""  ){
+
+        const profileValues = {
+          userName: email,
+          password: "",
+          email: email,
+          roleId: 0,
+          organizationId: organizationId,
+          name: name
+        };
+        setValues(profileValues);
+        document.getElementById("name").value=name;
+        document.getElementById("email").value=email;
+        document.getElementById("username").value=email;
+        document.getElementById("organizationId").value=organizationId;
+        document.getElementById('username').setAttribute("disabled","disabled");
+        document.getElementById('email').setAttribute("disabled","disabled");
+        email="";
+    }
+})
+
+
   useEffect(() => {
     props.fetchMaritalStatus(
       "maritalStatus",
@@ -68,11 +139,24 @@ const RegisterPage = (props) => {
     );
   }, []);
 
+
+
   const role = [
     { name: 'Administrator', id: 0 },
     { name: 'User', id: 1 },
   ];
 
+function inputChange(e) {
+        const profileValues = {
+          userName: document.getElementById("email").value,
+          password: document.getElementById("password").value,
+          email: document.getElementById("email").value,
+          roleId: document.getElementById("roleId").value,
+          organizationId: document.getElementById("organizationId").value,
+          name: document.getElementById("name").value
+        };
+        setValues(profileValues);
+}
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -87,6 +171,7 @@ const RegisterPage = (props) => {
     props.register(values, onSuccess, onError);
 
   };
+
 
   return (
     <Page title={Title} breadcrumbs={[{ name: 'User', active: true }]}>
@@ -103,10 +188,57 @@ const RegisterPage = (props) => {
                       <Input
                         type="text"
                         name="name"
+                        id="name"
                         placeholder="Name"
-                        value={values.name}
-                        onChange={handleInputChange}
+                        //pattern="[A-Za-z]{3}"
+                        onChange={inputChange}
                       />
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label for="userName" hidden>User Name * </Label>
+                      <Input
+                        type="hidden"
+                        name="userName"
+                        id="username"
+                        placeholder="Email"
+                        disabled={true}
+                        //pattern="[A-Za-z]{3}"
+                        onChange={inputChange}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label for="email">Email and Username</Label>
+                      <Input
+                        type="text"
+                        name="email"
+                        id="email"
+                        placeholder="email"
+                        onChange={inputChange}
+                      />
+                      <FormText color="muted">
+                        Must be a valid email address format 'example@email.com'.
+                        The email address will be your username for login.
+                      </FormText>
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label for="password">Password *</Label>
+                      <Input
+                        type="password"
+                        name="password"
+                        id="password"
+                        placeholder="password"
+                        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,32}$"
+                        onChange={inputChange}
+                      />
+                      <FormText color="muted">
+                        Passwords must be at least 6 characters. Passwords must have at least one digit ('0'-'9'). Passwords must have at least one lowercase ('a'-'z'). Passwords must have at least one uppercase ('A'-'Z'). Passwords must have at least one special character ("*.!@#$%^&(){}[]:,.?/~_+-=|\")
+                      </FormText>
                     </FormGroup>
                   </Col>
                   <Col md={6}>
@@ -118,7 +250,7 @@ const RegisterPage = (props) => {
                         id="roleId"
                         placeholder="Select Role"
                         value={values.roleId}
-                        onChange={handleInputChange}
+                        onChange={inputChange}
                       >
                         <option value=""> </option>
                         {role.map(({ name, id }) => (
@@ -131,36 +263,6 @@ const RegisterPage = (props) => {
                   </Col>
                   <Col md={6}>
                     <FormGroup>
-                      <Label for="email">Email *</Label>
-                      <Input
-                        type="text"
-                        name="email"
-                        placeholder="email"
-                        value={values.email}
-                        onChange={handleInputChange}
-                      />
-                      <FormText color="muted">
-                        Must be a valid email address format 'example@email.com'
-                      </FormText>
-                    </FormGroup>
-                  </Col>
-                  <Col md={6}>
-                    <FormGroup>
-                      <Label for="password">Password *</Label>
-                      <Input
-                        type="password"
-                        name="password"
-                        placeholder="password"
-                        value={values.password}
-                        onChange={handleInputChange}
-                      />
-                      <FormText color="muted">
-                        Passwords must be at least 6 characters. Passwords must have at least one digit ('0'-'9'). Passwords must have at least one lowercase ('a'-'z'). Passwords must have at least one uppercase ('A'-'Z').
-                      </FormText>
-                    </FormGroup>
-                  </Col>
-                  <Col md={6}>
-                    <FormGroup>
                       <Label for="organizationId">Organization *</Label>
                       <Input
                         type="select"
@@ -168,7 +270,7 @@ const RegisterPage = (props) => {
                         id="organizationId"
                         placeholder="Select Organization"
                         value={values.organizationId}
-                        onChange={handleInputChange}
+                        onChange={inputChange}
                       >
                         <option value=""> </option>
                         {props.organizations.map(({ name, id }) => (

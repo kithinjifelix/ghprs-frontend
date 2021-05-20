@@ -16,6 +16,8 @@ import {
 import { register, getById } from "../actions/organizations";
 import useForm from "../functions/UseForm";
 import { toast } from "react-toastify";
+import axios from "axios";
+import { url } from "../api";
 
 let Title = '';
 
@@ -26,10 +28,14 @@ const addOrganization = {
     description: "",
 };
 
+let name="";
+let shortname="";
+let description="";
+let orgId="";
 
 const AddOrganizationPage = (props) => {
 
-    const { values, handleInputChange, resetForm } = useForm(
+    const { values, handleInputChange, resetForm, setValues } = useForm(
         addOrganization
     );
 
@@ -42,6 +48,49 @@ const AddOrganizationPage = (props) => {
             Title = 'Add Organization';
         }
     }, []);
+
+useEffect(()=>{
+    const { match: { params } } = props;
+    if(params.id){
+        async function fetchData(){
+            try{
+              axios.get(`${url}organizations/`+params.id)
+              .then((response) => {
+                console.log("started");
+                name=response.data.name;
+                shortname=response.data.name;
+                description=response.data.description;
+                orgId=params.id;
+                console.log(response.data);
+                console.log("end");
+              });
+            }catch(e){
+                console.log("error");
+                console.error(e);
+                console.log("error");
+            }
+        }
+        fetchData();
+    }
+
+},[]);
+
+useEffect(()=>{
+    if(document.getElementById("name").value === "" && name !== ""  ){
+
+        const profileValues = {
+          name: name,
+          description: description,
+          shortName: shortname,
+          id: orgId,
+        };
+        setValues(profileValues);
+        document.getElementById("name").value=name;
+        document.getElementById("shortname").value=shortname;
+        document.getElementById("description").value=description;
+        name="";
+    }
+})
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -73,6 +122,7 @@ const AddOrganizationPage = (props) => {
                                             <Input
                                                 type="text"
                                                 name="name"
+                                                id="name"
                                                 placeholder="Name"
                                                 value={values.name}
                                                 onChange={handleInputChange}
@@ -85,6 +135,7 @@ const AddOrganizationPage = (props) => {
                                             <Input
                                                 type="text"
                                                 name="shortName"
+                                                id="shortname"
                                                 placeholder="Short Name"
                                                 value={values.shortName}
                                                 onChange={handleInputChange}
@@ -95,8 +146,9 @@ const AddOrganizationPage = (props) => {
                                         <FormGroup>
                                             <Label for="description">Description</Label>
                                             <Input
-                                                type="text"
+                                                type="textarea"
                                                 name="description"
+                                                id="description"
                                                 placeholder="Description"
                                                 value={values.description}
                                                 onChange={handleInputChange}

@@ -50,7 +50,7 @@ if (authentication.currentRole === 'Administrator') {
 const navAdmin = [
   { to: '/organizations', name: 'Organizations', exact: false, Icon: MdLocationCity },
   { to: '/users', name: 'Users', exact: false, Icon: MdFace },
-  { to: '/links', name: 'Links', exact: false, Icon: MdLink },
+  { to: '/links', name: 'Manage Links', exact: false, Icon: MdLink },
 ];
 
 const navItems = [
@@ -89,9 +89,10 @@ class Sidebar extends React.Component {
       <aside className={bem.b()}>
         <div className={bem.e('content')}>
           <Navbar>
-            <SourceLink className="navbar-brand d-flex">
-              <span className="text-white">GHPRS</span>
-            </SourceLink>
+            <BSNavLink href="/" className="navbar-brand d-flex" >
+                <span className="text-white" style={{whiteSpace: 'pre-wrap', overflowWrap: 'break-word', fontSize: 14}}>Global Health Partner Reporting System (GHPRS)</span>
+            </BSNavLink>
+
           </Navbar>
           <Nav vertical>
             {navItems.map(({ to, name, exact, Icon }, index) => (

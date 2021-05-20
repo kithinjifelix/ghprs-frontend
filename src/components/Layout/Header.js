@@ -1,6 +1,7 @@
 import Avatar from 'components/Avatar';
 import { UserCard } from 'components/Card';
 import React from 'react';
+import jwt_decode from "jwt-decode";
 import { withRouter } from "react-router-dom";
 import {
   MdClearAll,
@@ -22,13 +23,14 @@ import bn from 'utils/bemnames';
 import { authentication } from "../../_services/authentication";
 
 const bem = bn.create('header');
-
+const currentUsername =  JSON.parse(localStorage.getItem('currentUser')) ? jwt_decode(JSON.parse(localStorage.getItem('currentUser')).token)['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'] : '';
 class Header extends React.Component {
   state = {
     isOpenNotificationPopover: false,
     isNotificationConfirmed: false,
     isOpenUserCardPopover: false,
   };
+
 
   toggleNotificationPopover = () => {
     this.setState({
@@ -57,7 +59,9 @@ class Header extends React.Component {
     authentication.logout();
     this.props.history.push('/login')
   }
-
+    componentDidMount(){
+    console.log("meew");
+    }
   render() {
     return (
       <Navbar light expand className={bem.b('bg-white')}>
@@ -66,8 +70,10 @@ class Header extends React.Component {
             <MdClearAll size={25} />
           </Button>
         </Nav>
+        <img src={'./USAID-Logo.png'}  style={{width:"150px"}}/>
 
         <Nav navbar className={bem.e('nav-right')}>
+        <img src={'./DataFI.png'}  style={{width:"150px",height:"40px",paddingTop:"10px",paddingRight:"20px"}}/>
           <NavItem>
             <NavLink id="profile">
               <Avatar
@@ -85,9 +91,11 @@ class Header extends React.Component {
             >
               <PopoverBody className="p-0 border-light">
                 <UserCard
-                  title="GHPRS"
                   className="border-light"
+
+                  style={{textAlign: "center"}}
                 >
+                    Welcome to GHPRS {currentUsername}
                   <ListGroup flush>
                     <ListGroupItem tag="button" action className="border-light"   onClick={this.logout} >
                       <MdExitToApp /> Signout
@@ -102,5 +110,6 @@ class Header extends React.Component {
     );
   }
 }
+
 
 export default withRouter(Header);
