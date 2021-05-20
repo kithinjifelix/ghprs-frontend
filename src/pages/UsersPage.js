@@ -10,7 +10,7 @@ import {
   NavLink as BSNavLink,
 } from 'reactstrap';
 import { NavLink, Link } from 'react-router-dom';
-import { MdAccountCircle } from "react-icons/md";
+import { MdAccountCircle, MdDelete } from "react-icons/md";
 import { fetchAll } from "../actions/users";
 import MaterialTable from 'material-table'
 import axios from "axios";
@@ -22,25 +22,25 @@ const UsersPage = (props) => {
   useEffect(() => {
     props.fetchUsers();
   }, []);
-const currentUsername =  JSON.parse(localStorage.getItem('currentUser')) ? jwt_decode(JSON.parse(localStorage.getItem('currentUser')).token)['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'] : '';
-function deleteUser(e){
-    if(e.currentTarget.name === currentUsername){
-        toast.error("Could not delete User "+e.currentTarget.name+". User "+e.currentTarget.name+" is the current logged in user.");
-    }else{
-            try{
-              axios.delete(`${url}users/`+e.currentTarget.id  )
-              .then((response) => {
-                toast.success("User "+e.currentTarget.name+" Successfully Deleted");
-                setTimeout(()=>{
-                    props.fetchUsers();
-                }, 2500);
-              });
-            }catch(e){
-                toast.error("Could not delete User");
-                console.error(e);
-            }
+  const currentUsername = JSON.parse(localStorage.getItem('currentUser')) ? jwt_decode(JSON.parse(localStorage.getItem('currentUser')).token)['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'] : '';
+  function deleteUser(e) {
+    if (e.currentTarget.name === currentUsername) {
+      toast.error("Could not delete User " + e.currentTarget.name + ". User " + e.currentTarget.name + " is the current logged in user.");
+    } else {
+      try {
+        axios.delete(`${url}users/` + e.currentTarget.id)
+          .then((response) => {
+            toast.success("User " + e.currentTarget.name + " Successfully Deleted");
+            setTimeout(() => {
+              props.fetchUsers();
+            }, 2500);
+          });
+      } catch (e) {
+        toast.error("Could not delete User");
+        console.error(e);
+      }
     }
-}
+  }
   return (
     <Page
       className="DashboardPage"
@@ -78,8 +78,8 @@ function deleteUser(e){
               email: row.email,
               organization: row.organization.shortName,
               actions: (
-              <>
-                  <BSNavLink
+                <>
+                <BSNavLink
                     id={`profile${row.id}`}
                     tag={NavLink}
                     to={`/profile/${row.id}`}
@@ -87,19 +87,18 @@ function deleteUser(e){
                     exact={true}
                   >
                     <MdAccountCircle size="15" />{" "}
-                    <span style={{ color: "#000" }}>View Profile  </span>
+                    <span style={{ color: "#000" }}>View Profile</span>
                   </BSNavLink>
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          className=" float-right mr-1"
-                          onClick={deleteUser}
-                          id={row.id}
-                          name={row.userName}
-                        >
-                          <span style={{ textTransform: "capitalize" }}>Delete User </span>
-                        </Button>
-              </>
+                  <Button
+                    color="link"
+                    onClick={deleteUser}
+                    id={row.id}
+                    name={row.userName}
+                  >
+                    <MdDelete size="15" />{" "}
+                    <span style={{ color: "#000" }}  >Delete User</span>
+                  </Button>
+                </>
 
               ),
             }))}
