@@ -10,7 +10,7 @@ import {
   NavLink as BSNavLink,
 } from 'reactstrap';
 import { NavLink, Link } from 'react-router-dom';
-import { MdAccountCircle } from "react-icons/md";
+import { MdAccountCircle, MdDelete } from "react-icons/md";
 import { fetchAll } from "../actions/organizations";
 import MaterialTable from 'material-table'
 import axios from "axios";
@@ -97,7 +97,7 @@ const OrganizationsPage = (props) => {
                     exact={true}
                   >
                     <MdAccountCircle size="15" />{" "}
-                    <span style={{ color: "#000" }}>View Organization</span>
+                    <span style={{ color: "#000" }}>View</span>
                   </BSNavLink>
                   <Button
                     color="link"
@@ -105,10 +105,9 @@ const OrganizationsPage = (props) => {
                     id={row.id}
                     name={row.name}
                   >
-                  <span style={{ color: "#000" }}  >Deactivate Organization</span>
+                    <MdDelete size="15" />{" "}
+                    <span style={{ color: "#000" }}  >Delete</span>
                   </Button>
-
-
                 </>
               ),
             }))}
