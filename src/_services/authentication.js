@@ -19,11 +19,11 @@ export const authentication = {
     currentUsername: currentUsername,
 };
 
-function login(username, password, remember) {
+function login(email, password, remember) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password, remember })
+        body: JSON.stringify({ email, password, remember })
     };
 
     return fetch(`${url}authentication/login`, requestOptions)

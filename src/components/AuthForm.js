@@ -14,7 +14,7 @@ class AuthForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
+      email: '',
       password: '',
       remember: false,
     };
@@ -36,7 +36,7 @@ class AuthForm extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    authentication.login(this.state.username, this.state.password, this.state.remember).then(
+    authentication.login(this.state.email, this.state.password, this.state.remember).then(
       (user) => {
         this.props.history.push("/");
       },
@@ -48,7 +48,7 @@ class AuthForm extends React.Component {
     
           this.notificationSystem.addNotification({
             title: "Error",
-            message: 'Invalid username or Password!',
+            message: 'Invalid email or Password!',
             level: 'error',
           });
         }, 500);
@@ -73,8 +73,8 @@ class AuthForm extends React.Component {
   render() {
     const {
       showLogo,
-      usernameLabel,
-      usernameInputProps,
+      emailLabel,
+      emailInputProps,
       passwordLabel,
       passwordInputProps,
       confirmPasswordLabel,
@@ -97,8 +97,8 @@ class AuthForm extends React.Component {
           </div>
         )}
         <FormGroup>
-          <Label for={usernameLabel}>{usernameLabel}</Label>
-          <Input {...usernameInputProps} onChange={(e) => this.setState({ username: e.target.value })} />
+          <Label for={emailLabel}>{emailLabel}</Label>
+          <Input {...emailInputProps} onChange={(e) => this.setState({ email: e.target.value })} />
         </FormGroup>
         <FormGroup>
           <Label for={passwordLabel}>{passwordLabel}</Label>
@@ -159,8 +159,8 @@ export const STATE_SIGNUP = 'SIGNUP';
 AuthForm.propTypes = {
   authState: PropTypes.oneOf([STATE_LOGIN, STATE_SIGNUP]).isRequired,
   showLogo: PropTypes.bool,
-  usernameLabel: PropTypes.string,
-  usernameInputProps: PropTypes.object,
+  emailLabel: PropTypes.string,
+  emailInputProps: PropTypes.object,
   passwordLabel: PropTypes.string,
   passwordInputProps: PropTypes.object,
   confirmPasswordLabel: PropTypes.string,
@@ -171,8 +171,8 @@ AuthForm.propTypes = {
 AuthForm.defaultProps = {
   authState: 'LOGIN',
   showLogo: true,
-  usernameLabel: 'Email',
-  usernameInputProps: {
+  emailLabel: 'Email',
+  emailInputProps: {
     type: 'email',
     placeholder: 'your@email.com',
   },

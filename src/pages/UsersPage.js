@@ -48,14 +48,12 @@ const UsersPage = (props) => {
           <MaterialTable
             columns={[
               { title: 'Name', field: 'name' },
-              { title: 'User Name', field: 'username' },
               { title: 'Email', field: 'email' },
               { title: 'Organization', field: 'organization' },
               { title: 'Actions', field: 'actions' }
             ]}
             data={props.users.map((row) => ({
               name: row.person.name,
-              username: row.userName,
               email: row.email,
               organization: row.organization.shortName,
               actions: (

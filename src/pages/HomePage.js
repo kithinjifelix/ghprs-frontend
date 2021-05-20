@@ -8,7 +8,7 @@ import {
   Col,
   Row,
 } from 'reactstrap';
-import Iframe from 'react-iframe'
+import IframeResizer from 'iframe-resizer-react'
 var jwt = require("jsonwebtoken");
 
 var METABASE_SITE_URL = "http://52.167.6.24:3000";
@@ -38,13 +38,10 @@ const HomePage = (props) => {
               Home
             </CardHeader>
             <CardBody>
-              <Iframe url={iframeUrl}
-                width="100%"
-                height="600px"
-                id="myId"
-                className="myClassname"
-                display="initial"
-                position="relative" />
+              <IframeResizer
+                src={iframeUrl}
+                style={{ width: '1px', minWidth: '100%' }}
+              />
             </CardBody>
           </Card>
         </Col>

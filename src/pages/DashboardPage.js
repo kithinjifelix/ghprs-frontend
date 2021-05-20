@@ -9,7 +9,7 @@ import {
     Col,
     Row,
 } from 'reactstrap';
-import Iframe from 'react-iframe'
+import IframeResizer from 'iframe-resizer-react'
 var jwt = require("jsonwebtoken");
 
 const DashboardPage = (props) => {
@@ -50,13 +50,12 @@ const DashboardPage = (props) => {
                             Dashboard
                         </CardHeader>
                         <CardBody>
-                            {(METABASE_SITE_URL) && (<Iframe url={iframeUrl}
-                                width="100%"
-                                height="600px"
-                                id="myId"
-                                className="myClassname"
-                                display="initial"
-                                position="relative" />)}
+                            {(METABASE_SITE_URL) && (
+                                <IframeResizer
+                                    src={iframeUrl}
+                                    style={{ width: '1px', minWidth: '100%' }}
+                                />
+                            )}
                             {!(METABASE_SITE_URL) && (
                                 <Card>
                                     <CardHeader>

@@ -23,7 +23,6 @@ import { toast } from "react-toastify";
 
 let Title = '';
 const userRegistration = {
-  userName: "",
   password: "",
   email: "",
   phoneNumber: "",
@@ -34,7 +33,7 @@ const userRegistration = {
 
 const RegisterPage = (props) => {
 
-  const { values, handleInputChange, resetForm, setValues } = useForm(
+  const { values, handleInputChange, resetForm } = useForm(
     userRegistration
   );
 
@@ -42,18 +41,7 @@ const RegisterPage = (props) => {
     const { match: { params } } = props;
     if (params.id) {
       const onSuccess = () => {
-        console.log(props);
         toast.success("User Loaded");
-        const profileValues = {
-          userName: "Test",
-          password: "Part",
-          email: "sdfjkdfkl",
-          phoneNumber: "",
-          roleId: 0,
-          organizationId: 1,
-          name: "",
-        };
-        setValues(profileValues);
       };
       const onError = () => {
         toast.error("Could not fetch user");
@@ -123,14 +111,22 @@ const RegisterPage = (props) => {
                   </Col>
                   <Col md={6}>
                     <FormGroup>
-                      <Label for="userName">User Name *</Label>
+                      <Label for="roleId">Role *</Label>
                       <Input
-                        type="text"
-                        name="userName"
-                        placeholder="User Name"
-                        value={values.userName}
+                        type="select"
+                        name="roleId"
+                        id="roleId"
+                        placeholder="Select Role"
+                        value={values.roleId}
                         onChange={handleInputChange}
-                      />
+                      >
+                        <option value=""> </option>
+                        {role.map(({ name, id }) => (
+                          <option key={id} value={id}>
+                            {name}
+                          </option>
+                        ))}
+                      </Input>
                     </FormGroup>
                   </Col>
                   <Col md={6}>
@@ -161,26 +157,6 @@ const RegisterPage = (props) => {
                       <FormText color="muted">
                         Passwords must be at least 6 characters. Passwords must have at least one digit ('0'-'9'). Passwords must have at least one lowercase ('a'-'z'). Passwords must have at least one uppercase ('A'-'Z').
                       </FormText>
-                    </FormGroup>
-                  </Col>
-                  <Col md={6}>
-                    <FormGroup>
-                      <Label for="roleId">Role *</Label>
-                      <Input
-                        type="select"
-                        name="roleId"
-                        id="roleId"
-                        placeholder="Select Role"
-                        value={values.roleId}
-                        onChange={handleInputChange}
-                      >
-                        <option value=""> </option>
-                        {role.map(({ name, id }) => (
-                          <option key={id} value={id}>
-                            {name}
-                          </option>
-                        ))}
-                      </Input>
                     </FormGroup>
                   </Col>
                   <Col md={6}>
