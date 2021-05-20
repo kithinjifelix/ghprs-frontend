@@ -29,24 +29,24 @@ const OrganizationsPage = (props) => {
     props.fetchOrganizations();
   }, []);
 
-function updateOrgunit(e){
+  function updateOrgunit(e) {
 
-            try{
-              axios.delete(`${url}organizations/`+e.currentTarget.id  )
-              .then((response) => {
-                toast.success("User "+e.currentTarget.name+" Successfully DeActivated.");
-                setTimeout(()=>{
-                    props.fetchOrganizations();
-                }, 2500);
-              });
-            }catch(e){
-                toast.error("Could not delete Organisation Unit.");
-                console.error(e);
-            }
+    try {
+      axios.delete(`${url}organizations/` + e.currentTarget.id)
+        .then((response) => {
+          toast.success("User " + e.currentTarget.name + " Successfully DeActivated.");
+          setTimeout(() => {
+            props.fetchOrganizations();
+          }, 2500);
+        });
+    } catch (e) {
+      toast.error("Could not delete Organisation Unit.");
+      console.error(e);
+    }
 
 
     console.log(e.currentTarget.id);
-}
+  }
 
 
   return (
@@ -88,21 +88,25 @@ function updateOrgunit(e){
               description: row.description,
               status: status.find(o => o.id === row.status).name,
               actions: (
-              <>
-                <BSNavLink
-                  id={`organization${row.id}`}
-                  tag={NavLink}
-                  to={`/organization/${row.id}`}
-                  activeClassName="active"
-                  exact={true}
-                >
-                  <MdAccountCircle size="15" />{" "}
-                  <span style={{ color: "#000" }}>View Organization</span>
-                </BSNavLink>
-
-                <a href="#" onClick={updateOrgunit} id={row.id} name={row.name}>
-                  <span style={{ color: "#000" }}  >Deactive Organization</span>
-                </a>
+                <>
+                  <BSNavLink
+                    id={`organization${row.id}`}
+                    tag={NavLink}
+                    to={`/organization/${row.id}`}
+                    activeClassName="active"
+                    exact={true}
+                  >
+                    <MdAccountCircle size="15" />{" "}
+                    <span style={{ color: "#000" }}>View Organization</span>
+                  </BSNavLink>
+                  <Button
+                    color="link"
+                    onClick={updateOrgunit}
+                    id={row.id}
+                    name={row.name}
+                  >
+                  <span style={{ color: "#000" }}  >Deactivate Organization</span>
+                  </Button>
 
 
                 </>

@@ -36,13 +36,12 @@ const userRegistration = {
 
 let name="";
 let email="";
-let password="";
 let organizationId="";
-let userid="";
+
 
 const RegisterPage = (props) => {
 
-  const { values, handleInputChange, resetForm, setValues } = useForm(
+  const { values, resetForm, setValues } = useForm(
     userRegistration
   );
 
@@ -90,18 +89,12 @@ useEffect(()=>{
             try{
               axios.get(`${url}users/`+params.id)
               .then((response) => {
-                console.log("started");
-                userid=params.id;
                 email = response.data.email;
                 name = response.data.person.name;
                 organizationId = response.data.organization.id;
-                console.log(response.data);
-                console.log("end");
               });
             }catch(e){
-                console.log("error");
                 console.error(e);
-                console.log("error");
             }
         }
         fetchData();
@@ -197,21 +190,27 @@ function inputChange(e) {
                   </Col>
                   <Col md={6}>
                     <FormGroup>
-                      <Label for="userName" hidden>User Name * </Label>
+                      <Label for="organizationId">Organization *</Label>
                       <Input
-                        type="hidden"
-                        name="userName"
-                        id="username"
-                        placeholder="Email"
-                        disabled={true}
-                        //pattern="[A-Za-z]{3}"
+                        type="select"
+                        name="organizationId"
+                        id="organizationId"
+                        placeholder="Select Organization"
+                        value={values.organizationId}
                         onChange={inputChange}
-                      />
+                      >
+                        <option value=""> </option>
+                        {props.organizations.map(({ name, id }) => (
+                          <option key={id} value={id}>
+                            {name}
+                          </option>
+                        ))}
+                      </Input>
                     </FormGroup>
                   </Col>
                   <Col md={6}>
                     <FormGroup>
-                      <Label for="email">Email and Username</Label>
+                      <Label for="email">Email</Label>
                       <Input
                         type="text"
                         name="email"
@@ -254,26 +253,6 @@ function inputChange(e) {
                       >
                         <option value=""> </option>
                         {role.map(({ name, id }) => (
-                          <option key={id} value={id}>
-                            {name}
-                          </option>
-                        ))}
-                      </Input>
-                    </FormGroup>
-                  </Col>
-                  <Col md={6}>
-                    <FormGroup>
-                      <Label for="organizationId">Organization *</Label>
-                      <Input
-                        type="select"
-                        name="organizationId"
-                        id="organizationId"
-                        placeholder="Select Organization"
-                        value={values.organizationId}
-                        onChange={inputChange}
-                      >
-                        <option value=""> </option>
-                        {props.organizations.map(({ name, id }) => (
                           <option key={id} value={id}>
                             {name}
                           </option>
