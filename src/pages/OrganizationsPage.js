@@ -13,6 +13,10 @@ import { NavLink, Link } from 'react-router-dom';
 import { MdAccountCircle } from "react-icons/md";
 import { fetchAll } from "../actions/organizations";
 import MaterialTable from 'material-table'
+import axios from "axios";
+import { url } from "../api";
+import { toast } from "react-toastify";
+
 
 const status = [
   { id: 0, name: 'Active' },
@@ -24,6 +28,26 @@ const OrganizationsPage = (props) => {
   useEffect(() => {
     props.fetchOrganizations();
   }, []);
+
+function updateOrgunit(e){
+
+            try{
+              axios.delete(`${url}organizations/`+e.currentTarget.id  )
+              .then((response) => {
+                toast.success("User "+e.currentTarget.name+" Successfully DeActivated.");
+                setTimeout(()=>{
+                    props.fetchOrganizations();
+                }, 2500);
+              });
+            }catch(e){
+                toast.error("Could not delete Organisation Unit.");
+                console.error(e);
+            }
+
+
+    console.log(e.currentTarget.id);
+}
+
 
   return (
     <Page
@@ -64,6 +88,7 @@ const OrganizationsPage = (props) => {
               description: row.description,
               status: status.find(o => o.id === row.status).name,
               actions: (
+              <>
                 <BSNavLink
                   id={`organization${row.id}`}
                   tag={NavLink}
@@ -74,6 +99,13 @@ const OrganizationsPage = (props) => {
                   <MdAccountCircle size="15" />{" "}
                   <span style={{ color: "#000" }}>View Organization</span>
                 </BSNavLink>
+
+                <a href="#" onClick={updateOrgunit} id={row.id} name={row.name}>
+                  <span style={{ color: "#000" }}  >Deactive Organization</span>
+                </a>
+
+
+                </>
               ),
             }))}
             title="Organizations"
