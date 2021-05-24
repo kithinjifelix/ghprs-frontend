@@ -8,20 +8,8 @@ import {
   Col,
   Row,
 } from 'reactstrap';
-import IframeResizer from 'iframe-resizer-react'
-var jwt = require("jsonwebtoken");
-
-var METABASE_SITE_URL = "http://52.167.6.24:3000";
-var METABASE_SECRET_KEY = "80334b54cc4c696b67e0d20c2bc461b9d867781b4234af3819030209cbde6751";
-
-var payload = {
-  resource: { dashboard: 12 },
-  params: {},
-  exp: Math.round(Date.now() / 1000) + (10 * 60) // 10 minute expiration
-};
-var token = jwt.sign(payload, METABASE_SECRET_KEY);
-
-var iframeUrl = METABASE_SITE_URL + "/embed/dashboard/" + token + "#bordered=true&titled=true";
+import { MdShowChart } from 'react-icons/md';
+import { IconWidget } from 'components/Widget';
 
 const HomePage = (props) => {
 
@@ -38,10 +26,21 @@ const HomePage = (props) => {
               Home
             </CardHeader>
             <CardBody>
-              <IframeResizer
-                src={iframeUrl}
-                style={{ width: '1px', minWidth: '100%' }}
-              />
+              <Row>
+                {props.dashboards.map(({ url, name, number, key }, index) => (
+                  <Col key={index} lg={4} md={6} sm={6} xs={12} className="mb-3">
+                    <a href={`/dashboard?url=${url}&key=${key}&number=${number}`}>
+                      <IconWidget
+                        bgColor='light'
+                        icon={MdShowChart}
+                        title={name}
+                        inverse={false}
+                      />
+                    </a>
+                  </Col>
+                )
+                )}
+              </Row>
             </CardBody>
           </Card>
         </Col>
@@ -52,7 +51,7 @@ const HomePage = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-
+    dashboards: state.links.dashboards,
   };
 };
 

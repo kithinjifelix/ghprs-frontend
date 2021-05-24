@@ -17,6 +17,8 @@ const IconWidget = ({
   const classes = classNames('cr-widget', className, {
     [`bg-${bgColor}`]: bgColor,
   });
+
+  console.log(classes);
   return (
     <Card inverse className={classes} {...restProps}>
       <CardBody className="cr-widget__icon">

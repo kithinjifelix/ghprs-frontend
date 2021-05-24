@@ -25,7 +25,6 @@ import axios from "axios";
 
 let Title = '';
 const userRegistration = {
-  userName: "",
   password: "",
   email: "",
   phoneNumber: "",
@@ -52,7 +51,6 @@ const RegisterPage = (props) => {
       const onSuccess = () => {
         toast.success("User Loaded");
         const profileValues = {
-          userName: "",
           password: "",
           email: "",
           phoneNumber: "",
@@ -106,7 +104,6 @@ useEffect(()=>{
     if(document.getElementById("email").value === "" && email !== ""  ){
 
         const profileValues = {
-          userName: email,
           password: "",
           email: email,
           roleId: 0,
@@ -116,9 +113,7 @@ useEffect(()=>{
         setValues(profileValues);
         document.getElementById("name").value=name;
         document.getElementById("email").value=email;
-        document.getElementById("username").value=email;
         document.getElementById("organizationId").value=organizationId;
-        document.getElementById('username').setAttribute("disabled","disabled");
         document.getElementById('email').setAttribute("disabled","disabled");
         email="";
     }
@@ -141,7 +136,6 @@ useEffect(()=>{
 
 function inputChange(e) {
         const profileValues = {
-          userName: document.getElementById("email").value,
           password: document.getElementById("password").value,
           email: document.getElementById("email").value,
           roleId: document.getElementById("roleId").value,
@@ -220,7 +214,6 @@ function inputChange(e) {
                       />
                       <FormText color="muted">
                         Must be a valid email address format 'example@email.com'.
-                        The email address will be your username for login.
                       </FormText>
                     </FormGroup>
                   </Col>

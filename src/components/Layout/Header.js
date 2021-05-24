@@ -60,7 +60,6 @@ class Header extends React.Component {
     this.props.history.push('/login')
   }
     componentDidMount(){
-    console.log("meew");
     }
   render() {
     return (

@@ -89,7 +89,7 @@ class Sidebar extends React.Component {
         <div className={bem.e('content')}>
           <Navbar>
             <BSNavLink href="/" className="navbar-brand d-flex" >
-                <span className="text-white" style={{whiteSpace: 'pre-wrap', overflowWrap: 'break-word', fontSize: 14}}>Global Health Partner Reporting System (GHPRS)</span>
+              <img src={'./GHPRS-Logo.png'} alt="GHPRS"/>
             </BSNavLink>
 
           </Navbar>

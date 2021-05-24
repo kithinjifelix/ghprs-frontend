@@ -1,4 +1,3 @@
-import logo200Image from 'assets/img/logo/logo_200.png';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { withRouter } from "react-router-dom";
@@ -88,12 +87,12 @@ class AuthForm extends React.Component {
         {showLogo && (
           <div className="text-center pb-4">
             <img
-              src={logo200Image}
+              src={'./GHPRS-Logo.png'}
               className="rounded"
-              style={{ width: 60, height: 60, cursor: 'pointer' }}
               alt="logo"
               onClick={onLogoClick}
             />
+            <span className="text-black" style={{ fontSize: 12}}>Global Health Partner Reporting System</span>
           </div>
         )}
         <FormGroup>
