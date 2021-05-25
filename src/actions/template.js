@@ -177,8 +177,6 @@ export const exists = (template) => (dispatch) => {
         payload: "Something went wrong",
       });
       console.log(error);
-      toast.error("Something went wrong");
-
     });
 };
 

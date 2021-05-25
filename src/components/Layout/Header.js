@@ -94,7 +94,7 @@ class Header extends React.Component {
 
                   style={{textAlign: "center"}}
                 >
-                    Welcome to GHPRS {currentUsername}
+                   {currentUsername}
                   <ListGroup flush>
                     <ListGroupItem tag="button" action className="border-light"   onClick={this.logout} >
                       <MdExitToApp /> Signout
