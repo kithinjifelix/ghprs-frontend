@@ -78,7 +78,7 @@ const AddLinkPage = (props) => {
     };
 
     return (
-        <Page title={title} breadcrumbs={[{ name: title, active: true }]}>
+        <Page title={title}>
             <Form onSubmit={handleSubmit}>
                 <Row>
                     <Col xl={12} lg={12} md={12}>

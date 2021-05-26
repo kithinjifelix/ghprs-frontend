@@ -81,7 +81,6 @@ const ReviewUploadsPage = (props) => {
     <Page
       className="DashboardPage"
       title="Review"
-      breadcrumbs={[{ name: 'Review', active: true }]}
     >
       <Row>
         <Col xl={12} lg={12} md={12}>

@@ -39,7 +39,6 @@ const ReviewDetailsPage = (props) => {
         <Page
             className="DashboardPage"
             title="Upload Details"
-            breadcrumbs={[{ name: 'Review / Upload Details', active: true }]}
         >
             {!loading && (<Row>
                 <Col lg="12" md="12" sm="12" xs="12">

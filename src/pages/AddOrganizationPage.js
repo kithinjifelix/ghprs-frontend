@@ -108,7 +108,7 @@ useEffect(()=>{
     };
 
     return (
-        <Page title={Title} breadcrumbs={[{ name: 'Add Organization', active: true }]}>
+        <Page title={Title}>
             <Form onSubmit={handleSubmit}>
                 <Row>
                     <Col xl={12} lg={12} md={12}>

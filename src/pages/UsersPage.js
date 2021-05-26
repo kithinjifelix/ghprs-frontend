@@ -45,7 +45,6 @@ const UsersPage = (props) => {
     <Page
       className="DashboardPage"
       title="Users"
-      breadcrumbs={[{ name: 'Users', active: true }]}
     >
       <Row>
         <Col xl={12} lg={12} md={12}>

@@ -35,7 +35,6 @@ if (authentication.currentRole === 'Administrator') {
   navTemplates = [
     { to: '/initialize-Template', name: 'Initialize', exact: true, Icon: MdExtension },
     { to: '/download-Template', name: 'Downloads', exact: true, Icon: MdFileDownload },
-    //{ to: '/upload-Template', name: 'Submit Data', exact: true, Icon: MdFileUpload },
     { to: '/review', name: 'Review Data Submissions', exact: true, Icon: MdDone },
   ];
 } else if (authentication.currentRole === 'User') {
@@ -89,7 +88,7 @@ class Sidebar extends React.Component {
         <div className={bem.e('content')}>
           <Navbar>
             <BSNavLink href="/" className="navbar-brand d-flex" >
-              <img src={'./GHPRS-Logo.png'} alt="GHPRS"/>
+              <img src={'./GHPRS-Logo.png'} alt="GHPRS" />
             </BSNavLink>
 
           </Navbar>
@@ -110,11 +109,11 @@ class Sidebar extends React.Component {
               </NavItem>
             ))}
 
-            <NavItem
+            {(authentication.currentRole === 'Administrator') && (<NavItem
               className={bem.e('nav-item')}
               onClick={this.handleClick('Dashboards')}
             >
-              <BSNavLink className={bem.e('nav-item-collapse')}>
+              <BSNavLink className={`${bem.e('nav-item-collapse')} text-uppercase`}>
                 <div className="d-flex">
                   <MdWeb className={bem.e('nav-item-icon')} />
                   <span className=" align-self-start">Dashboards</span>
@@ -131,13 +130,12 @@ class Sidebar extends React.Component {
                   }}
                 />
               </BSNavLink>
-            </NavItem>
+            </NavItem>)}
             <Collapse isOpen={this.state.isOpenDashboards}>
               {this.props.dashboards.map(({ url, name, number, key }, index) => (
                 <NavItem key={index} className={bem.e('nav-item')}>
                   <BSNavLink
                     id={`navItem-${name}-${index}`}
-                    className="text-uppercase"
                     tag={NavLink}
                     to={`/dashboard?url=${url}&key=${key}&number=${number}`}
                     activeClassName="active"
@@ -154,7 +152,7 @@ class Sidebar extends React.Component {
               className={bem.e('nav-item')}
               onClick={this.handleClick('Templates')}
             >
-              <BSNavLink className={bem.e('nav-item-collapse')}>
+              <BSNavLink className={`${bem.e('nav-item-collapse')} text-uppercase`}>
                 <div className="d-flex">
                   <MdReceipt className={bem.e('nav-item-icon')} />
                   <span className=" align-self-start">Templates</span>
@@ -177,7 +175,6 @@ class Sidebar extends React.Component {
                 <NavItem key={index} className={bem.e('nav-item')}>
                   <BSNavLink
                     id={`navItem-${name}-${index}`}
-                    className="text-uppercase"
                     tag={NavLink}
                     to={to}
                     activeClassName="active"
@@ -194,7 +191,7 @@ class Sidebar extends React.Component {
               className={bem.e('nav-item')}
               onClick={this.handleClick('Admin')}
             >
-              <BSNavLink className={bem.e('nav-item-collapse')}>
+              <BSNavLink className={`${bem.e('nav-item-collapse')} text-uppercase`}>
                 <div className="d-flex">
                   <MdSettings className={bem.e('nav-item-icon')} />
                   <span className=" align-self-start">Admin</span>
@@ -217,7 +214,6 @@ class Sidebar extends React.Component {
                 <NavItem key={index} className={bem.e('nav-item')}>
                   <BSNavLink
                     id={`navItem-${name}-${index}`}
-                    className="text-uppercase"
                     tag={NavLink}
                     to={to}
                     activeClassName="active"
@@ -234,7 +230,7 @@ class Sidebar extends React.Component {
               className={bem.e('nav-item')}
               onClick={this.handleClick('Links')}
             >
-              <BSNavLink className={bem.e('nav-item-collapse')}>
+              <BSNavLink className={`${bem.e('nav-item-collapse')} text-uppercase`}>
                 <div className="d-flex">
                   <MdLink className={bem.e('nav-item-icon')} />
                   <span className=" align-self-start">Links</span>

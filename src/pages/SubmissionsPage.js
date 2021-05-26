@@ -28,7 +28,6 @@ const SubmissionsPage = (props) => {
     <Page
       className="DashboardPage"
       title="Submissions"
-      breadcrumbs={[{ name: 'Submissions', active: true }]}
     >
       <Row>
         <Col lg="12" md="12" sm="12" xs="12">

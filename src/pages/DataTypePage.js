@@ -97,7 +97,6 @@ const DataTypePage = (props) => {
     <Page
       className="DashboardPage"
       title="Template Configuration"
-      breadcrumbs={[{ name: 'Dashboard', active: true }]}
     >
       {props.workSheets.length > 0 && (<Form onSubmit={handleSubmit}>
         <Row>
