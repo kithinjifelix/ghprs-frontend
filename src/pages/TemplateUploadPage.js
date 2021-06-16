@@ -22,6 +22,7 @@ import useForm from '../functions/UseForm';
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-daterangepicker/daterangepicker.css';
+import PageSpinner from '../components/PageSpinner'
 
 const uploadTemplate = {
     file: '',
@@ -36,7 +37,7 @@ const TemplateUploadPage = (props) => {
     const [file, setFile] = useState();
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
-
+    const [loading, SetLoading] = useState(false);
     const saveFile = e => {
         setFile(e.target.files[0]);
     };
@@ -55,6 +56,7 @@ const TemplateUploadPage = (props) => {
     );
 
     const handleSubmit = event => {
+        SetLoading(true);
         event.preventDefault();
         values.file = file;
 
@@ -64,18 +66,22 @@ const TemplateUploadPage = (props) => {
         const onSuccess = () => {
             toast.success("Template uploaded successfully");
             resetForm();
-            props.history.push("/uploaded");
+            SetLoading(false);
+            props.history.push("/submissions");
         };
         const onError = () => {
             toast.error("Something went wrong");
+            SetLoading(false);
         };
         props.upload(values, onSuccess, onError);
     };
 
     return (
+        <>
         <Page
             className="DashboardPage"
             title="Upload Template"
+            hidden={loading}
         >
             <Row>
                 <Col lg="12" md="12" sm="12" xs="12">
@@ -139,6 +145,8 @@ const TemplateUploadPage = (props) => {
                 </Col>
             </Row>
         </Page>
+        {(loading) &&<PageSpinner />}
+        </>
     );
 }
 

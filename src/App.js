@@ -15,7 +15,6 @@ const DashboardPage = React.lazy(() => import('pages/DashboardPage'));
 const HomePage = React.lazy(() => import('pages/HomePage'));
 const TemplateUploadPage = React.lazy(() => import('pages/TemplateUploadPage'));
 const TemplateInitializationPage = React.lazy(() => import('pages/TemplateInitializationPage'));
-const UploadSuccessPage = React.lazy(() => import('pages/UploadSuccessPage'));
 const DataTypePage = React.lazy(() => import('pages/DataTypePage'));
 const TemplateDownloadPage = React.lazy(() => import('pages/TemplateDownloadPage'));
 const UsersPage = React.lazy(() => import('pages/UsersPage'));
@@ -62,7 +61,6 @@ class App extends React.Component {
                   <PrivateRoute exact path="/dashboard" component={DashboardPage} />
                   <PrivateRoute exact path="/upload-Template" component={TemplateUploadPage} />
                   <PrivateRoute exact path="/initialize-Template" roles={['Administrator']} component={TemplateInitializationPage} />
-                  <PrivateRoute exact path="/uploaded" component={UploadSuccessPage} />
                   <PrivateRoute exact path="/configure" roles={['Administrator']} component={DataTypePage} />
                   <PrivateRoute exact path="/configure/:id" roles={['Administrator']} component={DataTypePage} />
                   <PrivateRoute exact path="/download-Template" component={TemplateDownloadPage} />

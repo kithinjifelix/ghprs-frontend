@@ -18,13 +18,13 @@ import * as ACTION_TYPES from "../actions/types";
 import { lookup } from "../actions/lookups";
 import { updateDataType, updateDataTypeInput, createWorkSheetTables, configure } from "../actions/template";
 import { toast } from "react-toastify";
+import PageSpinner from '../components/PageSpinner';
 
 const DataTypePage = (props) => {
-
-  const [loading] = useState(false);
   const [sheet, setSheet] = useState(0);
   const [columns, setColumns] = useState([]);
   const [dataIndex, setDataIndex] = useState(0);
+  const [loading, SetLoading] = useState(false);
 
   useEffect(() => {
     const { match: { params } } = props;
@@ -38,7 +38,6 @@ const DataTypePage = (props) => {
   }, []);
 
   const getWorkSheetColumns = (index) => {
-    console.log('done')
     setDataIndex(index);
     const c = props.workSheets[index].columns;
     setColumns(c);
@@ -66,15 +65,18 @@ const DataTypePage = (props) => {
       column.type = value;
       props.updateInput(sheet, column);
     }
-    
+
   };
 
   const handleSubmit = event => {
     event.preventDefault();
+    SetLoading(true);
     const onSuccess = () => {
+      SetLoading(false);
       toast.success("Updated Successfully");
     };
     const onError = () => {
+      SetLoading(false);
       toast.error("Something went wrong");
     };
 
@@ -82,105 +84,111 @@ const DataTypePage = (props) => {
   };
 
   const handleFinish = event => {
+    SetLoading(true);
     const onSuccess = () => {
       toast.success("Tables Created Successfully");
-      props.history.push("/");
+      SetLoading(false);
+      props.history.push("/download-Template");
     };
     const onError = () => {
+      SetLoading(false);
       toast.error("Something went wrong");
     };
-
     props.finish(props.workSheets, onSuccess, onError);
   };
 
   return (
-    <Page
-      className="DashboardPage"
-      title="Template Configuration"
-    >
-      {props.workSheets.length > 0 && (<Form onSubmit={handleSubmit}>
-        <Row>
-          <Col lg="12" md="12" sm="12" xs="12">
-            <Card>
-              <CardHeader>Work Sheets</CardHeader>
-              <CardBody>
-                <ButtonGroup
-                  style={{ margin: "10px" }}
-                >
-                  {props.workSheets.map(({ name }, index) => (
-                    <Button
-                      key={`Button-Worksheet-${index}`}
-                      color="primary"
-                      onClick={() => fetchColumns(index)}
-                      active={sheet === index}
-                    >
-                      {name}
-                    </Button>
-                  ))}
-                </ButtonGroup>
-                <Button
-                  style={{ margin: "10px" }}
-                  onClick={() => handleFinish()}
-                >
-                  Finish
-                </Button>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-        <Row>
-          <Col lg="12" md="12" sm="12" xs="12">
-            <Card>
-              <CardHeader>Column Data Types</CardHeader>
-              <CardBody>
-                {!loading && (
-                  <FormGroup>
-                    {props.workSheets[dataIndex].columns.map(({ type, name }, index) => (
-                      <Row key={`Row-${index}`} >
-                        <Col md={4}>
-                          <Label for={`ghprs-${index}`}>{name}</Label>
-                        </Col>
-                        <Col md={4}>
-                          {props.dataTypes && (<Input
-                            type="select"
-                            name={index}
-                            id={index}
-                            placeholder="Select Type"
-                            onChange={handleInputChange}
-                            defaultValue={type}
-                          >
-                            <option value=""> </option>
-                            {props.dataTypes.map(({ name, value }) => (
-                              <option key={value} value={value}>
-                                {name}
-                              </option>
-                            ))}
-                          </Input>)}
-                        </Col>
-                        <Col md={4}></Col>
-                      </Row>
+    <>
+      <Page
+        className="DashboardPage"
+        title="Template Configuration"
+        hidden={loading}
+      >
+        {props.workSheets.length > 0 && (<Form onSubmit={handleSubmit}>
+          <Row>
+            <Col lg="12" md="12" sm="12" xs="12">
+              <Card>
+                <CardHeader>Work Sheets</CardHeader>
+                <CardBody>
+                  <ButtonGroup
+                    style={{ margin: "10px" }}
+                  >
+                    {props.workSheets.map(({ name }, index) => (
+                      <Button
+                        key={`Button-Worksheet-${index}`}
+                        color="primary"
+                        onClick={() => fetchColumns(index)}
+                        active={sheet === index}
+                      >
+                        {name}
+                      </Button>
                     ))}
-                  </FormGroup>
-                )}
-                <Row>
-                  <Col xl={12} lg={12} md={12}>
-                    <Row form>
-                      <Col md={12}>
-                        <FormGroup check row>
-                          <Col lg={{ size: 30, offset: 2 }}>
-                            <Button>Update</Button>
+                  </ButtonGroup>
+                  <Button
+                    style={{ margin: "10px" }}
+                    onClick={() => handleFinish()}
+                  >
+                    Finish
+                </Button>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+          <Row>
+            <Col lg="12" md="12" sm="12" xs="12">
+              <Card>
+                <CardHeader>Column Data Types</CardHeader>
+                <CardBody>
+                  {!loading && (
+                    <FormGroup>
+                      {props.workSheets[dataIndex].columns.map(({ type, name }, index) => (
+                        <Row key={`Row-${index}`} >
+                          <Col md={4}>
+                            <Label for={`ghprs-${index}`}>{name}</Label>
                           </Col>
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                  </Col>
-                </Row>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-      </Form>)}
-    </Page>
+                          <Col md={4}>
+                            {props.dataTypes && (<Input
+                              type="select"
+                              name={index}
+                              id={index}
+                              placeholder="Select Type"
+                              onChange={handleInputChange}
+                              defaultValue={type}
+                            >
+                              <option value=""> </option>
+                              {props.dataTypes.map(({ name, value }) => (
+                                <option key={value} value={value}>
+                                  {name}
+                                </option>
+                              ))}
+                            </Input>)}
+                          </Col>
+                          <Col md={4}></Col>
+                        </Row>
+                      ))}
+                    </FormGroup>
+                  )}
+                  <Row>
+                    <Col xl={12} lg={12} md={12}>
+                      <Row form>
+                        <Col md={12}>
+                          <FormGroup check row>
+                            <Col lg={{ size: 30, offset: 2 }}>
+                              <Button>Update</Button>
+                            </Col>
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                    </Col>
+                  </Row>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+        </Form>)}
+      </Page>
+      {(loading) && <PageSpinner />}
+    </>
   );
 }
 

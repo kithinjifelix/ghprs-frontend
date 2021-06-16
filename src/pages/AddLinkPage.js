@@ -17,6 +17,7 @@ import {
 import { add, getById } from "../actions/links";
 import useForm from "../functions/UseForm";
 import { toast } from "react-toastify";
+import PageSpinner from '../components/PageSpinner';
 
 const AddLinkPage = (props) => {
     const initialValues = {
@@ -29,6 +30,7 @@ const AddLinkPage = (props) => {
 
     const [title, setTitle] = useState('');
     const [edit, setEdit] = useState(false);
+    const [loading, SetLoading] = useState(false);
 
     const { values, handleInputChange, resetForm } = useForm(
         initialValues
@@ -39,7 +41,7 @@ const AddLinkPage = (props) => {
         if (params.id) {
             const onSuccess = () => {
                 console.log(props)
-                
+
             };
             const onError = () => {
                 toast.error("Something went wrong");
@@ -62,15 +64,18 @@ const AddLinkPage = (props) => {
 
     const handleSubmit = event => {
         event.preventDefault();
+        SetLoading(true);
         if (edit) {
             console.log(values);
         } else {
             const onSuccess = () => {
+                SetLoading(false);
                 toast.success("Link Added Successfully");
                 resetForm();
                 props.history.push("/links");
             };
             const onError = () => {
+                SetLoading(false);
                 toast.error("Something went wrong");
             };
             props.add(values, onSuccess, onError);
@@ -78,126 +83,132 @@ const AddLinkPage = (props) => {
     };
 
     return (
-        <Page title={title}>
-            <Form onSubmit={handleSubmit}>
-                <Row>
-                    <Col xl={12} lg={12} md={12}>
-                        <Card>
-                            <CardHeader>Link Details</CardHeader>
-                            <CardBody>
-                                <Row form>
-                                    <Col md={6}>
-                                        <FormGroup>
-                                            <Label for="name">Name *</Label>
-                                            <Input
-                                                type="text"
-                                                name="name"
-                                                placeholder="Name"
-                                                value={values.name}
-                                                onChange={handleInputChange}
-                                            />
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md={6}>
-                                        <FormGroup>
-                                            <Label for="url">URL *</Label>
-                                            <Input
-                                                type="text"
-                                                name="url"
-                                                placeholder="URL"
-                                                value={values.url}
-                                                onChange={handleInputChange}
-                                            />
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md={6}>
-                                        <FormGroup>
-                                            <Label for="linkTypeId">Link Type *</Label>
-                                            <Input
-                                                type="select"
-                                                name="linkType"
-                                                id="linkType"
-                                                placeholder="Select Link Type"
-                                                value={values.linkType}
-                                                onChange={handleInputChange}
-                                            >
-                                                <option value=""> </option>
-                                                {linkType.map(({ name, id }) => (
-                                                    <option key={id} value={id}>
-                                                        {name}
-                                                    </option>
-                                                ))}
-                                            </Input>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md={6}>
-                                        <FormGroup>
-                                            <Label for="number">Number</Label>
-                                            <Input
-                                                type="text"
-                                                name="number"
-                                                placeholder="Number"
-                                                value={values.number}
-                                                onChange={handleInputChange}
-                                            />
-                                            <FormText color="muted">
-                                                Metabase Dashboard Number
+        <>
+            <Page
+                title={title}
+                hidden={loading}
+            >
+                <Form onSubmit={handleSubmit}>
+                    <Row>
+                        <Col xl={12} lg={12} md={12}>
+                            <Card>
+                                <CardHeader>Link Details</CardHeader>
+                                <CardBody>
+                                    <Row form>
+                                        <Col md={6}>
+                                            <FormGroup>
+                                                <Label for="name">Name *</Label>
+                                                <Input
+                                                    type="text"
+                                                    name="name"
+                                                    placeholder="Name"
+                                                    value={values.name}
+                                                    onChange={handleInputChange}
+                                                />
+                                            </FormGroup>
+                                        </Col>
+                                        <Col md={6}>
+                                            <FormGroup>
+                                                <Label for="url">URL *</Label>
+                                                <Input
+                                                    type="text"
+                                                    name="url"
+                                                    placeholder="URL"
+                                                    value={values.url}
+                                                    onChange={handleInputChange}
+                                                />
+                                            </FormGroup>
+                                        </Col>
+                                        <Col md={6}>
+                                            <FormGroup>
+                                                <Label for="linkTypeId">Link Type *</Label>
+                                                <Input
+                                                    type="select"
+                                                    name="linkType"
+                                                    id="linkType"
+                                                    placeholder="Select Link Type"
+                                                    value={values.linkType}
+                                                    onChange={handleInputChange}
+                                                >
+                                                    <option value=""> </option>
+                                                    {linkType.map(({ name, id }) => (
+                                                        <option key={id} value={id}>
+                                                            {name}
+                                                        </option>
+                                                    ))}
+                                                </Input>
+                                            </FormGroup>
+                                        </Col>
+                                        <Col md={6}>
+                                            <FormGroup>
+                                                <Label for="number">Number</Label>
+                                                <Input
+                                                    type="text"
+                                                    name="number"
+                                                    placeholder="Number"
+                                                    value={values.number}
+                                                    onChange={handleInputChange}
+                                                />
+                                                <FormText color="muted">
+                                                    Metabase Dashboard Number
                                             </FormText>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md={6}>
-                                        <FormGroup>
-                                            <Label for="key">Key</Label>
-                                            <Input
-                                                type="text"
-                                                name="key"
-                                                placeholder="Key"
-                                                value={values.phoneNumber}
-                                                onChange={handleInputChange}
-                                            />
-                                            <FormText color="muted">
-                                                Add key where needed for token generation
+                                            </FormGroup>
+                                        </Col>
+                                        <Col md={6}>
+                                            <FormGroup>
+                                                <Label for="key">Key</Label>
+                                                <Input
+                                                    type="text"
+                                                    name="key"
+                                                    placeholder="Key"
+                                                    value={values.phoneNumber}
+                                                    onChange={handleInputChange}
+                                                />
+                                                <FormText color="muted">
+                                                    Add key where needed for token generation
                                             </FormText>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md={6}>
-                                    </Col>
-                                    <Col md={6}>
-                                        <FormGroup>
-                                            <Label></Label>
-                                            <FormText color="muted">
-                                                * Required Fields
+                                            </FormGroup>
+                                        </Col>
+                                        <Col md={6}>
+                                        </Col>
+                                        <Col md={6}>
+                                            <FormGroup>
+                                                <Label></Label>
+                                                <FormText color="muted">
+                                                    * Required Fields
                                             </FormText>
-                                        </FormGroup>
-                                    </Col>
-                                </Row>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                </Row>
+                                            </FormGroup>
+                                        </Col>
+                                    </Row>
+                                </CardBody>
+                            </Card>
+                        </Col>
+                    </Row>
 
-                <Row>
-                    <Col xl={12} lg={12} md={12}>
-                        <Row form>
-                            <Col md={6}>
-                                <FormGroup check row>
-                                    <Col lg={{ size: 30, offset: 2 }}>
-                                        <Button onClick={resetForm}>Cancel</Button>
-                                    </Col>
-                                </FormGroup>
-                            </Col>
-                            <Col md={6}>
-                                <FormGroup check row>
-                                    <Col lg={{ size: 30, offset: 2 }}>
-                                        <Button>Submit</Button>
-                                    </Col>
-                                </FormGroup>
-                            </Col>
-                        </Row>
-                    </Col>
-                </Row>
-            </Form>
-        </Page>
+                    <Row>
+                        <Col xl={12} lg={12} md={12}>
+                            <Row form>
+                                <Col md={6}>
+                                    <FormGroup check row>
+                                        <Col lg={{ size: 30, offset: 2 }}>
+                                            <Button onClick={resetForm}>Cancel</Button>
+                                        </Col>
+                                    </FormGroup>
+                                </Col>
+                                <Col md={6}>
+                                    <FormGroup check row>
+                                        <Col lg={{ size: 30, offset: 2 }}>
+                                            <Button>Submit</Button>
+                                        </Col>
+                                    </FormGroup>
+                                </Col>
+                            </Row>
+                        </Col>
+                    </Row>
+                </Form>
+            </Page>
+            {(loading) && <PageSpinner />}
+        </>
     );
 };
 

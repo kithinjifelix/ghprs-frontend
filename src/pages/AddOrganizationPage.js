@@ -1,6 +1,6 @@
 import Page from 'components/Page';
 import { connect } from "react-redux";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Button,
     Card,
@@ -18,6 +18,7 @@ import useForm from "../functions/UseForm";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { url } from "../api";
+import PageSpinner from '../components/PageSpinner';
 
 let Title = '';
 
@@ -34,7 +35,7 @@ let description="";
 let orgId="";
 
 const AddOrganizationPage = (props) => {
-
+    const [loading, SetLoading] = useState(false);
     const { values, handleInputChange, resetForm, setValues } = useForm(
         addOrganization
     );
@@ -49,66 +50,69 @@ const AddOrganizationPage = (props) => {
         }
     }, []);
 
-useEffect(()=>{
-    const { match: { params } } = props;
-    if(params.id){
-        async function fetchData(){
-            try{
-              axios.get(`${url}organizations/`+params.id)
-              .then((response) => {
-                console.log("started");
-                name=response.data.name;
-                shortname=response.data.name;
-                description=response.data.description;
-                orgId=params.id;
-                console.log(response.data);
-                console.log("end");
-              });
-            }catch(e){
-                console.log("error");
-                console.error(e);
-                console.log("error");
+    useEffect(()=>{
+        const { match: { params } } = props;
+        if(params.id){
+            async function fetchData(){
+                try{
+                axios.get(`${url}organizations/`+params.id)
+                .then((response) => {
+                    console.log("started");
+                    name=response.data.name;
+                    shortname=response.data.name;
+                    description=response.data.description;
+                    orgId=params.id;
+                    console.log(response.data);
+                    console.log("end");
+                });
+                }catch(e){
+                    console.log("error");
+                    console.error(e);
+                    console.log("error");
+                }
             }
+            fetchData();
         }
-        fetchData();
-    }
 
-},[]);
+    },[]);
 
-useEffect(()=>{
-    if(document.getElementById("name").value === "" && name !== ""  ){
+    useEffect(()=>{
+        if(document.getElementById("name").value === "" && name !== ""  ){
 
-        const profileValues = {
-          name: name,
-          description: description,
-          shortName: shortname,
-          id: orgId,
-        };
-        setValues(profileValues);
-        document.getElementById("name").value=name;
-        document.getElementById("shortname").value=shortname;
-        document.getElementById("description").value=description;
-        name="";
-    }
-})
+            const profileValues = {
+            name: name,
+            description: description,
+            shortName: shortname,
+            id: orgId,
+            };
+            setValues(profileValues);
+            document.getElementById("name").value=name;
+            document.getElementById("shortname").value=shortname;
+            document.getElementById("description").value=description;
+            name="";
+        }
+    })
 
     const handleSubmit = event => {
         event.preventDefault();
+        SetLoading(true);
         const onSuccess = () => {
             toast.success("Organization Added Successfully");
             resetForm();
-            console.log(props);
+            SetLoading(false);
             props.history.push("/organizations");
         };
         const onError = () => {
             toast.error("Something went wrong");
+            SetLoading(false);
         };
         props.add(values, onSuccess, onError);
 
     };
 
     return (
-        <Page title={Title}>
+        <>
+        <Page title={Title} hidden={loading}>
             <Form onSubmit={handleSubmit}>
                 <Row>
                     <Col xl={12} lg={12} md={12}>
@@ -183,6 +187,8 @@ useEffect(()=>{
                 </Row>
             </Form>
         </Page>
+        {(loading) &&<PageSpinner />}
+        </>
     );
 };
 

@@ -17,6 +17,7 @@ import {
 import { exists, initialize } from "../actions/template";
 import { toast } from "react-toastify";
 import useForm from '../functions/UseForm';
+import PageSpinner from '../components/PageSpinner';
 
 const initializeTemplate = {
     name: '',
@@ -28,7 +29,7 @@ const initializeTemplate = {
 
 const TemplateInitializationPage = props => {
     const [file, setFile] = useState();
-
+    const [loading, SetLoading] = useState(false);
     const saveFile = e => {
         setFile(e.target.files[0]);
     };
@@ -50,97 +51,104 @@ const TemplateInitializationPage = props => {
 
     const handleSubmit = event => {
         event.preventDefault();
+        SetLoading(true);
         values.file = file;
         const onSuccess = () => {
+            SetLoading(false);
             toast.success("Template Initialized");
             resetForm();
             props.history.push("/configure");
         };
         const onError = () => {
+            //SetLoading(false);
             toast.error("Something went wrong");
         };
         props.initialize(values, onSuccess, onError);
     };
 
     return (
-        <Page
-            className="DashboardPage"
-            title="Template"
-        >
-            <Row>
-                <Col lg="12" md="12" sm="12" xs="12">
-                    <Card>
-                        <CardHeader>Initialize Template</CardHeader>
-                        <CardBody>
-                            <Row>
-                                <Col md={6}>
-                                    <Form onSubmit={handleSubmit}>
-                                        <FormGroup>
-                                            <Label for="name">Name</Label>
-                                            <Input
-                                                type="text"
-                                                name="name"
-                                                placeholder="Name"
-                                                defaultValue={values.name}
-                                                onChange={handleNameChange}
-                                            />
-                                            <FormText color="muted">
-                                                {props.version.item1 ? `Template version ${props.version.item2} exists. Version ${props.version.item2 + 1} will be created` : `Version : ${props.version.item2 ? props.version.item2 : 1}`}
+        <>
+            <Page
+                className="DashboardPage"
+                title="Template"
+                hidden={loading}
+            >
+                <Row>
+                    <Col lg="12" md="12" sm="12" xs="12">
+                        <Card>
+                            <CardHeader>Initialize Template</CardHeader>
+                            <CardBody>
+                                <Row>
+                                    <Col md={6}>
+                                        <Form onSubmit={handleSubmit}>
+                                            <FormGroup>
+                                                <Label for="name">Name</Label>
+                                                <Input
+                                                    type="text"
+                                                    name="name"
+                                                    placeholder="Name"
+                                                    defaultValue={values.name}
+                                                    onChange={handleNameChange}
+                                                />
+                                                <FormText color="muted">
+                                                    {props.version.item1 ? `Template version ${props.version.item2} exists. Version ${props.version.item2 + 1} will be created` : `Version : ${props.version.item2 ? props.version.item2 : 1}`}
+                                                </FormText>
+                                            </FormGroup>
+                                            <FormGroup>
+                                                <Label for="description">Description</Label>
+                                                <Input
+                                                    type="text"
+                                                    name="description"
+                                                    placeholder="Description"
+                                                    defaultValue={values.description}
+                                                    onChange={handleInputChange}
+                                                />
+                                            </FormGroup>
+                                            <FormGroup>
+                                                <Label for="frequency">Frequency</Label>
+                                                <Input
+                                                    type="select"
+                                                    name="frequency"
+                                                    id="frequency"
+                                                    placeholder="Select Frequency"
+                                                    value={values.frequency}
+                                                    onChange={handleInputChange}
+                                                >
+                                                    <option value=""> </option>
+                                                    {frequency.map(({ name, id }) => (
+                                                        <option key={id} value={id}>
+                                                            {name}
+                                                        </option>
+                                                    ))}
+                                                </Input>
+                                            </FormGroup>
+                                            <FormGroup>
+                                                <Label for="excelFile">File</Label>
+                                                <Input
+                                                    type="file"
+                                                    name="file"
+                                                    placeholder="File"
+                                                    defaultValue={values.file}
+                                                    onChange={saveFile}
+                                                    accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                                />
+                                                <FormText color="muted">
+                                                    Upload filled out excel template
                                             </FormText>
-                                        </FormGroup>
-                                        <FormGroup>
-                                            <Label for="description">Description</Label>
-                                            <Input
-                                                type="text"
-                                                name="description"
-                                                placeholder="Description"
-                                                defaultValue={values.description}
-                                                onChange={handleInputChange}
-                                            />
-                                        </FormGroup>
-                                        <FormGroup>
-                                            <Label for="frequency">Frequency</Label>
-                                            <Input
-                                                type="select"
-                                                name="frequency"
-                                                id="frequency"
-                                                placeholder="Select Frequency"
-                                                value={values.frequency}
-                                                onChange={handleInputChange}
-                                            >
-                                                <option value=""> </option>
-                                                {frequency.map(({ name, id }) => (
-                                                    <option key={id} value={id}>
-                                                        {name}
-                                                    </option>
-                                                ))}
-                                            </Input>
-                                        </FormGroup>
-                                        <FormGroup>
-                                            <Label for="excelFile">File</Label>
-                                            <Input
-                                                type="file"
-                                                name="file"
-                                                placeholder="File"
-                                                defaultValue={values.file}
-                                                onChange={saveFile}
-                                                accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                                            />
-                                            <FormText color="muted">
-                                                Upload filled out excel template
-                                            </FormText>
-                                        </FormGroup>
-                                        <FormGroup check row>
-                                            <Button>Save</Button>
-                                        </FormGroup>
-                                    </Form>
-                                </Col>
-                            </Row>
-                        </CardBody>
-                    </Card>
-                </Col>
-            </Row>
-        </Page>
+                                            </FormGroup>
+                                            <FormGroup check row>
+                                                <Button>Save</Button>
+                                            </FormGroup>
+                                        </Form>
+                                    </Col>
+                                </Row>
+                            </CardBody>
+                        </Card>
+                    </Col>
+                </Row>
+            </Page>
+            {(loading) && <PageSpinner />}
+        </>
     );
 };
 
