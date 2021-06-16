@@ -31,7 +31,7 @@ class MainLayout extends React.Component {
 
       this.notificationSystem.addNotification({
         title: <MdImportantDevices />,
-        message: 'Welome to GHPRS!',
+        message: 'Welome to USAID Tanzania Data Portal',
         level: 'info',
       });
     }, 1500);

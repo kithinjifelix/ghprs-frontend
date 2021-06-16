@@ -7,7 +7,7 @@ const Footer = () => {
     <Navbar>
       <Nav navbar>
         <NavItem>
-          Global Health Partner Reporting System (GHPRS)
+          USAID Tanzania Data Portal
         </NavItem>
       </Nav>
     </Navbar>

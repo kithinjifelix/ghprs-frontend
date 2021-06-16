@@ -18,6 +18,9 @@ const userReducer = (state = initialState, action) => {
     case ACTION_TYPES.REGISTER:
       return { ...state, registered: action.payload };
 
+    case ACTION_TYPES.EDIT_USER:
+          return { ...state, user: action.payload };
+
     default:
       return state;
   }

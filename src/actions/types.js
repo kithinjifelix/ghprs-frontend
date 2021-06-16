@@ -15,6 +15,7 @@ export const UNAUTHORISED_ERROR = 'UNAUTHORISED_ERROR'
 export const GET_USERS = 'GET_USERS'
 export const GET_USER_BY_ID = 'GET_USER_BY_ID'
 export const REGISTER = 'REGISTER'
+export const EDIT_USER = 'EDIT_USER'
 export const USERS_ERROR = 'USERS_ERROR'
 
 /**

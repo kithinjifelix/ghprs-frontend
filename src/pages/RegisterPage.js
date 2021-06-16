@@ -18,7 +18,7 @@ import { url } from "../api";
 import * as ACTION_TYPES from "../actions/types";
 import { lookup } from "../actions/lookups";
 import { fetchAll } from "../actions/organizations";
-import { register, getById } from "../actions/users";
+import { edit, register, getById } from "../actions/users";
 import useForm from "../functions/UseForm";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -46,10 +46,14 @@ const RegisterPage = (props) => {
   );
 
   const [loading, SetLoading] = useState(false);
+  const [edit, setEdit] = useState(false);
+  const [userId, setUserId]=useState("");
 
   useEffect(() => {
     const { match: { params } } = props;
     if (params.id) {
+      setEdit(true);
+      setUserId(params.id);
       const onSuccess = () => {
         toast.success("User Loaded");
         const profileValues = {
@@ -103,20 +107,18 @@ const RegisterPage = (props) => {
   }, []);
 
   useEffect(() => {
-    if (document.getElementById("email").value === "" && email !== "") {
+    if (edit) {
 
       const profileValues = {
-        password: "",
-        email: email,
         roleId: 0,
         organizationId: organizationId,
-        name: name
+        name: name,
+        id: userId
       };
       setValues(profileValues);
       document.getElementById("name").value = name;
       document.getElementById("email").value = email;
       document.getElementById("organizationId").value = organizationId;
-      document.getElementById('email').setAttribute("disabled", "disabled");
       email = "";
     }
   })
@@ -160,7 +162,12 @@ const RegisterPage = (props) => {
       SetLoading(false);
       toast.error("Something went wrong");
     };
-    props.register(values, onSuccess, onError);
+    if(edit){
+        props.edit(userId,values, onSuccess, onError);
+    }else{
+        props.register(values, onSuccess, onError);
+    }
+
 
   };
 
@@ -217,6 +224,7 @@ const RegisterPage = (props) => {
                           id="email"
                           placeholder="email"
                           onChange={inputChange}
+                          disabled={edit}
                         />
                         <FormText color="muted">
                           Must be a valid email address format 'example@email.com'.
@@ -233,6 +241,7 @@ const RegisterPage = (props) => {
                           placeholder="password"
                           pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,32}$"
                           onChange={inputChange}
+                          disabled={edit}
                         />
                         <FormText color="muted">
                           Passwords must be at least 6 characters. Passwords must have at least one digit ('0'-'9'). Passwords must have at least one lowercase ('a'-'z'). Passwords must have at least one uppercase ('A'-'Z'). Passwords must have at least one special character ("*.!@#$%^&(){ }[]:,.?/~_+-=|\")
@@ -311,6 +320,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapActionToProps = {
+  edit: edit,
   register: register,
   fetchGenders: lookup,
   fetchMaritalStatus: lookup,

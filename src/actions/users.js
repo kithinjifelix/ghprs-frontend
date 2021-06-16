@@ -70,3 +70,30 @@ export const register = (data, onSuccess, onError) => (dispatch) => {
       });
   };
 
+  export const edit = (id, data, onSuccess, onError) => (dispatch) => {
+      axios
+        .put(`${url}users/`+id, data)
+        .then((response) => {
+          dispatch({
+            type: ACTION_TYPES.EDIT_USER,
+            payload: response.data,
+          });
+          onSuccess && onSuccess();
+          //toast.success("User Registered Successfully!");
+        })
+        .catch((error) => {
+          dispatch({
+            type: ACTION_TYPES.USERS_ERROR,
+            payload: "Something went wrong",
+          });
+          onError();
+          if (
+            error.response === undefined
+          ) {
+            toast.error("Something went wrong");
+          } else {
+            toast.error(error);
+          }
+        });
+    };
+
