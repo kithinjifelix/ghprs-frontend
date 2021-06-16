@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import React, { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
 import Page from 'components/Page';
 import {
     Button,
@@ -44,6 +45,23 @@ const ReviewDetailsPage = (props) => {
                 title="Upload Details"
                 hidden={loading}
             >
+                <Row>
+                    <Col xl={12} lg={12} md={12}>
+                        <Card>
+                            <CardBody>
+                                <Link to="/review">
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        className=" float-right mr-1"
+                                    >
+                                        <span style={{ textTransform: "capitalize" }}>Go Back</span>
+                                    </Button>
+                                </Link>
+                            </CardBody>
+                        </Card>
+                    </Col>
+                </Row>
                 {!loading && (<Row>
                     <Col lg="12" md="12" sm="12" xs="12">
                         <Card>
