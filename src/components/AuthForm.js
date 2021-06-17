@@ -86,12 +86,12 @@ class AuthForm extends React.Component {
         {showLogo && (
           <div className="text-center pb-4">
             <img
-              src={'./GHPRS-Logo.png'}
+              src={'./logo-tz.png'}
               className="rounded"
-              alt="logo"
+              alt="USAID Tanzania Data Portal"
+              width="70%"
               onClick={onLogoClick}
             />
-            <span className="text-black" style={{ fontSize: 12}}>Global Health Partner Reporting System</span>
           </div>
         )}
         <FormGroup>

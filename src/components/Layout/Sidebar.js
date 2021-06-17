@@ -86,9 +86,9 @@ class Sidebar extends React.Component {
     return (
       <aside className={bem.b()}>
         <div className={bem.e('content')}>
-          <Navbar style={{backgroundColor: "#fff", border: '1px solid #002f6c'}}>
-            <BSNavLink href="/" className="navbar-brand d-flex" style={{padding: "0rem"}}>
-              <img src={'./logo-tz.png'} alt="USAID Tanzania Data Portal" width="200"  height="55"/>
+          <Navbar style={{ backgroundColor: "#fff" }}>
+            <BSNavLink href="/" className="navbar-brand d-flex" style={{ padding: "0rem" }}>
+              <img src={'./logo-tz.png'} alt="USAID Tanzania Data Portal" width="200" height="55" />
             </BSNavLink>
 
           </Navbar>

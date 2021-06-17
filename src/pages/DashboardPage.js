@@ -23,7 +23,6 @@ const DashboardPage = (props) => {
 
     var METABASE_SITE_URL = url;
     var METABASE_SECRET_KEY = key;
-    console.log(props.currentUser);
     var filters = authentication.currentRole === 'User' ? { "partner": props.currentUser.organization.name} : { }
     var payload = {
         resource: { dashboard: number },
@@ -35,8 +34,7 @@ const DashboardPage = (props) => {
     if (key) {
         token = jwt.sign(payload, METABASE_SECRET_KEY);
     }
-
-
+    
     const iframeUrl = METABASE_SITE_URL + "/embed/dashboard/" + token + "#bordered=false&titled=true";
 
     return (
