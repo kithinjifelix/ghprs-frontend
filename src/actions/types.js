@@ -3,30 +3,32 @@
  * ===============================================
  * AUTHENTICATE
  */
-export const AUTHENTICATION = 'AUTHENTICATION'
-export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR'
-export const UNAUTHORISED_ERROR = 'UNAUTHORISED_ERROR'
+ export const LOGIN = 'LOGIN';
+ export const LOGOUT = 'LOGOUT';
+export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
+export const UNAUTHORISED_ERROR = 'UNAUTHORISED_ERROR';
 
 /**
  * @TYPES
  * ===============================================
  * Users
  */
-export const GET_USERS = 'GET_USERS'
-export const GET_USER_BY_ID = 'GET_USER_BY_ID'
-export const REGISTER = 'REGISTER'
-export const EDIT_USER = 'EDIT_USER'
-export const USERS_ERROR = 'USERS_ERROR'
+export const GET_USERS = 'GET_USERS';
+export const GET_USER_BY_ID = 'GET_USER_BY_ID';
+export const GET_CURRENT_USER = 'GET_CURRENT_USER';
+export const REGISTER = 'REGISTER';
+export const EDIT_USER = 'EDIT_USER';
+export const USERS_ERROR = 'USERS_ERROR';
 
 /**
  * @TYPES
  * ===============================================
  * Organizations
  */
-export const GET_ORGANIZATIONS = 'GET_ORGANIZATIONS'
-export const GET_ORGANIZATION_BY_ID = 'GET_ORGANIZATION_BY_ID'
-export const REGISTER_ORGANIZATION = 'REGISTER_ORGANIZATION'
-export const ORGANIZATIONS_ERROR = 'ORGANIZATIONS_ERROR'
+export const GET_ORGANIZATIONS = 'GET_ORGANIZATIONS';
+export const GET_ORGANIZATION_BY_ID = 'GET_ORGANIZATION_BY_ID';
+export const REGISTER_ORGANIZATION = 'REGISTER_ORGANIZATION';
+export const ORGANIZATIONS_ERROR = 'ORGANIZATIONS_ERROR';
 
 /**
  * @TYPES

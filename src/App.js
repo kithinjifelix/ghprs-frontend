@@ -6,10 +6,10 @@ import AuthPage from 'pages/AuthPage';
 import React from 'react';
 import componentQueries from 'react-component-queries';
 import { BrowserRouter, Redirect, Switch } from 'react-router-dom';
-import { Provider } from "react-redux";
-import store from "./store";
+import { connect } from "react-redux";
 import './styles/reduction.scss';
 import { PrivateRoute } from "./PrivateRoute"
+import { loggedIn } from './actions/users';
 
 const DashboardPage = React.lazy(() => import('pages/DashboardPage'));
 const HomePage = React.lazy(() => import('pages/HomePage'));
@@ -32,57 +32,59 @@ const getBasename = () => {
 };
 
 class App extends React.Component {
+  componentDidMount() {
+    this.props.loggedIn();
+  }
+
   render() {
     return (
-      <Provider store={store}>
-        <BrowserRouter basename={getBasename()}>
-          <GAListener>
-            <Switch>
-              <LayoutRoute
-                exact
-                path="/login"
-                layout={EmptyLayout}
-                component={props => (
-                  <AuthPage {...props} authState={STATE_LOGIN} />
-                )}
-              />
-              <LayoutRoute
-                exact
-                path="/signup"
-                layout={EmptyLayout}
-                component={props => (
-                  <AuthPage {...props} authState={STATE_SIGNUP} />
-                )}
-              />
+      <BrowserRouter basename={getBasename()}>
+        <GAListener>
+          <Switch>
+            <LayoutRoute
+              exact
+              path="/login"
+              layout={EmptyLayout}
+              component={props => (
+                <AuthPage {...props} authState={STATE_LOGIN} />
+              )}
+            />
+            <LayoutRoute
+              exact
+              path="/signup"
+              layout={EmptyLayout}
+              component={props => (
+                <AuthPage {...props} authState={STATE_SIGNUP} />
+              )}
+            />
 
-              <MainLayout breakpoint={this.props.breakpoint}>
-                <React.Suspense fallback={<PageSpinner />}>
-                  <PrivateRoute exact path="/" component={HomePage} />
-                  <PrivateRoute exact path="/dashboard" component={DashboardPage} />
-                  <PrivateRoute exact path="/upload-Template" component={TemplateUploadPage} />
-                  <PrivateRoute exact path="/initialize-Template" roles={['Administrator']} component={TemplateInitializationPage} />
-                  <PrivateRoute exact path="/configure" roles={['Administrator']} component={DataTypePage} />
-                  <PrivateRoute exact path="/configure/:id" roles={['Administrator']} component={DataTypePage} />
-                  <PrivateRoute exact path="/download-Template" component={TemplateDownloadPage} />
-                  <PrivateRoute exact path="/users" roles={['Administrator']} component={UsersPage} />
-                  <PrivateRoute exact path="/organizations" roles={['Administrator']} component={OrganizationsPage} />
-                  <PrivateRoute exact path="/register" roles={['Administrator']} component={RegisterPage} />
-                  <PrivateRoute exact path="/review" roles={['Administrator']} component={ReviewUploadsPage} />
-                  <PrivateRoute exact path="/review-details/:id" roles={['Administrator']} component={ReviewDetailsPage} />
-                  <PrivateRoute exact path="/submissions" roles={['User']} component={SubmissionsPage} />
-                  <PrivateRoute exact path="/links" roles={['Administrator']} component={LinksPage} />
-                  <PrivateRoute exact path="/link" roles={['Administrator']} component={AddLinksPage} />
-                  <PrivateRoute exact path="/link/:id" roles={['Administrator']} component={AddLinksPage} />
-                  <PrivateRoute exact path="/organization" roles={['Administrator']} component={AddOrganizationPage} />
-                  <PrivateRoute exact path="/organization/:id" roles={['Administrator']} component={AddOrganizationPage} />
-                  <PrivateRoute exact path="/profile/:id" roles={['Administrator']} component={RegisterPage} />
-                </React.Suspense>
-              </MainLayout>
-              <Redirect to="/" />
-            </Switch>
-          </GAListener>
-        </BrowserRouter>
-      </Provider>
+            <MainLayout breakpoint={this.props.breakpoint}>
+              <React.Suspense fallback={<PageSpinner />}>
+                <PrivateRoute exact path="/" component={HomePage} />
+                <PrivateRoute exact path="/dashboard" component={DashboardPage} />
+                <PrivateRoute exact path="/upload-Template" component={TemplateUploadPage} />
+                <PrivateRoute exact path="/initialize-Template" roles={['Administrator']} component={TemplateInitializationPage} />
+                <PrivateRoute exact path="/configure" roles={['Administrator']} component={DataTypePage} />
+                <PrivateRoute exact path="/configure/:id" roles={['Administrator']} component={DataTypePage} />
+                <PrivateRoute exact path="/download-Template" component={TemplateDownloadPage} />
+                <PrivateRoute exact path="/users" roles={['Administrator']} component={UsersPage} />
+                <PrivateRoute exact path="/organizations" roles={['Administrator']} component={OrganizationsPage} />
+                <PrivateRoute exact path="/register" roles={['Administrator']} component={RegisterPage} />
+                <PrivateRoute exact path="/review" roles={['Administrator']} component={ReviewUploadsPage} />
+                <PrivateRoute exact path="/review-details/:id" roles={['Administrator']} component={ReviewDetailsPage} />
+                <PrivateRoute exact path="/submissions" roles={['User']} component={SubmissionsPage} />
+                <PrivateRoute exact path="/links" roles={['Administrator']} component={LinksPage} />
+                <PrivateRoute exact path="/link" roles={['Administrator']} component={AddLinksPage} />
+                <PrivateRoute exact path="/link/:id" roles={['Administrator']} component={AddLinksPage} />
+                <PrivateRoute exact path="/organization" roles={['Administrator']} component={AddOrganizationPage} />
+                <PrivateRoute exact path="/organization/:id" roles={['Administrator']} component={AddOrganizationPage} />
+                <PrivateRoute exact path="/profile/:id" roles={['Administrator']} component={RegisterPage} />
+              </React.Suspense>
+            </MainLayout>
+            <Redirect to="/" />
+          </Switch>
+        </GAListener>
+      </BrowserRouter>
     );
   }
 }
@@ -111,4 +113,8 @@ const query = ({ width }) => {
   return { breakpoint: 'xs' };
 };
 
-export default componentQueries(query)(App);
+const mapActionToProps = {
+  loggedIn: loggedIn
+};
+
+export default connect(null, mapActionToProps)(componentQueries(query)(App))

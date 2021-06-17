@@ -10,6 +10,7 @@ import {
     Row,
 } from 'reactstrap';
 import IframeResizer from 'iframe-resizer-react'
+import { authentication } from '../_services/authentication';
 var jwt = require("jsonwebtoken");
 
 const DashboardPage = (props) => {
@@ -22,10 +23,11 @@ const DashboardPage = (props) => {
 
     var METABASE_SITE_URL = url;
     var METABASE_SECRET_KEY = key;
-
+    console.log(props.currentUser);
+    var filters = authentication.currentRole === 'User' ? { "partner": props.currentUser.organization.name} : { }
     var payload = {
         resource: { dashboard: number },
-        params: {},
+        params: filters,
         exp: Math.round(Date.now() / 1000) + (10 * 60) // 10 minute expiration
     };
     let token = ''
@@ -35,7 +37,7 @@ const DashboardPage = (props) => {
     }
 
 
-    const iframeUrl = METABASE_SITE_URL + "/embed/dashboard/" + token + "#bordered=true&titled=true";
+    const iframeUrl = METABASE_SITE_URL + "/embed/dashboard/" + token + "#bordered=false&titled=true";
 
     return (
         <Page
@@ -77,8 +79,8 @@ const DashboardPage = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-
-    };
+        currentUser: state.users.currentUser,
+      };
 };
 
 const mapActionToProps = {

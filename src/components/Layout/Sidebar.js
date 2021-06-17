@@ -108,7 +108,7 @@ class Sidebar extends React.Component {
               </NavItem>
             ))}
 
-            {(authentication.currentRole === 'Administrator') && (<NavItem
+            <NavItem
               className={bem.e('nav-item')}
               onClick={this.handleClick('Dashboards')}
             >
@@ -129,7 +129,7 @@ class Sidebar extends React.Component {
                   }}
                 />
               </BSNavLink>
-            </NavItem>)}
+            </NavItem>
             <Collapse isOpen={this.state.isOpenDashboards}>
               {this.props.dashboards.map(({ url, name, number, key }, index) => (
                 <NavItem key={index} className={bem.e('nav-item')}>

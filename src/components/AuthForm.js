@@ -44,7 +44,6 @@ class AuthForm extends React.Component {
           if (!this.notificationSystem) {
             return;
           }
-    
           this.notificationSystem.addNotification({
             title: "Error",
             message: 'Invalid email or Password!',
