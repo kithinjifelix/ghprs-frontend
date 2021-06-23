@@ -9,12 +9,12 @@ const { dispatch } = store;
 const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('currentUser')));
 
 const currentRole = JSON.parse(localStorage.getItem('currentUser')) ? jwt_decode(JSON.parse(localStorage.getItem('currentUser')).token)['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] : '';
-const currentUsername =  JSON.parse(localStorage.getItem('currentUser')) ? jwt_decode(JSON.parse(localStorage.getItem('currentUser')).token)['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'] : '';
+const currentUsername = JSON.parse(localStorage.getItem('currentUser')) ? jwt_decode(JSON.parse(localStorage.getItem('currentUser')).token)['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'] : '';
 export const authentication = {
     login,
     logout,
     currentUser: currentUserSubject.asObservable(),
-    get currentUserValue () { return currentUserSubject.value },
+    get currentUserValue() { return currentUserSubject.value },
     currentRole: currentRole,
     currentUsername: currentUsername,
 };
@@ -30,9 +30,10 @@ function login(email, password, remember) {
         .then(handleResponse)
         .then(user => {
             dispatch({
-                type: ACTION_TYPES.AUTHENTICATION,
-                payload: "Authenticated"
+                type: ACTION_TYPES.LOGIN,
+                payload: jwt_decode(user.token)
             });
+
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('currentUser', JSON.stringify(user));
             currentUserSubject.next(user);
@@ -41,6 +42,9 @@ function login(email, password, remember) {
 }
 
 function logout() {
+    dispatch({
+        type: ACTION_TYPES.LOGOUT,
+    });
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
     currentUserSubject.next(null);

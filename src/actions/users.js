@@ -1,6 +1,7 @@
 import axios from "axios";
 import { url } from "../api";
 import { toast } from "react-toastify";
+import jwt_decode from 'jwt-decode';
 import * as ACTION_TYPES from "./types";
 
 export const fetchAll = (onSuccess, onError) => (dispatch) => {
@@ -95,5 +96,45 @@ export const register = (data, onSuccess, onError) => (dispatch) => {
             toast.error(error);
           }
         });
+    };
+
+    export const getCurrentUserDetails = (onSuccess, onError) => (dispatch) => {
+      axios
+        .get(`${url}users/userid`)
+        .then((response) => {
+          dispatch({
+            type: ACTION_TYPES.GET_CURRENT_USER,
+            payload: response.data,
+          });
+          if (onSuccess) {
+            onSuccess();
+          }
+        })
+        .catch((error) => {
+          if (onError) {
+            onError();
+          }
+        });
+    };
+
+    export const loggedIn = () => (dispatch) => {
+      const tokenObject = JSON.parse(localStorage.getItem('currentUser'));
+      if (tokenObject) {
+        const currentUser = jwt_decode(tokenObject.token);
+        axios
+          .get(`${url}`)
+          .then((response) => {
+            dispatch({
+              type: ACTION_TYPES.LOGIN,
+              payload: currentUser,
+            });
+            dispatch(getCurrentUserDetails());
+          })
+          .catch((error) => {
+            dispatch({
+              type: ACTION_TYPES.LOGOUT,
+            });
+          });
+      }
     };
 
