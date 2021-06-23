@@ -87,13 +87,13 @@ class AuthForm extends React.Component {
         {showLogo && (
           <div className="text-center pb-4">
             <img
-              src={'./GHPRS-Logo.png'}
+              src={'./logo-tz.png'}
+              style={{width:"300px",height:"100px"}}
               className="rounded"
               alt="logo"
               onClick={onLogoClick}
             />
-            <span className="text-black" style={{ fontSize: 12}}>Global Health Partner Reporting System</span>
-          </div>
+           </div>
         )}
         <FormGroup>
           <Label for={emailLabel}>{emailLabel}</Label>

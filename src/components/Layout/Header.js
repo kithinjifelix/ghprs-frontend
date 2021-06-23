@@ -69,10 +69,10 @@ class Header extends React.Component {
             <MdClearAll size={25} />
           </Button>
         </Nav>
-        <img src={'./USAID-Logo.png'}  style={{width:"150px"}} alt="USAIDlogo"/>
+        <img src={'./USAID-Logo.png'}  style={{width:"250px"}} alt="USAIDlogo"/>
 
         <Nav navbar className={bem.e('nav-right')}>
-        <img src={'./DataFI.png'}  alt="DataFIlogo"style={{width:"150px",height:"40px",paddingTop:"10px",paddingRight:"20px"}}/>
+        <img src={'./DataFI.png'}  alt="DataFIlogo"style={{width:"200px",paddingTop:"0px",paddingRight:"20px"}}/>
           <NavItem>
             <NavLink id="profile">
               <Avatar
