@@ -37,6 +37,7 @@ const userRegistration = {
 let name = "";
 let email = "";
 let organizationId = "";
+let roleId = "";
 
 
 const RegisterPage = (props) => {
@@ -93,9 +94,12 @@ const RegisterPage = (props) => {
         try {
           axios.get(`${url}users/` + params.id)
             .then((response) => {
+              console.log(response.data);
               email = response.data.email;
               name = response.data.person.name;
               organizationId = response.data.organization.id;
+              roleId=response.data.roleId;
+
             });
         } catch (e) {
           console.error(e);
@@ -119,6 +123,8 @@ const RegisterPage = (props) => {
       document.getElementById("name").value = name;
       document.getElementById("email").value = email;
       document.getElementById("organizationId").value = organizationId;
+      document.getElementById("roleId").value = "1";
+
       email = "";
     }
   })
@@ -256,7 +262,7 @@ const RegisterPage = (props) => {
                           name="roleId"
                           id="roleId"
                           placeholder="Select Role"
-                          value={values.roleId}
+                          value={roleId}
                           onChange={inputChange}
                         >
                           <option value=""> </option>

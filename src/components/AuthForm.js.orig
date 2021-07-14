@@ -87,13 +87,20 @@ class AuthForm extends React.Component {
           <div className="text-center pb-4">
             <img
               src={'./logo-tz.png'}
+<<<<<<< HEAD
               style={{width:"300px",height:"100px"}}
+=======
+>>>>>>> a3802b4d11b1717bd804e0c2a9f132824e6f69db
               className="rounded"
               alt="USAID Tanzania Data Portal"
               width="70%"
               onClick={onLogoClick}
             />
+<<<<<<< HEAD
            </div>
+=======
+          </div>
+>>>>>>> a3802b4d11b1717bd804e0c2a9f132824e6f69db
         )}
         <FormGroup>
           <Label for={emailLabel}>{emailLabel}</Label>
