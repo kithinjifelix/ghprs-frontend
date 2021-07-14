@@ -38,6 +38,7 @@ class AuthForm extends React.Component {
     authentication.login(this.state.email, this.state.password, this.state.remember).then(
       (user) => {
         this.props.history.push("/");
+        window.location.reload();
       },
       (error) => {
         setTimeout(() => {
