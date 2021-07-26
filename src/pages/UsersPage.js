@@ -4,13 +4,14 @@ import Page from 'components/Page';
 import {
   Button,
   Card,
+  CardHeader,
   CardBody,
   Col,
   Row,
   NavLink as BSNavLink,
 } from 'reactstrap';
 import { NavLink, Link } from 'react-router-dom';
-import { MdAccountCircle, MdDelete } from "react-icons/md";
+import { MdAccountCircle, MdDelete, MdAdd, MdArrowBack } from "react-icons/md";
 import { fetchAll } from "../actions/users";
 import MaterialTable from 'material-table'
 import axios from "axios";
@@ -44,21 +45,25 @@ const UsersPage = (props) => {
   return (
     <Page
       className="DashboardPage"
-      title="Users"
     >
       <Row>
         <Col xl={12} lg={12} md={12}>
           <Card>
+          <CardHeader>
+              Users
+              <Link to="/administration">
+            <Button
+              variant="contained"
+              color="link"
+              className=" float-right mr-1"
+            >
+              <MdArrowBack size="15" />{" "}
+              <span style={{ textTransform: "capitalize" }}>Back</span>
+            </Button>
+          </Link>
+            </CardHeader>
             <CardBody>
-              <Link to="/register">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className=" float-right mr-1"
-                >
-                  <span style={{ textTransform: "capitalize" }}>Add User</span>
-                </Button>
-              </Link>
+              Manage user access to the portal. Users are either normal users or admins which controls what features they have access to in the system
             </CardBody>
           </Card>
         </Col>
@@ -101,7 +106,16 @@ const UsersPage = (props) => {
 
               ),
             }))}
-            title="Users"
+            title={<Link to="/register">
+            <Button
+              variant="contained"
+              color="link"
+              className=" float-right mr-1"
+            >
+              <MdAdd size="15" />{" "}
+              <span style={{ textTransform: "capitalize" }}>Add User</span>
+            </Button>
+          </Link>}
           />
         </Col>
       </Row>

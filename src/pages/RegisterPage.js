@@ -14,6 +14,8 @@ import {
   Label,
   Row,
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import { MdArrowBack } from "react-icons/md";
 import { url } from "../api";
 import * as ACTION_TYPES from "../actions/types";
 import { lookup } from "../actions/lookups";
@@ -24,7 +26,6 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import PageSpinner from '../components/PageSpinner';
 
-let Title = '';
 const userRegistration = {
   password: "",
   email: "",
@@ -48,7 +49,8 @@ const RegisterPage = (props) => {
 
   const [loading, SetLoading] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [userId, setUserId]=useState("");
+  const [userId, setUserId] = useState("");
+  const [Title, setTitle] = useState('');
 
   useEffect(() => {
     const { match: { params } } = props;
@@ -72,9 +74,9 @@ const RegisterPage = (props) => {
       };
       props.fetchUser(params.id, onSuccess, onError);
 
-      Title = 'Profile';
+      setTitle('Profile');
     } else {
-      Title = 'Register';
+      setTitle('Add User');
     }
   }, []);
 
@@ -98,7 +100,7 @@ const RegisterPage = (props) => {
               email = response.data.email;
               name = response.data.person.name;
               organizationId = response.data.organization.id;
-              roleId=response.data.roleId;
+              roleId = response.data.roleId;
 
             });
         } catch (e) {
@@ -168,10 +170,10 @@ const RegisterPage = (props) => {
       SetLoading(false);
       toast.error("Something went wrong");
     };
-    if(edit){
-        props.edit(userId,values, onSuccess, onError);
-    }else{
-        props.register(values, onSuccess, onError);
+    if (edit) {
+      props.edit(userId, values, onSuccess, onError);
+    } else {
+      props.register(values, onSuccess, onError);
     }
 
 
@@ -180,12 +182,30 @@ const RegisterPage = (props) => {
 
   return (
     <>
-      <Page title={Title} hidden={loading}>
+      <Page hidden={loading}>
         <Form onSubmit={handleSubmit}>
           <Row>
             <Col xl={12} lg={12} md={12}>
               <Card>
-                <CardHeader>User Details</CardHeader>
+                <CardHeader>{Title}<Link to="/users">
+                  <Button
+                    variant="contained"
+                    color="link"
+                    className=" float-right mr-1"
+                  >
+                    <MdArrowBack size="15" />{" "}
+                    <span style={{ textTransform: "capitalize" }}>Back</span>
+                  </Button>
+                </Link></CardHeader>
+                <CardBody>
+                  Fill details to {Title} a user.
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+          <Row>
+            <Col xl={12} lg={12} md={12}>
+              <Card>
                 <CardBody>
                   <Row form>
                     <Col md={6}>

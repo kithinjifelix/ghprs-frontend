@@ -9,7 +9,7 @@ const Footer = () => {
     <Navbar>
       <Nav navbar>
         <NavItem>
-          USAID Tanzania Data Portal
+          USAID Tanzania Data Portal - {new Date().getFullYear()}
         </NavItem>
       </Nav>
       <Nav navbar className={bem.e('nav-right')}>

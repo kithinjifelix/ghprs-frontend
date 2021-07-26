@@ -44,6 +44,7 @@ const DataTypePage = (props) => {
   };
 
   useEffect(() => {
+    debugger;
     if (props.workSheets.length > 0) {
       getWorkSheetColumns(0);
     }
@@ -57,7 +58,7 @@ const DataTypePage = (props) => {
   const handleInputChange = e => {
     const { name, value } = e.target
     let column = columns[name];
-    if (column.type) {
+    if (column && column.type) {
       column.type = value;
       props.updateInput(sheet, column);
     } else {

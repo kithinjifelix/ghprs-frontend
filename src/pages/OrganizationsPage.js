@@ -5,12 +5,13 @@ import {
   Button,
   Card,
   CardBody,
+  CardHeader,
   Col,
   Row,
   NavLink as BSNavLink,
 } from 'reactstrap';
 import { NavLink, Link } from 'react-router-dom';
-import { MdAccountCircle, MdDelete } from "react-icons/md";
+import { MdAccountCircle, MdDelete, MdAdd, MdArrowBack } from "react-icons/md";
 import { fetchAll } from "../actions/organizations";
 import MaterialTable from 'material-table'
 import axios from "axios";
@@ -41,32 +42,32 @@ const OrganizationsPage = (props) => {
         });
     } catch (e) {
       toast.error("Could not delete Organisation Unit.");
-      console.error(e);
     }
-
-
-    console.log(e.currentTarget.id);
   }
 
 
   return (
     <Page
       className="DashboardPage"
-      title="Organizations"
     >
       <Row>
         <Col xl={12} lg={12} md={12}>
           <Card>
+            <CardHeader>
+              Organizations
+              <Link to="/administration">
+            <Button
+              variant="contained"
+              color="link"
+              className=" float-right mr-1"
+            >
+              <MdArrowBack size="15" />{" "}
+              <span style={{ textTransform: "capitalize" }}>Back</span>
+            </Button>
+          </Link>
+            </CardHeader>
             <CardBody>
-              <Link to="/organization">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className=" float-right mr-1"
-                >
-                  <span style={{ textTransform: "capitalize" }}>Add Organization</span>
-                </Button>
-              </Link>
+              Manage organizations/partners who have access to the system.
             </CardBody>
           </Card>
         </Col>
@@ -75,7 +76,7 @@ const OrganizationsPage = (props) => {
         <Col lg="12" md="12" sm="12" xs="12">
           <MaterialTable
             columns={[
-              { title: 'Organization Name', field: 'organizationname' },
+              { title: 'Name', field: 'organizationname' },
               { title: 'Short Name', field: 'shortName' },
               { title: 'Description', field: 'description' },
               { title: 'Status', field: 'status' },
@@ -110,7 +111,16 @@ const OrganizationsPage = (props) => {
                 </>
               ),
             }))}
-            title="Organizations"
+            title={<Link to="/organization">
+            <Button
+              variant="contained"
+              color="link"
+              className=" float-right mr-1"
+            >
+              <MdAdd size="15" />{" "}
+              <span style={{ textTransform: "capitalize" }}>Add Organization</span>
+            </Button>
+          </Link>}
           />
         </Col>
       </Row>

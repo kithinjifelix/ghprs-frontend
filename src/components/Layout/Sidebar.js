@@ -3,18 +3,15 @@ import { connect } from "react-redux";
 import {
   MdDashboard,
   MdKeyboardArrowDown,
-  MdRadioButtonChecked,
   MdWeb,
   MdLink,
   MdExtension,
   MdFileUpload,
   MdFileDownload,
   MdDone,
-  MdFace,
   MdViewList,
   MdSettings,
   MdReceipt,
-  MdLocationCity,
 } from 'react-icons/md';
 import { NavLink } from 'react-router-dom';
 import {
@@ -35,24 +32,19 @@ if (authentication.currentRole === 'Administrator') {
   navTemplates = [
     { to: '/initialize-Template', name: 'Initialize', exact: true, Icon: MdExtension },
     { to: '/download-Template', name: 'Downloads', exact: true, Icon: MdFileDownload },
-    { to: '/review', name: 'Review Data Submissions', exact: true, Icon: MdDone },
+    { to: '/review', name: 'Review', exact: true, Icon: MdDone },
   ];
 } else if (authentication.currentRole === 'User') {
   navTemplates = [
-    { to: '/upload-Template', name: 'Submit Data', exact: true, Icon: MdFileUpload },
-    { to: '/submissions', name: 'View Submissions', exact: true, Icon: MdViewList },
+    { to: '/upload-Template', name: 'Submit', exact: true, Icon: MdFileUpload },
+    { to: '/submissions', name: 'Submissions', exact: true, Icon: MdViewList },
     { to: '/download-Template', name: 'Downloads', exact: true, Icon: MdFileDownload },
   ];
 }
 
-const navAdmin = [
-  { to: '/organizations', name: 'Organizations', exact: false, Icon: MdLocationCity },
-  { to: '/users', name: 'Users', exact: false, Icon: MdFace },
-  { to: '/links', name: 'Manage Links', exact: false, Icon: MdLink },
-];
-
 const navItems = [
-  { to: '/', name: 'Home', exact: true, Icon: MdDashboard },
+  { to: '/', name: 'Home', exact: false, Icon: MdDashboard },
+  { to: '/dashboards', name: 'Dashboards', exact: false, Icon: MdWeb },
 ];
 
 const bem = bn.create('sidebar');
@@ -75,12 +67,15 @@ class Sidebar extends React.Component {
   handleClick = name => () => {
     this.setState(prevState => {
       const isOpen = prevState[`isOpen${name}`];
-
       return {
         [`isOpen${name}`]: !isOpen,
       };
     });
   };
+
+  logout = () => {
+    authentication.logout();
+  }
 
   render() {
     return (
@@ -88,7 +83,7 @@ class Sidebar extends React.Component {
         <div className={bem.e('content')}>
           <Navbar style={{ backgroundColor: "#fff" }}>
             <BSNavLink href="/" className="navbar-brand d-flex" style={{ padding: "0rem" }}>
-              <img src={'./logo-tz.png'} alt="USAID Tanzania Data Portal" width="200"  height="75"/>
+              <img src={'./logo-tz.png'} alt="USAID Tanzania Data Portal" width="100%"/>
             </BSNavLink>
 
           </Navbar>
@@ -99,7 +94,7 @@ class Sidebar extends React.Component {
                   id={`navItem-${name}-${index}`}
                   tag={NavLink}
                   to={to}
-                  activeClassName="active"
+                  activeClassName=""
                   exact={exact}
                 >
                   <Icon className={bem.e('nav-item-icon')} />
@@ -107,45 +102,6 @@ class Sidebar extends React.Component {
                 </BSNavLink>
               </NavItem>
             ))}
-
-            <NavItem
-              className={bem.e('nav-item')}
-              onClick={this.handleClick('Dashboards')}
-            >
-              <BSNavLink className={`${bem.e('nav-item-collapse')}`}>
-                <div className="d-flex">
-                  <MdWeb className={bem.e('nav-item-icon')} />
-                  <span className=" align-self-start">Dashboards</span>
-                </div>
-                <MdKeyboardArrowDown
-                  className={bem.e('nav-item-icon')}
-                  style={{
-                    padding: 0,
-                    transform: this.state.isOpenDashboards
-                      ? 'rotate(0deg)'
-                      : 'rotate(-90deg)',
-                    transitionDuration: '0.3s',
-                    transitionProperty: 'transform',
-                  }}
-                />
-              </BSNavLink>
-            </NavItem>
-            <Collapse isOpen={this.state.isOpenDashboards}>
-              {this.props.dashboards.map(({ url, name, number, key }, index) => (
-                <NavItem key={index} className={bem.e('nav-item')}>
-                  <BSNavLink
-                    id={`navItem-${name}-${index}`}
-                    tag={NavLink}
-                    to={`/dashboard?url=${url}&key=${key}&number=${number}`}
-                    activeClassName="active"
-                    exact={true}
-                  >
-                    <MdRadioButtonChecked className={bem.e('nav-item-icon')} />
-                    <span className="">{name}</span>
-                  </BSNavLink>
-                </NavItem>
-              ))}
-            </Collapse>
 
             <NavItem
               className={bem.e('nav-item')}
@@ -171,12 +127,12 @@ class Sidebar extends React.Component {
             </NavItem>
             <Collapse isOpen={this.state.isOpenTemplates}>
               {navTemplates.map(({ to, name, exact, Icon }, index) => (
-                <NavItem key={index} className={bem.e('nav-item')}>
+                <NavItem key={index} className={bem.e('nav-item-sub')}>
                   <BSNavLink
                     id={`navItem-${name}-${index}`}
                     tag={NavLink}
                     to={to}
-                    activeClassName="active"
+                    activeClassName=""
                     exact={exact}
                   >
                     <Icon className={bem.e('nav-item-icon')} />
@@ -185,82 +141,43 @@ class Sidebar extends React.Component {
                 </NavItem>
               ))}
             </Collapse>
-
-            {(authentication.currentRole === 'Administrator') && (<NavItem
-              className={bem.e('nav-item')}
-              onClick={this.handleClick('Admin')}
-            >
-              <BSNavLink className={`${bem.e('nav-item-collapse')}`}>
-                <div className="d-flex">
+            {(authentication.currentRole === 'Administrator') && (<NavItem className={bem.e('nav-item')}>
+                <BSNavLink
+                  id={`navItem-resources`}
+                  tag={NavLink}
+                  to="/administration"
+                  activeClassName=""
+                  exact={true}
+                >
                   <MdSettings className={bem.e('nav-item-icon')} />
-                  <span className=" align-self-start">Admin</span>
-                </div>
-                <MdKeyboardArrowDown
-                  className={bem.e('nav-item-icon')}
-                  style={{
-                    padding: 0,
-                    transform: this.state.isOpenAdmin
-                      ? 'rotate(0deg)'
-                      : 'rotate(-90deg)',
-                    transitionDuration: '0.3s',
-                    transitionProperty: 'transform',
-                  }}
-                />
-              </BSNavLink>
+                  <span className="">Administration</span>
+                </BSNavLink>
             </NavItem>)}
-            <Collapse isOpen={this.state.isOpenAdmin}>
-              {navAdmin.map(({ to, name, exact, Icon }, index) => (
-                <NavItem key={index} className={bem.e('nav-item')}>
-                  <BSNavLink
-                    id={`navItem-${name}-${index}`}
-                    tag={NavLink}
-                    to={to}
-                    activeClassName="active"
-                    exact={exact}
-                  >
-                    <Icon className={bem.e('nav-item-icon')} />
-                    <span className="">{name}</span>
-                  </BSNavLink>
-                </NavItem>
-              ))}
-            </Collapse>
-
-            <NavItem
-              className={bem.e('nav-item')}
-              onClick={this.handleClick('Links')}
-            >
-              <BSNavLink className={`${bem.e('nav-item-collapse')}`}>
-                <div className="d-flex">
+            <NavItem className={bem.e('nav-item')}>
+                <BSNavLink
+                  id={`navItem-resources`}
+                  tag={NavLink}
+                  to="/resources"
+                  activeClassName=""
+                  exact={true}
+                >
                   <MdLink className={bem.e('nav-item-icon')} />
-                  <span className=" align-self-start">Links</span>
-                </div>
-                <MdKeyboardArrowDown
-                  className={bem.e('nav-item-icon')}
-                  style={{
-                    padding: 0,
-                    transform: this.state.isOpenLinks
-                      ? 'rotate(0deg)'
-                      : 'rotate(-90deg)',
-                    transitionDuration: '0.3s',
-                    transitionProperty: 'transform',
-                  }}
-                />
-              </BSNavLink>
-            </NavItem>
-            <Collapse isOpen={this.state.isOpenLinks}>
-              {this.props.externalLinks.map(({ url, name }, index) => (
-                <NavItem key={index} className={bem.e('nav-item')}>
-                  <a
-                    className="nav-link"
-                    href={url} target="_blank" rel="noopener noreferrer"
-                    id={`navItem-${name}-${index}`}
-                  >
-                    <MdRadioButtonChecked className={bem.e('nav-item-icon')} />
-                    <span className="">{name}</span>
-                  </a>
-                </NavItem>
-              ))}
-            </Collapse>
+                  <span className="">Resources</span>
+                </BSNavLink>
+              </NavItem>
+              <hr class="my-12"/>
+              <NavItem className={bem.e('nav-item')}>
+                <BSNavLink
+                  id={`navItem-resources`}
+                  tag={NavLink}
+                  to="/login"
+                  onClick={this.logout}
+                  exact={true}
+                >
+                  <MdLink className={bem.e('nav-item-icon')} />
+                  <span className="">Signout</span>
+                </BSNavLink>
+              </NavItem>
           </Nav>
         </div>
       </aside>

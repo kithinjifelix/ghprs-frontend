@@ -4,14 +4,14 @@ import Page from 'components/Page';
 import {
   Button,
   Card,
-  CardBody,
+  CardHeader,
   Col,
   Row,
   NavLink as BSNavLink,
 } from 'reactstrap';
 import { toast } from "react-toastify";
 import { NavLink, Link } from 'react-router-dom';
-import { MdEdit, MdDelete } from "react-icons/md";
+import { MdEdit, MdDelete, MdArrowBack, MdAdd } from "react-icons/md";
 import { fetchAll, remove } from "../actions/links";
 import MaterialTable from 'material-table'
 
@@ -42,22 +42,23 @@ const LinksPage = (props) => {
   return (
     <Page
       className="DashboardPage"
-      title="Links"
     >
       <Row>
         <Col xl={12} lg={12} md={12}>
           <Card>
-            <CardBody>
-              <Link to="/link">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className=" float-right mr-1"
-                >
-                  <span style={{ textTransform: "capitalize" }}>Add Link</span>
-                </Button>
-              </Link>
-            </CardBody>
+          <CardHeader>
+            Links
+            <Link to="/administration">
+            <Button
+              variant="contained"
+              color="link"
+              className=" float-right mr-1"
+            >
+              <MdArrowBack size="15" />{" "}
+              <span style={{ textTransform: "capitalize" }}>Back</span>
+            </Button>
+          </Link>
+            </CardHeader>
           </Card>
         </Col>
       </Row>
@@ -99,7 +100,16 @@ const LinksPage = (props) => {
                 </div>
               ),
             }))}
-            title="Links"
+            title={<Link to="/link">
+            <Button
+              variant="contained"
+              color="link"
+              className=" float-right mr-1"
+            >
+              <MdAdd size="15" />{" "}
+              <span style={{ textTransform: "capitalize" }}>Add Link</span>
+            </Button>
+          </Link>}
           />
         </Col>
       </Row>

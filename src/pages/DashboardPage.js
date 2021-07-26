@@ -19,11 +19,12 @@ const DashboardPage = (props) => {
     const params = new URLSearchParams(search);
     const url = params.get('url');
     const key = params.get('key');
+    const name = params.get('name');
     const number = parseInt(params.get('number'), 10);
 
     var METABASE_SITE_URL = url;
     var METABASE_SECRET_KEY = key;
-    var filters = authentication.currentRole === 'User' ? { "partner": props.currentUser.organization.name} : { }
+    var filters = authentication.currentRole === 'User' ? { "partner": props.currentUser.organization.name } : {}
     var payload = {
         resource: { dashboard: number },
         params: filters,
@@ -34,20 +35,28 @@ const DashboardPage = (props) => {
     if (key) {
         token = jwt.sign(payload, METABASE_SECRET_KEY);
     }
-    
+
     const iframeUrl = METABASE_SITE_URL + "/embed/dashboard/" + token + "#bordered=false&titled=true";
 
     return (
         <Page
             className="DashboardPage"
-            title="Dashboard"
         >
+            <Row>
+                <Col xl={12} lg={12} md={12}>
+                    <Card>
+                        <CardHeader>
+                            {name}
+                        </CardHeader>
+                        <CardBody>
+                            The health and service delivery data shown in the Dashboard section of the Data Portal have been supplied by implementing partners working in Tanzania and are intended to provide metrics on performance that can be used to improve program decision making. For questions on navigating the dashboards, consult the Data Portal User’s Guide.
+                        </CardBody>
+                    </Card>
+                </Col>
+            </Row>
             <Row>
                 <Col lg="12" md="12" sm="12" xs="12">
                     <Card>
-                        <CardHeader>
-                            Dashboard
-                        </CardHeader>
                         <CardBody>
                             {(METABASE_SITE_URL) && (
                                 <IframeResizer
@@ -78,7 +87,7 @@ const DashboardPage = (props) => {
 const mapStateToProps = (state) => {
     return {
         currentUser: state.users.currentUser,
-      };
+    };
 };
 
 const mapActionToProps = {

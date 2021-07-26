@@ -12,7 +12,9 @@ import { PrivateRoute } from "./PrivateRoute"
 import { loggedIn } from './actions/users';
 
 const DashboardPage = React.lazy(() => import('pages/DashboardPage'));
+const DashboardsPage = React.lazy(() => import('pages/DashboardsPage'));
 const HomePage = React.lazy(() => import('pages/HomePage'));
+const AdministrationPage = React.lazy(() => import('pages/AdministrationPage'));
 const TemplateUploadPage = React.lazy(() => import('pages/TemplateUploadPage'));
 const TemplateInitializationPage = React.lazy(() => import('pages/TemplateInitializationPage'));
 const DataTypePage = React.lazy(() => import('pages/DataTypePage'));
@@ -26,6 +28,7 @@ const SubmissionsPage = React.lazy(() => import('pages/SubmissionsPage'));
 const LinksPage = React.lazy(() => import('pages/LinksPage'));
 const AddLinksPage = React.lazy(() => import('pages/AddLinkPage'));
 const AddOrganizationPage = React.lazy(() => import('pages/AddOrganizationPage'));
+const ResourcesPage = React.lazy(() => import('pages/ResourcesPage'));
 
 const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split('/').pop()}`;
@@ -62,6 +65,7 @@ class App extends React.Component {
               <React.Suspense fallback={<PageSpinner />}>
                 <PrivateRoute exact path="/" component={HomePage} />
                 <PrivateRoute exact path="/dashboard" component={DashboardPage} />
+                <PrivateRoute exact path="/dashboards" component={DashboardsPage} />
                 <PrivateRoute exact path="/upload-Template" component={TemplateUploadPage} />
                 <PrivateRoute exact path="/initialize-Template" roles={['Administrator']} component={TemplateInitializationPage} />
                 <PrivateRoute exact path="/configure" roles={['Administrator']} component={DataTypePage} />
@@ -79,6 +83,8 @@ class App extends React.Component {
                 <PrivateRoute exact path="/organization" roles={['Administrator']} component={AddOrganizationPage} />
                 <PrivateRoute exact path="/organization/:id" roles={['Administrator']} component={AddOrganizationPage} />
                 <PrivateRoute exact path="/profile/:id" roles={['Administrator']} component={RegisterPage} />
+                <PrivateRoute exact path="/administration" roles={['Administrator']} component={AdministrationPage} />
+                <PrivateRoute exact path="/resources" component={ResourcesPage} />
               </React.Suspense>
             </MainLayout>
             <Redirect to="/" />

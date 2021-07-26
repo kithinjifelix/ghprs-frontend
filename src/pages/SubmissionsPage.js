@@ -3,6 +3,9 @@ import { url } from "../api";
 import React, { useEffect } from "react";
 import Page from 'components/Page';
 import {
+  Card,
+  CardHeader,
+  CardBody,
   Col,
   Row,
 } from 'reactstrap';
@@ -19,7 +22,7 @@ const status = [
 ]
 
 const SubmissionsPage = (props) => {
-  
+
   useEffect(() => {
     props.fetchUploads();
   }, []);
@@ -27,8 +30,17 @@ const SubmissionsPage = (props) => {
   return (
     <Page
       className="DashboardPage"
-      title="Submissions"
     >
+      <Row>
+        <Col xl={12} lg={12} md={12}>
+          <Card>
+            <CardHeader>Submissions</CardHeader>
+            <CardBody>
+              Your filled out template submissions.
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
       <Row>
         <Col lg="12" md="12" sm="12" xs="12">
           <MaterialTable
@@ -45,7 +57,7 @@ const SubmissionsPage = (props) => {
               name: row.name,
               user: row.user.userName,
               date: moment(row.createdAt).format('YYYY-MMM-DD'),
-              period: `${moment(row.startDate).format('YYYY-MMM-DD') === '0001-Jan-01'? '' : moment(row.startDate).format('YYYY-MMM-DD')} - ${moment(row.startDate).format('YYYY-MMM-DD') === '0001-Jan-01'? '' : moment(row.endDate).format('YYYY-MMM-DD')}`,
+              period: `${moment(row.startDate).format('YYYY-MMM-DD') === '0001-Jan-01' ? '' : moment(row.startDate).format('YYYY-MMM-DD')} - ${moment(row.startDate).format('YYYY-MMM-DD') === '0001-Jan-01' ? '' : moment(row.endDate).format('YYYY-MMM-DD')}`,
               status: status.find(o => o.id === row.status).name,
               comments: row.comments,
               actions: (

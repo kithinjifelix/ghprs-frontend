@@ -81,6 +81,10 @@
     cursor: pointer;
   }
 
+  &__nav-item-sub {
+    padding-left: 15px;
+  }
+
   &__nav-item-icon {
     // @include media-breakpoint-down(md) {
     //   padding: 0;

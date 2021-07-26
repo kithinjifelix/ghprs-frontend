@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react";
 import Page from 'components/Page';
 import {
   Button,
-  ButtonGroup,
   Card,
+  CardHeader,
   CardBody,
   Col,
   Form,
@@ -16,6 +16,8 @@ import {
   ModalBody,
   ModalFooter,
   ModalHeader,
+  Nav,
+  NavItem,
   Row,
   NavLink as BSNavLink,
 } from 'reactstrap';
@@ -27,6 +29,7 @@ import MaterialTable from 'material-table'
 import moment from 'moment';
 import useForm from '../functions/UseForm';
 import PageSpinner from '../components/PageSpinner';
+import classnames from 'classnames';
 
 const reviewForm = {
   comments: '',
@@ -41,6 +44,7 @@ const reviewStatus = [
 let userId = 0;
 
 const ReviewUploadsPage = (props) => {
+  const [activeTab, setActiveTab] = useState(0);
   const [modal, setModal] = useState(false);
   const [uploadStatus, setUploadStatus] = useState(0);
   const [loading, SetLoading] = useState(false);
@@ -66,6 +70,10 @@ const ReviewUploadsPage = (props) => {
     }
   };
 
+  const toggle = tab => {
+    if (activeTab !== tab) setActiveTab(tab);
+  };
+
   const handleReview = event => {
     event.preventDefault();
     SetLoading(true);
@@ -86,49 +94,60 @@ const ReviewUploadsPage = (props) => {
     <>
       <Page
         className="DashboardPage"
-        title="Review"
         hidden={loading}
       >
         <Row>
           <Col xl={12} lg={12} md={12}>
             <Card>
+              <CardHeader>
+                Review
+              </CardHeader>
               <CardBody>
-                <ButtonGroup>
-                  <Button
-                    color="primary"
-                    onClick={() => fetchData(0)}
-                    active={uploadStatus === 0}
-                  >
-                    Pending
-                </Button>
-                  <Button
-                    color="primary"
-                    onClick={() => fetchData(1)}
-                    active={uploadStatus === 1}
-                  >
-                    Approved
-                </Button>
-                  <Button
-                    color="primary"
-                    onClick={() => fetchData(2)}
-                    active={uploadStatus === 2}
-                  >
-                    Denied
-                </Button>
-                  <Button
-                    color="primary"
-                    onClick={() => fetchData(3)}
-                    active={uploadStatus === 3}
-                  >
-                    Over-Written
-                </Button>
-                </ButtonGroup>
+                Review data submissions fron the different users of the system.
               </CardBody>
             </Card>
           </Col>
         </Row>
         <Row>
           <Col lg="12" md="12" sm="12" xs="12">
+            <Nav tabs>
+              <NavItem>
+                <BSNavLink
+                  id="nav-details"
+                  className={classnames({ active: activeTab === 0 })}
+                  onClick={() => { toggle(0); fetchData(0); }}
+                >
+                  Pending
+                </BSNavLink>
+              </NavItem>
+              <NavItem>
+                <BSNavLink
+                  id="nav-details"
+                  className={classnames({ active: activeTab === 1 })}
+                  onClick={() => { toggle(1); fetchData(1); }}
+                >
+                  Approved
+                </BSNavLink>
+              </NavItem>
+              <NavItem>
+                <BSNavLink
+                  id="nav-details"
+                  className={classnames({ active: activeTab === 2 })}
+                  onClick={() => { toggle(2); fetchData(2); }}
+                >
+                  Denied
+                </BSNavLink>
+              </NavItem>
+              <NavItem>
+                <BSNavLink
+                  id="nav-details"
+                  className={classnames({ active: activeTab === 3 })}
+                  onClick={() => { toggle(3); fetchData(3); }}
+                >
+                  Over-Written
+                </BSNavLink>
+              </NavItem>
+            </Nav>
             <MaterialTable
               columns={[
                 { title: 'Name', field: 'name' },
@@ -174,7 +193,7 @@ const ReviewUploadsPage = (props) => {
                   </div>
                 ),
               }))}
-              title="Users"
+              title="Data Submissions"
             />
           </Col>
         </Row>

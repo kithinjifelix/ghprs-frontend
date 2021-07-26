@@ -80,15 +80,21 @@ const TemplateUploadPage = (props) => {
         <>
         <Page
             className="DashboardPage"
-            title="Upload Template"
             hidden={loading}
         >
             <Row>
+        <Col xl={12} lg={12} md={12}>
+          <Card>
+            <CardHeader>Submit</CardHeader>
+            <CardBody>
+              Upload a filled out data template
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+            <Row>
                 <Col lg="12" md="12" sm="12" xs="12">
                     <Card>
-                        <CardHeader>
-                            Template Upload
-                        </CardHeader>
                         <CardBody>
                             <Row>
                                 <Col md={6}>

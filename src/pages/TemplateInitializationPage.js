@@ -4,8 +4,8 @@ import Page from 'components/Page';
 import {
     Button,
     Card,
-    CardBody,
     CardHeader,
+    CardBody,
     Col,
     Label,
     Input,
@@ -70,13 +70,23 @@ const TemplateInitializationPage = props => {
         <>
             <Page
                 className="DashboardPage"
-                title="Template"
                 hidden={loading}
             >
                 <Row>
+                    <Col xl={12} lg={12} md={12}>
+                        <Card>
+                        <CardHeader>
+                            Initialize
+                        </CardHeader>
+                            <CardBody>
+                            This page is for creating a new template in the system to enable data upload.
+                            </CardBody>
+                        </Card>
+                    </Col>
+                </Row>
+                <Row>
                     <Col lg="12" md="12" sm="12" xs="12">
                         <Card>
-                            <CardHeader>Initialize Template</CardHeader>
                             <CardBody>
                                 <Row>
                                     <Col md={6}>
@@ -133,7 +143,7 @@ const TemplateInitializationPage = props => {
                                                     accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                                                 />
                                                 <FormText color="muted">
-                                                    Upload filled out excel template
+                                                Upload filled-out Excel template.
                                             </FormText>
                                             </FormGroup>
                                             <FormGroup check row>

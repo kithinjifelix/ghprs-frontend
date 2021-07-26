@@ -14,6 +14,8 @@ import {
     Label,
     Row,
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import { MdArrowBack } from "react-icons/md";
 import { add, getById } from "../actions/links";
 import useForm from "../functions/UseForm";
 import { toast } from "react-toastify";
@@ -85,14 +87,31 @@ const AddLinkPage = (props) => {
     return (
         <>
             <Page
-                title={title}
                 hidden={loading}
             >
                 <Form onSubmit={handleSubmit}>
                     <Row>
                         <Col xl={12} lg={12} md={12}>
                             <Card>
-                                <CardHeader>Link Details</CardHeader>
+                                <CardHeader>{title} <Link to="/links">
+                                    <Button
+                                        variant="contained"
+                                        color="link"
+                                        className=" float-right mr-1"
+                                    >
+                                        <MdArrowBack size="15" />{" "}
+                                        <span style={{ textTransform: "capitalize" }}>Back</span>
+                                    </Button>
+                                </Link></CardHeader>
+                                <CardBody>
+                                    Fill details to {title}.
+                                </CardBody>
+                            </Card>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xl={12} lg={12} md={12}>
+                            <Card>
                                 <CardBody>
                                     <Row form>
                                         <Col md={6}>

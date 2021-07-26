@@ -3,6 +3,9 @@ import { url } from "../api";
 import React, { useEffect, useState } from "react";
 import Page from 'components/Page';
 import {
+  Card,
+  CardHeader,
+  CardBody,
   Form,
   FormGroup,
   Input,
@@ -80,8 +83,19 @@ const TemplateDownloadPage = (props) => {
   return (
     <Page
       className="DashboardPage"
-      title="Downloads"
     >
+      <Row>
+        <Col xl={12} lg={12} md={12}>
+          <Card>
+            <CardHeader>
+              Downloads
+            </CardHeader>
+            <CardBody>
+              Blank template downloads that will be used to collect and upload data into the system.
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
       <Row>
         <Col lg="12" md="12" sm="12" xs="12">
           <MaterialTable
@@ -102,15 +116,15 @@ const TemplateDownloadPage = (props) => {
               actions: (
                 <div>
                   {(authentication.currentRole === 'Administrator' && row.status === 0) && (<BSNavLink
-                  id={`configure${row.id}`}
-                  tag={NavLink}
-                  to={`/configure/${row.id}`}
-                  activeClassName="active"
-                  exact={true}
-                >
-                  <MdSettings size="15" />{" "}
-                  <span style={{ color: "#000" }}>Configure</span>
-                </BSNavLink>)}
+                    id={`configure${row.id}`}
+                    tag={NavLink}
+                    to={`/configure/${row.id}`}
+                    activeClassName="active"
+                    exact={true}
+                  >
+                    <MdSettings size="15" />{" "}
+                    <span style={{ color: "#000" }}>Configure</span>
+                  </BSNavLink>)}
                   <a
                     href={`${url}templates/download/${row.id}`} target="_blank" rel="noopener noreferrer"
                     id={`navItem-${row.name}-${row.id}`}
@@ -129,7 +143,7 @@ const TemplateDownloadPage = (props) => {
                 </div>
               ),
             }))}
-            title="Users"
+            title="Downloads"
           />
         </Col>
       </Row>
