@@ -30,14 +30,11 @@ const DataTypePage = (props) => {
   const [dataIndex, setDataIndex] = useState(0);
   const [loading, SetLoading] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
-  const [configId, setConfigId] = useState(null);
-  const [dataTypes, setDataTypes] = useState([]);
 
   useEffect(() => {
     const { match: { params } } = props;
     if (params.id) {
       props.fetch(params.id);
-      setConfigId(params.id);
     }
   }, []);
 
@@ -62,14 +59,8 @@ const DataTypePage = (props) => {
 
   const fetchColumns = (index) => {
     setDataIndex(index);
-    const onSuccess = () => {
-      setSheet(index);
-      getWorkSheetColumns(index);
-    };
-    const onError = () => {
-      toast.error("Something went wrong");
-    };
-    props.fetch(configId, onSuccess, onError);
+    setSheet(index);
+    getWorkSheetColumns(index);
   };
 
   const handleInputChange = e => {
@@ -88,9 +79,8 @@ const DataTypePage = (props) => {
   };
 
   const handleSubmit = event => {
-    console.log(props.workSheets[sheet].columns);
     event.preventDefault();
-    //SetLoading(true);
+    SetLoading(true);
     const onSuccess = () => {
       SetLoading(false);
       toast.success("Updated Successfully");
@@ -100,7 +90,7 @@ const DataTypePage = (props) => {
       toast.error("Something went wrong");
     };
 
-    // props.update(props.workSheets[sheet].id, props.workSheets[sheet].columns, onSuccess, onError);
+    props.update(props.workSheets[sheet].id, props.workSheets[sheet].columns, onSuccess, onError);
   };
 
   const handleFinish = event => {
