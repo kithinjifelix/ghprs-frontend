@@ -12,6 +12,7 @@ import {
   MdViewList,
   MdSettings,
   MdReceipt,
+  MdExitToApp
 } from 'react-icons/md';
 import { NavLink } from 'react-router-dom';
 import {
@@ -165,7 +166,7 @@ class Sidebar extends React.Component {
                   <span className="">Resources</span>
                 </BSNavLink>
               </NavItem>
-              <hr class="my-12"/>
+              <hr className="my-12"/>
               <NavItem className={bem.e('nav-item')}>
                 <BSNavLink
                   id={`navItem-resources`}
@@ -174,7 +175,7 @@ class Sidebar extends React.Component {
                   onClick={this.logout}
                   exact={true}
                 >
-                  <MdLink className={bem.e('nav-item-icon')} />
+                  <MdExitToApp className={bem.e('nav-item-icon')} />
                   <span className="">Signout</span>
                 </BSNavLink>
               </NavItem>

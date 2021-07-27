@@ -3,15 +3,18 @@ import React, { useEffect, useState } from "react";
 import Page from 'components/Page';
 import {
   Button,
-  ButtonGroup,
   Card,
   CardBody,
   CardHeader,
+  CardTitle,
   Col,
   Form,
   FormGroup,
   Input,
   Label,
+  Nav,
+  NavItem,
+  NavLink as BSNavLink,
   Row,
 } from 'reactstrap';
 import * as ACTION_TYPES from "../actions/types";
@@ -19,17 +22,22 @@ import { lookup } from "../actions/lookups";
 import { updateDataType, updateDataTypeInput, createWorkSheetTables, configure } from "../actions/template";
 import { toast } from "react-toastify";
 import PageSpinner from '../components/PageSpinner';
+import classnames from 'classnames';
 
 const DataTypePage = (props) => {
+  let columns = [];
   const [sheet, setSheet] = useState(0);
-  const [columns, setColumns] = useState([]);
   const [dataIndex, setDataIndex] = useState(0);
   const [loading, SetLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState(0);
+  const [configId, setConfigId] = useState(null);
+  const [dataTypes, setDataTypes] = useState([]);
 
   useEffect(() => {
     const { match: { params } } = props;
     if (params.id) {
       props.fetch(params.id);
+      setConfigId(params.id);
     }
   }, []);
 
@@ -37,22 +45,31 @@ const DataTypePage = (props) => {
     props.fetchDataTypes("dataType", ACTION_TYPES.LOOKUP_DATA_TYPE);
   }, []);
 
-  const getWorkSheetColumns = (index) => {
-    setDataIndex(index);
-    const c = props.workSheets[index].columns;
-    setColumns(c);
+  const toggle = tab => {
+    if (activeTab !== tab) setActiveTab(tab);
   };
 
   useEffect(() => {
-    debugger;
     if (props.workSheets.length > 0) {
       getWorkSheetColumns(0);
     }
   }, []);
 
+  const getWorkSheetColumns = (index) => {
+    const c = props.workSheets[index].columns;
+    columns = c;
+  };
+
   const fetchColumns = (index) => {
-    setSheet(index);
-    getWorkSheetColumns(index);
+    setDataIndex(index);
+    const onSuccess = () => {
+      setSheet(index);
+      getWorkSheetColumns(index);
+    };
+    const onError = () => {
+      toast.error("Something went wrong");
+    };
+    props.fetch(configId, onSuccess, onError);
   };
 
   const handleInputChange = e => {
@@ -62,7 +79,8 @@ const DataTypePage = (props) => {
       column.type = value;
       props.updateInput(sheet, column);
     } else {
-      getWorkSheetColumns(0);
+      getWorkSheetColumns(dataIndex);
+      column = columns[name];
       column.type = value;
       props.updateInput(sheet, column);
     }
@@ -70,8 +88,9 @@ const DataTypePage = (props) => {
   };
 
   const handleSubmit = event => {
+    console.log(props.workSheets[sheet].columns);
     event.preventDefault();
-    SetLoading(true);
+    //SetLoading(true);
     const onSuccess = () => {
       SetLoading(false);
       toast.success("Updated Successfully");
@@ -81,7 +100,7 @@ const DataTypePage = (props) => {
       toast.error("Something went wrong");
     };
 
-    props.update(props.workSheets[sheet].id, props.workSheets[sheet].columns, onSuccess, onError);
+    // props.update(props.workSheets[sheet].id, props.workSheets[sheet].columns, onSuccess, onError);
   };
 
   const handleFinish = event => {
@@ -102,52 +121,65 @@ const DataTypePage = (props) => {
     <>
       <Page
         className="DashboardPage"
-        title="Template Configuration"
         hidden={loading}
       >
         {props.workSheets.length > 0 && (<Form onSubmit={handleSubmit}>
           <Row>
             <Col lg="12" md="12" sm="12" xs="12">
               <Card>
-                <CardHeader>Work Sheets</CardHeader>
+                <CardHeader>
+                  Template Configuration
+                </CardHeader>
                 <CardBody>
-                  <ButtonGroup
-                    style={{ margin: "10px" }}
-                  >
-                    {props.workSheets.map(({ name }, index) => (
-                      <Button
-                        key={`Button-Worksheet-${index}`}
-                        color="primary"
-                        onClick={() => fetchColumns(index)}
-                        active={sheet === index}
-                      >
-                        {name}
-                      </Button>
-                    ))}
-                  </ButtonGroup>
-                  <Button
-                    style={{ margin: "10px" }}
-                    onClick={() => handleFinish()}
-                  >
-                    Finish
-                </Button>
+                  Cycle through all the tabs selecting the data types for the different fields then click on Update. When done with all the tabs and the data types are filled correctly click on Finish to complete the template configuration.
                 </CardBody>
               </Card>
             </Col>
           </Row>
           <Row>
             <Col lg="12" md="12" sm="12" xs="12">
+              <Nav tabs>
+                {props.workSheets.map(({ name }, index) => (
+                  <NavItem key={`nav-Worksheet-${index}`} className="nav-tab-details">
+                    <BSNavLink
+                      id="nav-details"
+                      className={classnames({ active: activeTab === index })}
+                      onClick={() => { toggle(index); fetchColumns(index); }}
+                    >
+                      {name}
+                    </BSNavLink>
+                  </NavItem>
+                ))}
+              </Nav>
               <Card>
-                <CardHeader>Column Data Types</CardHeader>
+                <CardHeader>
+                  Column Data Types
+                  <Button
+                    className=" float-right mr-1"
+                    onClick={() => handleFinish()}
+                  >
+                  Finish
+                </Button>
+                </CardHeader>
                 <CardBody>
+                  <CardTitle>
+                    <Row>
+                      <Col md={6}>
+                        <Label><b>Column</b></Label>
+                      </Col>
+                      <Col md={6}>
+                        <Label><b>Data Type</b></Label>
+                      </Col>
+                    </Row>
+                  </CardTitle>
                   {!loading && (
                     <FormGroup>
                       {props.workSheets[dataIndex].columns.map(({ type, name }, index) => (
                         <Row key={`Row-${index}`} >
-                          <Col md={4}>
+                          <Col md={6}>
                             <Label for={`ghprs-${index}`}>{name}</Label>
                           </Col>
-                          <Col md={4}>
+                          <Col md={6}>
                             {props.dataTypes && (<Input
                               type="select"
                               name={index}
@@ -164,7 +196,6 @@ const DataTypePage = (props) => {
                               ))}
                             </Input>)}
                           </Col>
-                          <Col md={4}></Col>
                         </Row>
                       ))}
                     </FormGroup>
