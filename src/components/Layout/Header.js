@@ -62,7 +62,7 @@ class Header extends React.Component {
           </NavItem>
         </Nav>
         <Nav navbar className={bem.e('nav-right')}>
-          <NavItem  style={{ width: "75%" }}>
+          <NavItem  style={{ width: "60%" }}>
             <img src={'./DataFI.png'} className="img-fluid" alt="DataFIlogo" />
           </NavItem>
         </Nav>
