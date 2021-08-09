@@ -79,7 +79,7 @@ const TemplateInitializationPage = props => {
                             Initialize
                         </CardHeader>
                             <CardBody>
-                            This page is for creating a new template in the system to enable data upload.
+                                Create new templates to allow data upload
                             </CardBody>
                         </Card>
                     </Col>

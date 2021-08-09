@@ -91,7 +91,7 @@ const TemplateDownloadPage = (props) => {
               Downloads
             </CardHeader>
             <CardBody>
-              Blank template downloads that will be used to collect and upload data into the system.
+            Download a blank template to collect and upload data into the system
             </CardBody>
           </Card>
         </Col>

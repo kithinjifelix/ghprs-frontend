@@ -49,7 +49,7 @@ const DashboardPage = (props) => {
                             {name}
                         </CardHeader>
                         <CardBody>
-                            The health and service delivery data shown in the Dashboard section of the Data Portal have been supplied by implementing partners working in Tanzania and are intended to provide metrics on performance that can be used to improve program decision making. For questions on navigating the dashboards, consult the Data Portal User’s Guide.
+                            The dashboards contain service delivery performance data as reported by the respective USAID implementing partners. The performance information contained in the dashboards is meant to gauge project performance, aid decision making and subsequently improve program design for better health outcomes. Consult the Data Portal User Guide for more information on the dashboards.
                         </CardBody>
                     </Card>
                 </Col>

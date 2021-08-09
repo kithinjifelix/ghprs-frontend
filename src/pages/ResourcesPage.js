@@ -21,7 +21,7 @@ const ResourcesPage = (props) => {
             <CardHeader>Resources</CardHeader>
             <CardBody>
               <Row>
-                This is a listing of useful external resources.
+              Links to relevant external resources
               </Row>
             </CardBody>
           </Card>

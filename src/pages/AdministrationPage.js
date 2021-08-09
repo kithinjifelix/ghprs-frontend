@@ -23,7 +23,7 @@ const AdminPage = (props) => {
             <CardHeader>Administration</CardHeader>
             <CardBody>
               <Row>
-               This page navigates to the administrative functions in the system.
+              Manage users and other system functions
               </Row>
             </CardBody>
           </Card>

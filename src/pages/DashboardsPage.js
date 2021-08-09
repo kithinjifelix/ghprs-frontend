@@ -23,7 +23,7 @@ const DashboardsPage = (props) => {
             <CardHeader>Dashboards</CardHeader>
             <CardBody>
               <Row>
-               A listing of the available dashboards in the system.
+                Click on each tile to display the dashboard
               </Row>
             </CardBody>
           </Card>

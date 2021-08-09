@@ -103,7 +103,7 @@ const ReviewUploadsPage = (props) => {
                 Review
               </CardHeader>
               <CardBody>
-                Review data submissions fron the different users of the system.
+              Review data submissions
               </CardBody>
             </Card>
           </Col>
