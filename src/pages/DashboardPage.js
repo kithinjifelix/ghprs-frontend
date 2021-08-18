@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Page from 'components/Page';
 import {
     Card,
@@ -12,6 +12,7 @@ import {
 import IframeResizer from 'iframe-resizer-react'
 import { authentication } from '../_services/authentication';
 import { getByNumber } from "../actions/links";
+import PageSpinner from '../components/PageSpinner';
 var jwt = require("jsonwebtoken");
 
 const DashboardPage = (props) => {
@@ -23,37 +24,31 @@ const DashboardPage = (props) => {
     const name = params.get('name');
     const number = parseInt(params.get('number'), 10);
 
-    const [filters, setFilters] = useState({});
-
     useEffect(() => {
         props.getDashboard(number);
-    }, []);
-
-    useEffect(() => {
-        if (authentication.currentRole === 'User') {
-            if(props.currentUser.organization){
-                setFilters({ "partner": props.currentUser.organization.name })
-            }
+      }, []);
+    
+    const getIframeUrl = () => {
+        var METABASE_SITE_URL = url;
+        var METABASE_SECRET_KEY = key;
+        var filters = authentication.currentRole === 'User' ? { "partner": props.currentUser.organization.name } : {}
+        var payload = {
+            resource: { dashboard: number },
+            params: filters,
+            exp: Math.round(Date.now() / 1000) + (10 * 60) // 10 minute expiration
+        };
+        let token = ''
+    
+        if (key) {
+            token = jwt.sign(payload, METABASE_SECRET_KEY);
         }
-    }, []);
-
-    var METABASE_SITE_URL = url;
-    var METABASE_SECRET_KEY = key;
-    var payload = {
-        resource: { dashboard: number },
-        params: filters,
-        exp: Math.round(Date.now() / 1000) + (10 * 60) // 10 minute expiration
+    
+        return METABASE_SITE_URL + "/embed/dashboard/" + token + "#bordered=false&titled=true";
     };
-    let token = ''
-    console.log(filters);
-    if (key) {
-        token = jwt.sign(payload, METABASE_SECRET_KEY);
-    }
-
-    const iframeUrl = METABASE_SITE_URL + "/embed/dashboard/" + token + "#bordered=false&titled=true";
 
     return (
-        <Page
+        <>
+        {(props.currentUser.organization) && <Page
             className="DashboardPage"
         >
             <Row>
@@ -72,21 +67,21 @@ const DashboardPage = (props) => {
                 <Col lg="12" md="12" sm="12" xs="12">
                     <Card>
                         <CardBody>
-                            {(METABASE_SITE_URL) && (
+                            {(url) && (
                                 <IframeResizer
-                                    src={iframeUrl}
+                                    src={getIframeUrl()}
                                     style={{ width: '1px', minWidth: '100%' }}
                                 />
                             )}
-                            {!(METABASE_SITE_URL) && (
+                            {!(url) && (
                                 <Card>
                                     <CardHeader>
                                         404
-                                    </CardHeader>
+                                </CardHeader>
                                     <CardBody>
                                         <CardText>
                                             Dashboard not available.
-                                        </CardText>
+                                  </CardText>
                                     </CardBody>
                                 </Card>
                             )}
@@ -94,7 +89,9 @@ const DashboardPage = (props) => {
                     </Card>
                 </Col>
             </Row>
-        </Page>
+        </Page>}
+        {(!props.currentUser.organization) && <PageSpinner />}
+        </>
     );
 }
 
@@ -106,7 +103,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapActionToProps = {
-    getDashboard: getByNumber
+    getDashboard : getByNumber
 };
 
 export default connect(mapStateToProps, mapActionToProps)(DashboardPage);
