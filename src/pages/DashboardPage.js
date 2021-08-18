@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import React, { } from "react";
+import React, { useEffect } from "react";
 import Page from 'components/Page';
 import {
     Card,
@@ -11,6 +11,7 @@ import {
 } from 'reactstrap';
 import IframeResizer from 'iframe-resizer-react'
 import { authentication } from '../_services/authentication';
+import { getByNumber } from "../actions/links";
 var jwt = require("jsonwebtoken");
 
 const DashboardPage = (props) => {
@@ -21,6 +22,10 @@ const DashboardPage = (props) => {
     const key = params.get('key');
     const name = params.get('name');
     const number = parseInt(params.get('number'), 10);
+
+    useEffect(() => {
+        props.getDashboard(number);
+      }, []);
 
     var METABASE_SITE_URL = url;
     var METABASE_SECRET_KEY = key;
@@ -49,7 +54,7 @@ const DashboardPage = (props) => {
                             {name}
                         </CardHeader>
                         <CardBody>
-                            {props.dashboards.find(o => o.number === number).description}
+                            {props.dashboard.description}
                         </CardBody>
                     </Card>
                 </Col>
@@ -87,12 +92,12 @@ const DashboardPage = (props) => {
 const mapStateToProps = (state) => {
     return {
         currentUser: state.users.currentUser,
-        dashboards: state.links.dashboards
+        dashboard: state.links.dashboard
     };
 };
 
 const mapActionToProps = {
-
+    getDashboard : getByNumber
 };
 
 export default connect(mapStateToProps, mapActionToProps)(DashboardPage);

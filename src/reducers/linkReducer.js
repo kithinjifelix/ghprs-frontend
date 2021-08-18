@@ -5,6 +5,7 @@ const initialState = {
   link: {},
   external: [],
   dashboards: [],
+  dashboard: {},
   reports: [],
   tables: [],
   error: {},
@@ -18,6 +19,9 @@ const linkReducer = (state = initialState, action) => {
 
     case ACTION_TYPES.LINK_GET_BY_ID:
       return { ...state, link: action.payload };
+    
+    case ACTION_TYPES.LINK_GET_BY_NUMBER:
+       return { ...state, dashboard: action.payload };
 
     case ACTION_TYPES.LINK_GET_ALL:
       return { ...state, list: [...action.payload] };

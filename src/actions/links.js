@@ -63,6 +63,26 @@ export const getById = (id, onSuccess, onError) => (dispatch) => {
     });
 };
 
+export const getByNumber = (number, onSuccess, onError) => (dispatch) => {
+  axios
+    .get(`${url}links/number/${number}`)
+    .then((response) => {
+      dispatch({
+        type: ACTION_TYPES.LINK_GET_BY_NUMBER,
+        payload: response.data,
+      });
+      if (onSuccess) {
+        onSuccess();
+      }
+    })
+    .catch((error) => {
+      if (onError) {
+        onError();
+        toast.error("Something went wrong fetching link");
+      }
+    });
+};
+
 export const add = (data, onSuccess, onError) => (dispatch) => {
   axios
     .post(`${url}links`, data)
