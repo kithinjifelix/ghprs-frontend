@@ -49,7 +49,7 @@ const DashboardPage = (props) => {
                             {name}
                         </CardHeader>
                         <CardBody>
-                            The dashboards contain service delivery performance data as reported by the respective USAID implementing partners. The performance information contained in the dashboards is meant to gauge project performance, aid decision making and subsequently improve program design for better health outcomes. Consult the Data Portal User Guide for more information on the dashboards.
+                            {props.dashboards.find(o => o.number === number).description}
                         </CardBody>
                     </Card>
                 </Col>
@@ -87,6 +87,7 @@ const DashboardPage = (props) => {
 const mapStateToProps = (state) => {
     return {
         currentUser: state.users.currentUser,
+        dashboards: state.links.dashboards
     };
 };
 
