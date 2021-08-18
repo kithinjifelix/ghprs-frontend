@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Page from 'components/Page';
 import {
     Card,
@@ -23,20 +23,29 @@ const DashboardPage = (props) => {
     const name = params.get('name');
     const number = parseInt(params.get('number'), 10);
 
+    const [filters, setFilters] = useState({});
+
     useEffect(() => {
         props.getDashboard(number);
-      }, []);
+    }, []);
+
+    useEffect(() => {
+        if (authentication.currentRole === 'User') {
+            if(props.currentUser.organization){
+                setFilters({ "partner": props.currentUser.organization.name })
+            }
+        }
+    }, []);
 
     var METABASE_SITE_URL = url;
     var METABASE_SECRET_KEY = key;
-    var filters = authentication.currentRole === 'User' ? { "partner": props.currentUser.organization.name } : {}
     var payload = {
         resource: { dashboard: number },
         params: filters,
         exp: Math.round(Date.now() / 1000) + (10 * 60) // 10 minute expiration
     };
     let token = ''
-
+    console.log(filters);
     if (key) {
         token = jwt.sign(payload, METABASE_SECRET_KEY);
     }
@@ -73,11 +82,11 @@ const DashboardPage = (props) => {
                                 <Card>
                                     <CardHeader>
                                         404
-                                </CardHeader>
+                                    </CardHeader>
                                     <CardBody>
                                         <CardText>
                                             Dashboard not available.
-                                  </CardText>
+                                        </CardText>
                                     </CardBody>
                                 </Card>
                             )}
@@ -97,7 +106,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapActionToProps = {
-    getDashboard : getByNumber
+    getDashboard: getByNumber
 };
 
 export default connect(mapStateToProps, mapActionToProps)(DashboardPage);

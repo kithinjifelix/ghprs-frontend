@@ -28,6 +28,7 @@ const AddLinkPage = (props) => {
         linkType: 0,
         number: 0,
         key: "",
+        description: "",
     };
 
     const [title, setTitle] = useState('');
@@ -121,6 +122,18 @@ const AddLinkPage = (props) => {
                                                     type="text"
                                                     name="name"
                                                     placeholder="Name"
+                                                    value={values.name}
+                                                    onChange={handleInputChange}
+                                                />
+                                            </FormGroup>
+                                        </Col>
+                                        <Col md={6}>
+                                            <FormGroup>
+                                                <Label for="name">Description</Label>
+                                                <Input
+                                                    type="text"
+                                                    name="description"
+                                                    placeholder="Description"
                                                     value={values.name}
                                                     onChange={handleInputChange}
                                                 />
