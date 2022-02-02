@@ -154,6 +154,7 @@ const ReviewUploadsPage = (props) => {
                 { title: 'User', field: 'user' },
                 { title: 'Submission Date', field: 'date' },
                 { title: 'Period', field: 'period' },
+                { title: 'Upload Status', field: 'uploadStatus'},
                 { title: 'Comments', field: 'comments' },
                 { title: 'Actions', field: 'actions' }
               ]}
@@ -162,6 +163,7 @@ const ReviewUploadsPage = (props) => {
                 user: row.user.userName,
                 date: moment(row.createdAt).format('YYYY-MMM-DD'),
                 period: `${moment(row.startDate).format('YYYY-MMM-DD') === '0001-Jan-01' ? '' : moment(row.startDate).format('YYYY-MMM-DD')} - ${moment(row.startDate).format('YYYY-MMM-DD') === '0001-Jan-01' ? '' : moment(row.endDate).format('YYYY-MMM-DD')}`,
+                uploadStatus: row.uploadStatus,
                 comments: row.comments,
                 actions: (
                   <div>
