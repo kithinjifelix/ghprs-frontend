@@ -111,6 +111,34 @@ export const add = (data, onSuccess, onError) => (dispatch) => {
     });
 };
 
+export const edit = (id, data, onSuccess, onError) => (dispatch) => {
+    axios
+        .put(`${url}links/${id}`, data)
+        .then((response) => {
+            dispatch({
+                type: ACTION_TYPES.LINK_ADD,
+                payload: response.data,
+            });
+            onSuccess && onSuccess();
+            //toast.success("Link Added Successfully!");
+        })
+        .catch((error) => {
+            dispatch({
+                type: ACTION_TYPES.LINK_ERROR,
+                payload: "Something went wrong",
+            });
+            onError();
+            if (
+                error.response === undefined
+            ) {
+                toast.error("Something went wrong");
+            } else {
+                toast.error(error);
+                //toast.error(error.response.data.apierror.message);
+            }
+        });
+};
+
 export const remove = (id, onSuccess, onError) => (dispatch) => {
   axios
     .delete(`${url}links/${id}`)

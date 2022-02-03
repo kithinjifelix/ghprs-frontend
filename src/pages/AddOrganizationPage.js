@@ -15,7 +15,7 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { MdArrowBack } from "react-icons/md";
-import { register, getById } from "../actions/organizations";
+import { register, getById, updateRegister } from "../actions/organizations";
 import useForm from "../functions/UseForm";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -56,16 +56,20 @@ const AddOrganizationPage = (props) => {
         if (params.id) {
             async function fetchData() {
                 try {
-                    axios.get(`${url}organizations/` + params.id)
-                        .then((response) => {
-                            console.log("started");
-                            name = response.data.name;
-                            shortname = response.data.name;
-                            description = response.data.description;
-                            orgId = params.id;
-                            console.log(response.data);
-                            console.log("end");
-                        });
+                    const response = await axios.get(`${url}organizations/` + params.id);
+                    if (response.status === 200) {
+                        name = response.data.name;
+                        shortname = response.data.shortName;
+                        description = response.data.description;
+                        orgId = params.id;
+                        const profileValues = {
+                            name: name,
+                            description: description,
+                            shortName: shortname,
+                            id: orgId,
+                        };
+                        setValues(profileValues);
+                    }
                 } catch (e) {
                     console.log("error");
                     console.error(e);

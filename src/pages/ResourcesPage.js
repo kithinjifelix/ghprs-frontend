@@ -32,9 +32,9 @@ const ResourcesPage = (props) => {
           <Card>
             <CardBody>
               <Row>
-              {props.links && props.links.map(({ url, name, key }, index) => (<div class="col-6">
-                  <div key={`${key}-${index}`} class="list-group" id="list-tab" role="tablist">
-                    <a class="list-group-item list-group-item-action" id={`list-${name}`} data-toggle="list" rel="noopener noreferrer" target="_blank" href={url} role="tab" aria-controls={name}>{name}</a>
+              {props.links && props.links.map(({ url, name, key }, index) => (<div className="col-6">
+                  <div key={`${key}-${index}`} className="list-group" id="list-tab" role="tablist">
+                    <a className="list-group-item list-group-item-action" id={`list-${name}`} data-toggle="list" rel="noopener noreferrer" target="_blank" href={url} role="tab" aria-controls={name}>{name}</a>
                   </div>
                 </div>))}
               </Row>

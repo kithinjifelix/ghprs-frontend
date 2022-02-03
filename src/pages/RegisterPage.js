@@ -30,15 +30,10 @@ const userRegistration = {
   password: "",
   email: "",
   phoneNumber: "",
-  roleId: 0,
+  // roleId: 0,
   organizationId: 1,
   name: "",
 };
-
-let name = "";
-let email = "";
-let organizationId = "";
-let roleId = "";
 
 
 const RegisterPage = (props) => {
@@ -57,23 +52,6 @@ const RegisterPage = (props) => {
     if (params.id) {
       setEdit(true);
       setUserId(params.id);
-      const onSuccess = () => {
-        toast.success("User Loaded");
-        const profileValues = {
-          password: "",
-          email: "",
-          phoneNumber: "",
-          roleId: 0,
-          organizationId: 1,
-          name: "",
-        };
-        setValues(profileValues);
-      };
-      const onError = () => {
-        toast.error("Could not fetch user");
-      };
-      props.fetchUser(params.id, onSuccess, onError);
-
       setTitle('Profile');
     } else {
       setTitle('Add User');
@@ -94,15 +72,19 @@ const RegisterPage = (props) => {
     if (params.id) {
       async function fetchData() {
         try {
-          axios.get(`${url}users/` + params.id)
-            .then((response) => {
-              console.log(response.data);
-              email = response.data.email;
-              name = response.data.person.name;
-              organizationId = response.data.organization.id;
-              roleId = response.data.roleId;
-
-            });
+          const response = await axios.get(`${url}users/` + params.id);
+          console.log(response);
+          if (response.status == 200) {
+            const profileValues = {
+              email: response.data.email,
+              id: response.data.id,
+              organizationId: response.data.organizationId,
+              roleId: response.data.roleId,
+              userName: response.data.userName,
+              name: response.data.person.name
+            };
+            setValues(profileValues);
+          }
         } catch (e) {
           console.error(e);
         }
@@ -111,26 +93,6 @@ const RegisterPage = (props) => {
     }
 
   }, []);
-
-  useEffect(() => {
-    if (edit) {
-
-      const profileValues = {
-        roleId: 0,
-        organizationId: organizationId,
-        name: name,
-        id: userId
-      };
-      setValues(profileValues);
-      document.getElementById("name").value = name;
-      document.getElementById("email").value = email;
-      document.getElementById("organizationId").value = organizationId;
-      document.getElementById("roleId").value = "1";
-
-      email = "";
-    }
-  })
-
 
   useEffect(() => {
     props.fetchMaritalStatus(
@@ -147,6 +109,7 @@ const RegisterPage = (props) => {
   ];
 
   function inputChange(e) {
+    console.log(document.getElementById("organizationId").value);
     const profileValues = {
       password: document.getElementById("password").value,
       email: document.getElementById("email").value,
@@ -216,7 +179,7 @@ const RegisterPage = (props) => {
                           name="name"
                           id="name"
                           placeholder="Name"
-                          //pattern="[A-Za-z]{3}"
+                          value={values.name}
                           onChange={inputChange}
                         />
                       </FormGroup>
@@ -282,7 +245,7 @@ const RegisterPage = (props) => {
                           name="roleId"
                           id="roleId"
                           placeholder="Select Role"
-                          value={roleId}
+                          value={values.roleId}
                           onChange={inputChange}
                         >
                           <option value=""> </option>

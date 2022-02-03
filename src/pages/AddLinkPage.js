@@ -16,10 +16,12 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { MdArrowBack } from "react-icons/md";
-import { add, getById } from "../actions/links";
+import { add, getById, edit } from "../actions/links";
 import useForm from "../functions/UseForm";
 import { toast } from "react-toastify";
 import PageSpinner from '../components/PageSpinner';
+import axios from "axios";
+import { url } from "../api";
 
 const AddLinkPage = (props) => {
     const initialValues = {
@@ -35,16 +37,36 @@ const AddLinkPage = (props) => {
     const [edit, setEdit] = useState(false);
     const [loading, SetLoading] = useState(false);
 
-    const { values, handleInputChange, resetForm } = useForm(
+    const { values, handleInputChange, resetForm, setValues } = useForm(
         initialValues
     );
 
     useEffect(() => {
         const { match: { params } } = props;
         if (params.id) {
+            const fetchLink = async () => {
+                try {
+                    const response = await axios.get(`${url}links/` + params.id);
+                    if (response.status == 200) {
+                        const linksValues = {
+                            createdAt: response.data.createdAt,
+                            description: response.data.description,
+                            id: response.data.id,
+                            key: response.data.key,
+                            linkType: response.data.linkType,
+                            name: response.data.name,
+                            number: response.data.number,
+                            updatedAt: response.data.updatedAt,
+                            url: response.data.url
+                        };
+                        setValues(linksValues);
+                    }
+                } catch (e) {
+                    toast.error("Something went wrong");
+                }
+            };
+            fetchLink();
             const onSuccess = () => {
-                console.log(props)
-
             };
             const onError = () => {
                 toast.error("Something went wrong");
@@ -69,7 +91,17 @@ const AddLinkPage = (props) => {
         event.preventDefault();
         SetLoading(true);
         if (edit) {
-            console.log(values);
+            const onSuccess = () => {
+                SetLoading(false);
+                toast.success("Link Updated Successfully");
+                resetForm();
+                props.history.push("/links");
+            };
+            const onError = () => {
+                SetLoading(false);
+                toast.error("Something went wrong");
+            };
+            props.edit(values.id, values, onSuccess, onError);
         } else {
             const onSuccess = () => {
                 SetLoading(false);
@@ -193,7 +225,7 @@ const AddLinkPage = (props) => {
                                                     type="text"
                                                     name="key"
                                                     placeholder="Key"
-                                                    value={values.phoneNumber}
+                                                    value={values.key}
                                                     onChange={handleInputChange}
                                                 />
                                                 <FormText color="muted">
@@ -253,6 +285,7 @@ const mapStateToProps = (state) => {
 
 const mapActionToProps = {
     add: add,
+    edit: edit,
     fetchLink: getById,
 };
 

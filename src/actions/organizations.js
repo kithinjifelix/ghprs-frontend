@@ -70,3 +70,30 @@ export const register = (data, onSuccess, onError) => (dispatch) => {
       });
   };
 
+export const updateRegister = (data, onSuccess, onError) => (dispatch) => {
+    axios
+        .put(`${url}organizations`, data)
+        .then((response) => {
+            dispatch({
+                type: ACTION_TYPES.REGISTER_ORGANIZATION,
+                payload: response.data,
+            });
+            onSuccess && onSuccess();
+            //toast.success("Organization Registered Successfully!");
+        })
+        .catch((error) => {
+            dispatch({
+                type: ACTION_TYPES.ORGANIZATIONS_ERROR,
+                payload: "Something went wrong",
+            });
+            onError();
+            if (
+                error.response === undefined
+            ) {
+                toast.error("Something went wrong");
+            } else {
+                toast.error(error);
+            }
+        });
+}
+
