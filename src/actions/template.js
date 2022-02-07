@@ -2,6 +2,7 @@ import axios from "axios";
 import { url } from "../api";
 import { toast } from "react-toastify";
 import * as ACTION_TYPES from "./types";
+import { TEMPLATE_UPDATED, TEMPLATE_UPDATED_ERROR } from './types';
 
 export const fetchAll = (onSuccess, onError) => (dispatch) => {
   axios
@@ -87,7 +88,7 @@ export const updateStatus = (id, status, onSuccess, onError) => (dispatch) => {
 };
 
 export const initialize = (data, onSuccess, onError) => (dispatch) => {
-  var formData = new FormData();
+  let formData = new FormData();
   formData.append('file', data.file);
   formData.append('name', data.name);
   formData.append('description', data.description);
@@ -113,6 +114,30 @@ export const initialize = (data, onSuccess, onError) => (dispatch) => {
       console.log(error);
       toast.error("Something went wrong");
 
+    });
+};
+
+export const updateTemplate = (id, data, onSuccess, onError) => (dispatch) => {
+  let formData = new FormData();
+  formData.append('file', data.file);
+
+  axios
+    .post(`${url}templates/updateTemplate/${id}`, formData)
+    .then((response) => {
+      dispatch({
+        type: ACTION_TYPES.TEMPLATE_UPDATED,
+        payload: response.data,
+      });
+      onSuccess && onSuccess();
+    })
+    .catch((error) => {
+      dispatch({
+        type: ACTION_TYPES.TEMPLATE_UPDATED_ERROR,
+        payload: "Something went wrong",
+      });
+      onError();
+      console.log(error);
+      toast.error("Something went wrong");
     });
 };
 

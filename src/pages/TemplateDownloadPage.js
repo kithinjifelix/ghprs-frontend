@@ -17,12 +17,12 @@ import {
   Button,
   Col,
   Row,
-  NavLink as BSNavLink,
+  NavLink as BSNavLink, FormText,
 } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import { toast } from "react-toastify";
 import { MdFileDownload, MdModeEdit, MdSettings } from "react-icons/md";
-import { fetchAll, getById, updateStatus } from "../actions/template";
+import { fetchAll, getById, updateTemplate, updateStatus } from '../actions/template';
 import MaterialTable from 'material-table'
 import { authentication } from "../_services/authentication";
 import useForm from '../functions/UseForm';
@@ -50,6 +50,12 @@ const statusForm = {
 const TemplateDownloadPage = (props) => {
 
   const [modal, setModal] = useState(false);
+  const [updateTemplateModal, setUpdateTemplateModal] = useState(false);
+  const [file, setFile] = useState();
+
+  const saveFile = e => {
+    setFile(e.target.files[0]);
+  };
 
   const { values, handleInputChange, resetForm } = useForm(
     statusForm
@@ -67,6 +73,13 @@ const TemplateDownloadPage = (props) => {
     }
   };
 
+  const toggleUpdateTemplate = (id) => {
+    templateId = id;
+    setUpdateTemplateModal(!updateTemplateModal);
+    if (!updateTemplateModal) {
+    }
+  };
+
   const handleStatus = event => {
     event.preventDefault();
     const onSuccess = () => {
@@ -78,6 +91,18 @@ const TemplateDownloadPage = (props) => {
       toast.error("Something went wrong");
     };
     props.updateStatus(templateId, values.status, onSuccess, onError);
+  };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    values.file = file;
+    const onSuccess = () => {
+      toast.success("Template Updated Successfully");
+    };
+    const onError = () => {
+      toast.error("Something went wrong");
+    };
+    props.updateTemplate(templateId, values, onSuccess, onError);
   };
 
   return (
@@ -140,6 +165,17 @@ const TemplateDownloadPage = (props) => {
                     <MdModeEdit size="15" />{" "}
                     <span style={{ color: "#000" }}>Status</span>
                   </Button>)}
+                  {
+                    (authentication.currentRole === 'Administrator' && (
+                      <Button
+                        size="sm"
+                        color="link"
+                        onClick={() => toggleUpdateTemplate(row.id)}>
+                        <MdModeEdit size="15" />{" "}
+                        <span style={{ color: "#000" }}>Update Template</span>
+                      </Button>
+                    ))
+                  }
                 </div>
               ),
             }))}
@@ -187,6 +223,43 @@ const TemplateDownloadPage = (props) => {
           </ModalFooter>
         </Form>
       </Modal>
+
+      <Modal isOpen={updateTemplateModal} backdrop={true}>
+        <Form onSubmit={handleSubmit}>
+          <ModalHeader>Update Template</ModalHeader>
+          <ModalBody>
+            <FormGroup>
+              <Label for="excelFile">File</Label>
+              <Input
+                type="file"
+                name="file"
+                placeholder="File"
+                defaultValue={values.file}
+                onChange={saveFile}
+                accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+              />
+              <FormText color="muted">
+                Upload filled-out Excel template.
+              </FormText>
+            </FormGroup>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              type="submit"
+              onClick={() => toggleUpdateTemplate(templateId)}
+            >
+              Save
+            </Button>
+            <Button
+              onClick={() => toggleUpdateTemplate(templateId)}
+            >
+              <span style={{ textTransform: "capitalize" }}>
+                Cancel
+                      </span>
+            </Button>
+          </ModalFooter>
+        </Form>
+      </Modal>
     </Page>
   );
 }
@@ -199,6 +272,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapActionToProps = {
+  updateTemplate: updateTemplate,
   fetchTemplates: fetchAll,
   getTemplate: getById,
   updateStatus: updateStatus,

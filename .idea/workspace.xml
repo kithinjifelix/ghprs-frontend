@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5ab1d925-986c-4142-a68a-63c3895ceeb5" name="Changes" comment="">
+    <list default="true" id="5ab1d925-986c-4142-a68a-63c3895ceeb5" name="Changes" comment="edit user&#10;edit links&#10;edit organization">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/links.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/links.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/organizations.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/organizations.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/AddLinkPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AddLinkPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/AddOrganizationPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AddOrganizationPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/RegisterPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/RegisterPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/ResourcesPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ResourcesPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/template.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/template.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/types.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/types.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/TemplateDownloadPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/TemplateDownloadPage.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +32,10 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.stylelint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.stylelint" value="D:\source\palladium\DIAS\TZ\ghprs-frontend\node_modules\stylelint" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="preferences.externalDependencies" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -54,14 +55,36 @@
       <workItem from="1643360732157" duration="555000" />
       <workItem from="1643628273204" duration="603000" />
       <workItem from="1643786887612" duration="1511000" />
-      <workItem from="1643877386142" duration="11894000" />
+      <workItem from="1643877386142" duration="12530000" />
+      <workItem from="1644216953782" duration="6543000" />
     </task>
+    <task id="LOCAL-00001" summary="edit user&#10;edit links&#10;edit organization">
+      <created>1643894421966</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1643894421966</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="edit user&#10;edit links&#10;edit organization" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit user&#10;edit links&#10;edit organization" />
   </component>
 </project>
