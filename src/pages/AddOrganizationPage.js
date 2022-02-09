@@ -112,8 +112,13 @@ const AddOrganizationPage = (props) => {
             SetLoading(false);
         };
         props.add(values, onSuccess, onError);
-
     };
+
+    const handleCancel = (e) => {
+        e.preventDefault();
+        resetForm();
+        props.history.push("/organizations");
+    }
 
     return (
         <>
@@ -194,7 +199,7 @@ const AddOrganizationPage = (props) => {
                                 <Col md={6}>
                                     <FormGroup check row>
                                         <Col lg={{ size: 30, offset: 2 }}>
-                                            <Button onClick={resetForm}>Cancel</Button>
+                                            <Button onClick={handleCancel}>Cancel</Button>
                                         </Col>
                                     </FormGroup>
                                 </Col>

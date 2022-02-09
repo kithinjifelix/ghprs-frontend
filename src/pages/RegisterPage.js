@@ -73,7 +73,6 @@ const RegisterPage = (props) => {
       async function fetchData() {
         try {
           const response = await axios.get(`${url}users/` + params.id);
-          console.log(response);
           if (response.status == 200) {
             const profileValues = {
               email: response.data.email,
@@ -109,7 +108,6 @@ const RegisterPage = (props) => {
   ];
 
   function inputChange(e) {
-    console.log(document.getElementById("organizationId").value);
     const profileValues = {
       password: document.getElementById("password").value,
       email: document.getElementById("email").value,
@@ -138,8 +136,12 @@ const RegisterPage = (props) => {
     } else {
       props.register(values, onSuccess, onError);
     }
-
-
+  };
+  
+  const handleCancel = (e) => {
+    e.preventDefault();
+    resetForm();
+    props.history.push("/users");
   };
 
 
@@ -212,8 +214,8 @@ const RegisterPage = (props) => {
                           name="email"
                           id="email"
                           placeholder="email"
+                          value={values.email}
                           onChange={inputChange}
-                          disabled={edit}
                         />
                         <FormText color="muted">
                           Must be a valid email address format 'example@email.com'.
@@ -277,7 +279,7 @@ const RegisterPage = (props) => {
                 <Col md={6}>
                   <FormGroup check row>
                     <Col lg={{ size: 30, offset: 2 }}>
-                      <Button onClick={resetForm}>Cancel</Button>
+                      <Button onClick={handleCancel}>Cancel</Button>
                     </Col>
                   </FormGroup>
                 </Col>

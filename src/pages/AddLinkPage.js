@@ -117,6 +117,12 @@ const AddLinkPage = (props) => {
         }
     };
 
+    const handleCancel = (e) => {
+        e.preventDefault();
+        resetForm();
+        props.history.push("/links");
+    }
+
     return (
         <>
             <Page
@@ -255,7 +261,7 @@ const AddLinkPage = (props) => {
                                 <Col md={6}>
                                     <FormGroup check row>
                                         <Col lg={{ size: 30, offset: 2 }}>
-                                            <Button onClick={resetForm}>Cancel</Button>
+                                            <Button onClick={handleCancel}>Cancel</Button>
                                         </Col>
                                     </FormGroup>
                                 </Col>

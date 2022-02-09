@@ -118,6 +118,7 @@ class AuthForm extends React.Component {
         </FormGroup>
         <hr />
         <Button
+          type={"submit"}
           size="lg"
           className="bg-gradient-theme-left border-0"
           block
