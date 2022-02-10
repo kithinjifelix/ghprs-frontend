@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ab1d925-986c-4142-a68a-63c3895ceeb5" name="Changes" comment="edit template">
+    <list default="true" id="5ab1d925-986c-4142-a68a-63c3895ceeb5" name="Changes" comment="- complete reset password">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/types.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/types.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/UsersPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/UsersPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/upload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/upload.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Layout/Sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Layout/Sidebar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/TemplateUploadPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/TemplateUploadPage.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +68,9 @@
       <workItem from="1644216953782" duration="6804000" />
       <workItem from="1644307463986" duration="2580000" />
       <workItem from="1644409580820" duration="4000" />
-      <workItem from="1644478615911" duration="4975000" />
+      <workItem from="1644478615911" duration="5396000" />
+      <workItem from="1644489499208" duration="2976000" />
+      <workItem from="1644515183017" duration="3068000" />
     </task>
     <task id="LOCAL-00001" summary="edit user&#10;edit links&#10;edit organization">
       <created>1643894421966</created>
@@ -84,7 +86,14 @@
       <option name="project" value="LOCAL" />
       <updated>1644224744958</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="- complete reset password">
+      <created>1644489105875</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1644489105876</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -104,6 +113,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="edit user&#10;edit links&#10;edit organization" />
     <MESSAGE value="edit template" />
-    <option name="LAST_COMMIT_MESSAGE" value="edit template" />
+    <MESSAGE value="- complete reset password" />
+    <option name="LAST_COMMIT_MESSAGE" value="- complete reset password" />
   </component>
 </project>

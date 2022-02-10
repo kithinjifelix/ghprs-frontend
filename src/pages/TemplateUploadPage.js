@@ -16,13 +16,15 @@ import {
 } from 'reactstrap';
 import { upload } from "../actions/upload";
 import { fetchAll } from "../actions/template";
+import { fetchAll as organisationsFetch } from '../actions/organizations';
+import { getCurrentUserDetails } from '../actions/users';
 import { toast } from "react-toastify";
 import { authentication } from '../_services/authentication';
 import useForm from '../functions/UseForm';
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-daterangepicker/daterangepicker.css';
-import PageSpinner from '../components/PageSpinner'
+import PageSpinner from '../components/PageSpinner';
 
 const uploadTemplate = {
     file: '',
@@ -30,6 +32,7 @@ const uploadTemplate = {
     currentUser: '',
     startDate: '',
     endDate: '',
+    organizationId: 0
 };
 
 const TemplateUploadPage = (props) => {
@@ -49,6 +52,8 @@ const TemplateUploadPage = (props) => {
 
     useEffect(() => {
         props.fetchTemplates();
+        props.fetchOrganizations();
+        props.getCurrentUserDetails();
     }, []);
 
     const { values, handleInputChange, resetForm } = useForm(
@@ -73,7 +78,11 @@ const TemplateUploadPage = (props) => {
             toast.error("Something went wrong");
             SetLoading(false);
         };
-        props.upload(values, onSuccess, onError);
+        if (!authentication.currentRole === 'Administrator') {
+            props.upload(props.currentUser.organizationId, values, onSuccess, onError);
+        } else {
+            props.upload(values.organizationId, values, onSuccess, onError);
+        }
     };
 
     return (
@@ -99,6 +108,26 @@ const TemplateUploadPage = (props) => {
                             <Row>
                                 <Col md={6}>
                                     <Form onSubmit={handleSubmit}>
+                                        {(authentication.currentRole === 'Administrator') && (
+                                          <FormGroup>
+                                              <Label for="organizationId">Organization</Label>
+                                              <Input
+                                                type="select"
+                                                name="organizationId"
+                                                id="organizationId"
+                                                placeholder="Organization"
+                                                value={values.organizationId}
+                                                onChange={handleInputChange}
+                                              >
+                                                  <option value=""> </option>
+                                                  {props.organizations.map(({ name, id }) => (
+                                                    <option key={id} value={id}>
+                                                        {name}
+                                                    </option>
+                                                  ))}
+                                              </Input>
+                                          </FormGroup>
+                                        )}
                                         <FormGroup>
                                             <Label for="templateId">Template</Label>
                                             <Input
@@ -159,13 +188,17 @@ const TemplateUploadPage = (props) => {
 const mapStateToProps = (state) => {
     return {
         upload: state.uploads.upload,
-        templates: state.templates.list
+        templates: state.templates.list,
+        organizations: state.organizations.list,
+        currentUser: state.users.currentUser
     };
 };
 
 const mapActionToProps = {
     upload: upload,
     fetchTemplates: fetchAll,
+    fetchOrganizations: organisationsFetch,
+    getCurrentUserDetails: getCurrentUserDetails
 };
 
 export default connect(mapStateToProps, mapActionToProps)(TemplateUploadPage);

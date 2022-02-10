@@ -103,7 +103,7 @@ export const viewById = (id, onSuccess, onError) => (dispatch) => {
     });
 };
 
-export const upload = (data, onSuccess, onError) => (dispatch) => {
+export const upload = (organizationId, data, onSuccess, onError) => (dispatch) => {
   var formData =new FormData();
   formData.append('file', data.file);
   formData.append('templateId', data.templateId);
@@ -111,7 +111,7 @@ export const upload = (data, onSuccess, onError) => (dispatch) => {
   formData.append('startDate', data.startDate);
   formData.append('endDate', data.endDate);
     axios
-      .post(`${url}uploads/upload`, formData)
+      .post(`${url}uploads/upload/${organizationId}`, formData)
       .then((response) => {
         dispatch({
           type: ACTION_TYPES.UPLOAD_UPLOAD,
