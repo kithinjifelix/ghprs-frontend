@@ -3,6 +3,7 @@ import { url } from "../api";
 import { toast } from "react-toastify";
 import jwt_decode from 'jwt-decode';
 import * as ACTION_TYPES from "./types";
+import { RESET_PASSWORD_ERROR } from './types';
 
 export const fetchAll = (onSuccess, onError) => (dispatch) => {
   axios
@@ -70,6 +71,32 @@ export const register = (data, onSuccess, onError) => (dispatch) => {
         }
       });
   };
+
+export const resetPassword = (id, data, onSuccess, onError) => (dispatch) => {
+  axios
+    .post(`${url}authentication/resetpassword/${id}`, data)
+    .then((response) => {
+      dispatch({
+        type: ACTION_TYPES.RESET_PASSWORD,
+        payload: response.data,
+      });
+      onSuccess && onSuccess();
+    })
+    .catch((error) => {
+      dispatch({
+        type: ACTION_TYPES.RESET_PASSWORD_ERROR,
+        payload: "Something went wrong",
+      });
+      onError();
+      if (
+        error.response === undefined
+      ) {
+        toast.error("Something went wrong");
+      } else {
+        toast.error(error);
+      }
+    });
+};
 
   export const edit = (id, data, onSuccess, onError) => (dispatch) => {
       axios

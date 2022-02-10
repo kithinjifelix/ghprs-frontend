@@ -19,6 +19,8 @@ export const GET_CURRENT_USER = 'GET_CURRENT_USER';
 export const REGISTER = 'REGISTER';
 export const EDIT_USER = 'EDIT_USER';
 export const USERS_ERROR = 'USERS_ERROR';
+export const RESET_PASSWORD = 'RESET_PASSWORD';
+export const RESET_PASSWORD_ERROR = 'RESET_PASSWORD_ERROR';
 
 /**
  * @TYPES

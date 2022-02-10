@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from 'react';
 import Page from 'components/Page';
 import {
   Button,
@@ -8,23 +8,28 @@ import {
   CardBody,
   Col,
   Row,
-  NavLink as BSNavLink,
+  NavLink as BSNavLink, Form, ModalHeader, ModalBody, FormGroup, Label, Input, FormText, ModalFooter, Modal,
 } from 'reactstrap';
 import { NavLink, Link } from 'react-router-dom';
-import { MdAccountCircle, MdDelete, MdAdd, MdArrowBack } from "react-icons/md";
-import { fetchAll } from "../actions/users";
+import { MdAccountCircle, MdDelete, MdAdd, MdArrowBack, MdVerifiedUser } from 'react-icons/md';
+import { fetchAll, resetPassword } from "../actions/users";
 import MaterialTable from 'material-table'
 import axios from "axios";
 import { url } from "../api";
 import { toast } from "react-toastify";
 import jwt_decode from "jwt-decode";
+import useForm from '../functions/UseForm';
 const UsersPage = (props) => {
+  const [resetPasswordModal, setResetPasswordModal] = useState(false);
+  const [userId, setUserId] = useState(null);
+  const { values, handleInputChange, resetForm } = useForm({password: null});
 
   useEffect(() => {
     props.fetchUsers();
   }, []);
   const currentUsername = JSON.parse(localStorage.getItem('currentUser')) ? jwt_decode(JSON.parse(localStorage.getItem('currentUser')).token)['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'] : '';
-  function deleteUser(e) {
+
+  const deleteUser = (e) => {
     if (e.currentTarget.name === currentUsername) {
       toast.error("Could not delete User " + e.currentTarget.name + ". User " + e.currentTarget.name + " is the current logged in user.");
     } else {
@@ -41,11 +46,29 @@ const UsersPage = (props) => {
         console.error(e);
       }
     }
-  }
+  };
+
+  const resetUserPassword = (id) => {
+    setUserId(id);
+    setResetPasswordModal(!resetPasswordModal);
+  };
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const onSuccess = () => {
+      toast.success("User Password Reset Successfully");
+    };
+    const onError = () => {
+      toast.error("Something went wrong");
+    };
+    const passwordValues = {
+      Password: values.password
+    };
+    props.resetPassword(userId, passwordValues, onSuccess, onError);
+  };
+
   return (
-    <Page
-      className="DashboardPage"
-    >
+    <Page className="DashboardPage">
       <Row>
         <Col xl={12} lg={12} md={12}>
           <Card>
@@ -100,7 +123,16 @@ const UsersPage = (props) => {
                     name={row.userName}
                   >
                     <MdDelete size="15" />{" "}
-                    <span style={{ color: "#000" }}  >Delete User</span>
+                    <span style={{ color: "#000" }}>Delete User</span>
+                  </Button>
+                  <Button
+                  color="link"
+                  onClick={() => resetUserPassword(row.id)}
+                  id={row.id}
+                  name={row.userName}>
+                    <MdVerifiedUser size={"15"} />
+                    {" "}
+                    <span style={{ color: "#000" }}>Reset User Password</span>
                   </Button>
                 </>
 
@@ -119,6 +151,42 @@ const UsersPage = (props) => {
           />
         </Col>
       </Row>
+      <Modal isOpen={resetPasswordModal} backdrop={true}>
+        <Form onSubmit={handleSubmit}>
+          <ModalHeader>Reset Password</ModalHeader>
+          <ModalBody>
+            <FormGroup>
+              <Label for="password">Password *</Label>
+              <Input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="password"
+                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,32}$"
+                defaultValue={values.password}
+                onChange={handleInputChange}
+              />
+              <FormText color="muted">
+                Passwords must be at least 6 characters. Passwords must have at least one digit ('0'-'9'). Passwords must have at least one lowercase ('a'-'z'). Passwords must have at least one uppercase ('A'-'Z'). Passwords must have at least one special character ("*.!@#$%^&(){ }[]:,.?/~_+-=|\")
+              </FormText>
+            </FormGroup>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              type="submit"
+              onClick={() => resetUserPassword(userId)}
+            >
+              Save
+            </Button>
+            <Button
+              onClick={() => resetUserPassword(userId)}>
+              <span style={{ textTransform: "capitalize" }}>
+                Cancel
+              </span>
+            </Button>
+          </ModalFooter>
+        </Form>
+      </Modal>
     </Page>
   );
 }
@@ -131,6 +199,7 @@ const mapStateToProps = (state) => {
 
 const mapActionToProps = {
   fetchUsers: fetchAll,
+  resetPassword: resetPassword
 };
 
 export default connect(mapStateToProps, mapActionToProps)(UsersPage);
