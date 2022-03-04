@@ -97,13 +97,15 @@ const UsersPage = (props) => {
             columns={[
               { title: 'Name', field: 'name' },
               { title: 'Email', field: 'email' },
+              { title: 'Role', field: 'roleId' },
               { title: 'Organization', field: 'organization' },
               { title: 'Actions', field: 'actions' }
             ]}
             data={props.users.map((row) => ({
-              name: row.person.name,
-              email: row.email,
-              organization: row.organization.shortName,
+              name: row.user.person.name,
+              email: row.user.email,
+              roleId: row.roles[0],
+              organization: row.user.organization.shortName,
               actions: (
                 <>
                 <BSNavLink
