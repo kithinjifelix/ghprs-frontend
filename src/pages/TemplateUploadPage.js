@@ -36,7 +36,6 @@ const uploadTemplate = {
 };
 
 const TemplateUploadPage = (props) => {
-
     const [file, setFile] = useState();
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
@@ -67,7 +66,8 @@ const TemplateUploadPage = (props) => {
 
         values.startDate = startDate ? startDate: '0001-JAN-01';
         values.endDate = endDate ? endDate : '0001-JAN-01';
-        values.currentUser = authentication.currentUsername
+        values.currentUser = authentication.currentUsername;
+        values.organizationId = props.currentUser.organizationId;
         const onSuccess = () => {
             toast.success("Template uploaded successfully");
             resetForm();

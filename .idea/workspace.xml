@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ab1d925-986c-4142-a68a-63c3895ceeb5" name="Changes" comment="- complete reset password">
+    <list default="true" id="5ab1d925-986c-4142-a68a-63c3895ceeb5" name="Changes" comment="- Show user role on Users page">
+      <change afterPath="$PROJECT_DIR$/src/pages/FilesUploads.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/MERUploadPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/actions/upload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/upload.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Layout/Sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Layout/Sidebar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/TemplateUploadPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/TemplateUploadPage.js" afterDir="false" />
     </list>
@@ -15,8 +19,18 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/node_modules/reactstrap/src/NavItem.js" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -45,7 +59,7 @@
     <property name="node.js.selected.package.stylelint" value="D:\source\palladium\DIAS\TZ\ghprs-frontend\node_modules\stylelint" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="settings.editor.selected.configurable" value="preferences.externalDependencies" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2021.3.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -70,7 +84,20 @@
       <workItem from="1644409580820" duration="4000" />
       <workItem from="1644478615911" duration="5396000" />
       <workItem from="1644489499208" duration="2976000" />
-      <workItem from="1644515183017" duration="3068000" />
+      <workItem from="1644515183017" duration="3367000" />
+      <workItem from="1644563550763" duration="1037000" />
+      <workItem from="1646217373488" duration="870000" />
+      <workItem from="1646378484173" duration="2775000" />
+      <workItem from="1647254789080" duration="554000" />
+      <workItem from="1648121965754" duration="65000" />
+      <workItem from="1648535905764" duration="806000" />
+      <workItem from="1657018824559" duration="694000" />
+      <workItem from="1657700951009" duration="9505000" />
+      <workItem from="1657797504200" duration="5000" />
+      <workItem from="1657797552959" duration="671000" />
+      <workItem from="1658114125679" duration="3237000" />
+      <workItem from="1658134436079" duration="627000" />
+      <workItem from="1658313178403" duration="669000" />
     </task>
     <task id="LOCAL-00001" summary="edit user&#10;edit links&#10;edit organization">
       <created>1643894421966</created>
@@ -93,11 +120,35 @@
       <option name="project" value="LOCAL" />
       <updated>1644489105876</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="- USAID submit data for organisation">
+      <created>1644518605551</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1644518605551</updated>
+    </task>
+    <task id="LOCAL-00005" summary="- Show user role on Users page">
+      <created>1646382184358</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1646382184358</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -114,6 +165,8 @@
     <MESSAGE value="edit user&#10;edit links&#10;edit organization" />
     <MESSAGE value="edit template" />
     <MESSAGE value="- complete reset password" />
-    <option name="LAST_COMMIT_MESSAGE" value="- complete reset password" />
+    <MESSAGE value="- USAID submit data for organisation" />
+    <MESSAGE value="- Show user role on Users page" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Show user role on Users page" />
   </component>
 </project>

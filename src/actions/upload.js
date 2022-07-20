@@ -43,6 +43,26 @@ export const getByUser = (onSuccess, onError) => (dispatch) => {
     });
 };
 
+export const getAllFileUploads = (onSuccess, onError) => (dispatch) => {
+  axios
+    .get(`${url}uploads/GetAllFileUploads`)
+    .then((response) => {
+      dispatch({
+        type: ACTION_TYPES.UPLOAD_GET_BY_USER,
+        payload: response.data,
+      });
+      if (onSuccess) {
+        onSuccess();
+      }
+    })
+    .catch((error) => {
+      if (onError) {
+        onError();
+        toast.error("Something went wrong fetching Uploads");
+      }
+    });
+};
+
 export const getByStatus = (status, onSuccess, onError) => (dispatch) => {
   axios
     .get(`${url}uploads/status/${status}`)
@@ -104,7 +124,7 @@ export const viewById = (id, onSuccess, onError) => (dispatch) => {
 };
 
 export const upload = (organizationId, data, onSuccess, onError) => (dispatch) => {
-  var formData =new FormData();
+  let formData =new FormData();
   formData.append('file', data.file);
   formData.append('templateId', data.templateId);
   formData.append('currentUser', data.currentUser);
@@ -128,9 +148,36 @@ export const upload = (organizationId, data, onSuccess, onError) => (dispatch) =
         onError();
         console.log(error);
         toast.error("Something went wrong");
-        
       });
   };
+
+export const uploadMERData = (data, onSuccess, onError) => (dispatch) => {
+  try {
+    let formData = new FormData();
+    formData.append('file', data.file);
+    console.log(formData);
+    axios.post(`${url}uploads/MER_UPLOAD`, formData)
+      .then((response) => {
+        dispatch({
+          type: ACTION_TYPES.UPLOAD_UPLOAD,
+          payload: response.data,
+        });
+        onSuccess && onSuccess();
+        toast.success("File Uploaded Successfully!");
+      })
+      .catch((error) => {
+        dispatch({
+          type: ACTION_TYPES.UPLOAD_ERROR,
+          payload: "Something went wrong",
+        });
+        onError();
+        console.log(error);
+        toast.error("Something went wrong");
+      });
+  } catch (e) {
+
+  }
+};
 
   export const review = (id, data, onSuccess, onError) => (dispatch) => {
       axios

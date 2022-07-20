@@ -25,10 +25,12 @@ const RegisterPage = React.lazy(() => import('pages/RegisterPage'));
 const ReviewUploadsPage = React.lazy(() => import('pages/ReviewUploadsPage'));
 const ReviewDetailsPage = React.lazy(() => import('pages/ReviewDetailsPage'));
 const SubmissionsPage = React.lazy(() => import('pages/SubmissionsPage'));
+const FilesUploads = React.lazy(() => import('pages/FilesUploads'));
 const LinksPage = React.lazy(() => import('pages/LinksPage'));
 const AddLinksPage = React.lazy(() => import('pages/AddLinkPage'));
 const AddOrganizationPage = React.lazy(() => import('pages/AddOrganizationPage'));
 const ResourcesPage = React.lazy(() => import('pages/ResourcesPage'));
+const MERUploadPage = React.lazy(() => import('pages/MERUploadPage'));
 
 const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split('/').pop()}`;
@@ -85,6 +87,8 @@ class App extends React.Component {
                 <PrivateRoute exact path="/profile/:id" roles={['Administrator']} component={RegisterPage} />
                 <PrivateRoute exact path="/administration" roles={['Administrator']} component={AdministrationPage} />
                 <PrivateRoute exact path="/resources" component={ResourcesPage} />
+                <PrivateRoute exact path="/upload-MER" component={MERUploadPage} />
+                <PrivateRoute exact path="/files-upload" component={FilesUploads} />
               </React.Suspense>
             </MainLayout>
             <Redirect to="/" />
