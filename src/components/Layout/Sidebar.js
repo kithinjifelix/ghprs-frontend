@@ -35,12 +35,12 @@ if (authentication.currentRole === 'Administrator') {
     { to: '/download-Template', name: 'Downloads', exact: true, Icon: MdFileDownload },
     { to: '/review', name: 'Review', exact: true, Icon: MdDone },
     { to: '/upload-Template', name: 'Submit', exact: true, Icon: MdFileUpload },
-    { to: '/upload-MER', name: 'MER Data Upload', exact: true, Icon: MdFileUpload }
+    { to: '/upload-MER', name: 'Data Upload', exact: true, Icon: MdFileUpload }
   ];
 } else if (authentication.currentRole === 'User') {
   navTemplates = [
     { to: '/upload-Template', name: 'Submit', exact: true, Icon: MdFileUpload },
-    { to: '/upload-MER', name: 'MER Data Upload', exact: true, Icon: MdFileUpload },
+    { to: '/upload-MER', name: 'Data Upload', exact: true, Icon: MdFileUpload },
     { to: '/submissions', name: 'Submissions', exact: true, Icon: MdViewList },
     { to: '/download-Template', name: 'Downloads', exact: true, Icon: MdFileDownload },
   ];

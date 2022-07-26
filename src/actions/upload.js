@@ -155,6 +155,7 @@ export const uploadMERData = (data, onSuccess, onError) => (dispatch) => {
   try {
     let formData = new FormData();
     formData.append('file', data.file);
+    formData.append('uploadTypeId', data.uploadTypeId);
     console.log(formData);
     axios.post(`${url}uploads/MER_UPLOAD`, formData)
       .then((response) => {
