@@ -49,6 +49,7 @@ const UsersPage = (props) => {
   };
 
   const resetUserPassword = (id) => {
+    console.log(id);
     setUserId(id);
     setResetPasswordModal(!resetPasswordModal);
   };
@@ -129,8 +130,8 @@ const UsersPage = (props) => {
                   </Button>
                   <Button
                   color="link"
-                  onClick={() => resetUserPassword(row.id)}
-                  id={row.id}
+                  onClick={() => resetUserPassword(row.user.id)}
+                  id={row.user.id}
                   name={row.userName}>
                     <MdVerifiedUser size={"15"} />
                     {" "}

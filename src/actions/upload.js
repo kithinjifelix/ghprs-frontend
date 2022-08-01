@@ -43,9 +43,9 @@ export const getByUser = (onSuccess, onError) => (dispatch) => {
     });
 };
 
-export const getAllFileUploads = (onSuccess, onError) => (dispatch) => {
+export const getAllFileUploads = (status, onSuccess, onError) => (dispatch) => {
   axios
-    .get(`${url}uploads/GetAllFileUploads`)
+    .get(`${url}uploads/GetAllFileUploads/${status}`)
     .then((response) => {
       dispatch({
         type: ACTION_TYPES.UPLOAD_GET_BY_USER,
