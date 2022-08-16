@@ -4,15 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ab1d925-986c-4142-a68a-63c3895ceeb5" name="Changes" comment="- Show user role on Users page">
-      <change afterPath="$PROJECT_DIR$/src/pages/FilesUploads.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/MERUploadPage.js" afterDir="false" />
+    <list default="true" id="5ab1d925-986c-4142-a68a-63c3895ceeb5" name="Changes" comment="- Upload MER Data, Facility Data and community Data">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/upload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/upload.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Layout/Sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Layout/Sidebar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/TemplateUploadPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/TemplateUploadPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/FilesUploads.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/FilesUploads.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/MERUploadPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/MERUploadPage.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,21 +45,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.stylelint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.stylelint" value="D:\source\palladium\DIAS\TZ\ghprs-frontend\node_modules\stylelint" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
-    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2021.3.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
-    <property name="vue.rearranger.settings.migration" value="true" />
-  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/felixkithinji/source/DIAS/TZ/ghprs-frontend&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.stylelint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.stylelint&quot;: &quot;/Users/felixkithinji/source/DIAS/TZ/ghprs-frontend/node_modules/stylelint&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
@@ -98,6 +96,14 @@
       <workItem from="1658114125679" duration="3237000" />
       <workItem from="1658134436079" duration="627000" />
       <workItem from="1658313178403" duration="669000" />
+      <workItem from="1659340875293" duration="1806000" />
+      <workItem from="1659525891602" duration="609000" />
+      <workItem from="1659599378351" duration="62000" />
+      <workItem from="1659690685876" duration="688000" />
+      <workItem from="1659779344232" duration="112000" />
+      <workItem from="1660548782731" duration="1864000" />
+      <workItem from="1660585772097" duration="628000" />
+      <workItem from="1660599718506" duration="3543000" />
     </task>
     <task id="LOCAL-00001" summary="edit user&#10;edit links&#10;edit organization">
       <created>1643894421966</created>
@@ -134,7 +140,14 @@
       <option name="project" value="LOCAL" />
       <updated>1646382184358</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="- Upload MER Data, Facility Data and community Data">
+      <created>1659341099854</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1659341099854</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -167,6 +180,7 @@
     <MESSAGE value="- complete reset password" />
     <MESSAGE value="- USAID submit data for organisation" />
     <MESSAGE value="- Show user role on Users page" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Show user role on Users page" />
+    <MESSAGE value="- Upload MER Data, Facility Data and community Data" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Upload MER Data, Facility Data and community Data" />
   </component>
 </project>

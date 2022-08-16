@@ -88,7 +88,6 @@ const MERUploadPage = (props) => {
                           onChange={typeOfUploadChange}>
                             <option value=""></option>
                             <option key="1" value="1">MER DATA UPLOAD</option>
-                            <option key="2" value="2">FACILITY & COMMUNITY DATA UPLOAD</option>
                         </Input>
                       </FormGroup>
                   </Col>

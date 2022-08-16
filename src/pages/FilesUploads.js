@@ -63,7 +63,7 @@ const FilesUploads = (props) => {
           <Card>
             <CardHeader>Uploads</CardHeader>
             <CardBody>
-              MER & (Facility and Community) Data Uploads.
+              MER Data Uploads.
             </CardBody>
           </Card>
         </Col>
