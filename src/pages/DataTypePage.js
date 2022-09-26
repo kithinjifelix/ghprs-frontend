@@ -178,7 +178,6 @@ const DataTypePage = (props) => {
                               onChange={handleInputChange}
                               defaultValue={type}
                             >
-                              <option value=""> </option>
                               {props.dataTypes.map(({ name, value }) => (
                                 <option key={value} value={value}>
                                   {name}

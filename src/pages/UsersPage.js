@@ -48,6 +48,28 @@ const UsersPage = (props) => {
     }
   };
 
+  const disableUser = (e) => {
+    if (e.currentTarget.name === currentUsername) {
+      toast.error("Could not disable User " + e.currentTarget.name + ". User " + e.currentTarget.name + " is the current logged in user.");
+    } else {
+      try {
+        axios.get(`${url}users/DisableUser/` + e.currentTarget.id)
+          .then((response) => {
+            toast.success("User " + e.currentTarget.name + " Successfully Disabled");
+            setTimeout(() => {
+              props.fetchUsers();
+            }, 2500);
+          })
+          .catch((error) => {
+            toast.error("Could not disable User");
+          });
+      } catch (e) {
+        toast.error("Could not disable User");
+        console.error(e);
+      }
+    }
+  };
+
   const resetUserPassword = (id) => {
     console.log(id);
     setUserId(id);
@@ -110,9 +132,9 @@ const UsersPage = (props) => {
               actions: (
                 <>
                 <BSNavLink
-                    id={`profile${row.id}`}
+                    id={`profile${row.user.id}`}
                     tag={NavLink}
-                    to={`/profile/${row.id}`}
+                    to={`/profile/${row.user.id}`}
                     activeClassName="active"
                     exact={true}
                   >
@@ -121,12 +143,12 @@ const UsersPage = (props) => {
                   </BSNavLink>
                   <Button
                     color="link"
-                    onClick={deleteUser}
-                    id={row.id}
+                    onClick={disableUser}
+                    id={row.user.id}
                     name={row.userName}
                   >
                     <MdDelete size="15" />{" "}
-                    <span style={{ color: "#000" }}>Delete User</span>
+                    <span style={{ color: "#000" }}>Disable User</span>
                   </Button>
                   <Button
                   color="link"

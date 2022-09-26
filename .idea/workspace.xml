@@ -7,9 +7,10 @@
     <list default="true" id="5ab1d925-986c-4142-a68a-63c3895ceeb5" name="Changes" comment="- Upload MER Data, Facility Data and community Data">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Layout/Sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Layout/Sidebar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/FilesUploads.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/FilesUploads.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/MERUploadPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/MERUploadPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/DataTypePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/DataTypePage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/OrganizationsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/OrganizationsPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ReviewDetailsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ReviewDetailsPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/UsersPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/UsersPage.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +104,34 @@
       <workItem from="1659779344232" duration="112000" />
       <workItem from="1660548782731" duration="1864000" />
       <workItem from="1660585772097" duration="628000" />
-      <workItem from="1660599718506" duration="3543000" />
+      <workItem from="1660599718506" duration="3679000" />
+      <workItem from="1661158953287" duration="786000" />
+      <workItem from="1661408040702" duration="122000" />
+      <workItem from="1661408249342" duration="2970000" />
+      <workItem from="1661426280130" duration="599000" />
+      <workItem from="1661596574308" duration="35000" />
+      <workItem from="1661839075821" duration="1234000" />
+      <workItem from="1662115071558" duration="1399000" />
+      <workItem from="1662368855272" duration="619000" />
+      <workItem from="1662388838814" duration="3235000" />
+      <workItem from="1662444213343" duration="599000" />
+      <workItem from="1662547688972" duration="2415000" />
+      <workItem from="1662610382162" duration="2519000" />
+      <workItem from="1662707582423" duration="1247000" />
+      <workItem from="1662968914361" duration="768000" />
+      <workItem from="1662990836775" duration="1987000" />
+      <workItem from="1663142178237" duration="974000" />
+      <workItem from="1663145708613" duration="3445000" />
+      <workItem from="1663223684700" duration="24000" />
+      <workItem from="1663228479384" duration="2617000" />
+      <workItem from="1663316215483" duration="1201000" />
+      <workItem from="1663577417716" duration="799000" />
+      <workItem from="1663606265394" duration="998000" />
+      <workItem from="1663663941508" duration="6579000" />
+      <workItem from="1663832853810" duration="1322000" />
+      <workItem from="1663854212189" duration="1262000" />
+      <workItem from="1664179592122" duration="1223000" />
+      <workItem from="1664209960015" duration="3070000" />
     </task>
     <task id="LOCAL-00001" summary="edit user&#10;edit links&#10;edit organization">
       <created>1643894421966</created>
@@ -147,7 +175,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659341099854</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="- Upload MER Data, Facility Data and community Data">
+      <created>1660643256373</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1660643256374</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

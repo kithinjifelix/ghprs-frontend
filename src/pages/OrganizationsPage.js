@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from 'react';
 import Page from 'components/Page';
 import {
   Button,
@@ -17,6 +17,7 @@ import MaterialTable from 'material-table'
 import axios from "axios";
 import { url } from "../api";
 import { toast } from "react-toastify";
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 
 
 const status = [
@@ -25,17 +26,18 @@ const status = [
 ];
 
 const OrganizationsPage = (props) => {
-
+  const [open, setOpen] = useState(false);
+  const [orgName, setOrgName] = useState("");
+  const [orgId, setOrgId] = useState();
   useEffect(() => {
     props.fetchOrganizations();
   }, []);
 
-  function updateOrgunit(e) {
-
+  function updateOrgunit(orgId) {
     try {
-      axios.delete(`${url}organizations/` + e.currentTarget.id)
+      axios.delete(`${url}organizations/` + orgId)
         .then((response) => {
-          toast.success("User " + e.currentTarget.name + " Successfully DeActivated.");
+          toast.success("User " + orgName + " Successfully DeActivated.");
           setTimeout(() => {
             props.fetchOrganizations();
           }, 2500);
@@ -43,7 +45,20 @@ const OrganizationsPage = (props) => {
     } catch (e) {
       toast.error("Could not delete Organisation Unit.");
     }
-  }
+  };
+
+  const handleClickOpen = (org) => {
+    setOrgId(org.id);
+    setOrgName(org.name);
+    setOpen(true);
+  };
+
+  const handleClose = (answer) => {
+    if (answer === "Yes") {
+      updateOrgunit(orgId);
+    }
+    setOpen(false);
+  };
 
 
   return (
@@ -101,7 +116,7 @@ const OrganizationsPage = (props) => {
                   </BSNavLink>
                   <Button
                     color="link"
-                    onClick={updateOrgunit}
+                    onClick={() => handleClickOpen(row)}
                     id={row.id}
                     name={row.name}
                   >
@@ -124,6 +139,27 @@ const OrganizationsPage = (props) => {
           />
         </Col>
       </Row>
+      <Dialog
+        open={open}
+        onClose={() => handleClose("No")}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">Delete Organization</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to delete {orgName}?.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => handleClose("No")} color="primary">
+            No
+          </Button>
+          <Button onClick={() => handleClose("Yes")} color="primary" autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Page>
   );
 }

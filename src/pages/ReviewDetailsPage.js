@@ -87,7 +87,7 @@ const ReviewDetailsPage = (props) => {
                                 </Nav>
                                 <Table bordered responsive>
                                     <thead>
-                                        <tr>{props.data.length > 0 && (Object.keys(props.data[dataIndex].data[0]).map(col => <th key={`header-${col}`}>{col}</th>))}</tr>
+                                        <tr>{props.data.length > 0 && props.data[dataIndex] && props.data[dataIndex].data[0] && (Object.keys(props.data[dataIndex].data[0]).map(col => <th key={`header-${col}`}>{col}</th>))}</tr>
                                     </thead>
                                     <tbody>
                                         {props.data.length > 0 && (Object.values(props.data[dataIndex].data).map((row, index) =>
