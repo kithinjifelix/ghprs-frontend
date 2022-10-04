@@ -19,9 +19,22 @@ import { url } from "../api";
 import { toast } from "react-toastify";
 import jwt_decode from "jwt-decode";
 import useForm from '../functions/UseForm';
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  TableCell,
+  TableHead,
+  TableRow,
+} from '@material-ui/core';
 const UsersPage = (props) => {
   const [resetPasswordModal, setResetPasswordModal] = useState(false);
   const [userId, setUserId] = useState(null);
+  const [person, setPerson] = useState(null);
+  const [userName, setUserName] = useState(null);
+  const [open, setOpen] = useState(false);
   const { values, handleInputChange, resetForm } = useForm({password: null});
 
   useEffect(() => {
@@ -48,14 +61,14 @@ const UsersPage = (props) => {
     }
   };
 
-  const disableUser = (e) => {
-    if (e.currentTarget.name === currentUsername) {
-      toast.error("Could not disable User " + e.currentTarget.name + ". User " + e.currentTarget.name + " is the current logged in user.");
+  const disableUser = (personId, userName) => {
+    if (userName === currentUsername) {
+      toast.error("Could not disable User " + userName + ". User " + userName + " is the current logged in user.");
     } else {
       try {
-        axios.get(`${url}users/DisableUser/` + e.currentTarget.id)
+        axios.get(`${url}users/DisableUser/` + personId)
           .then((response) => {
-            toast.success("User " + e.currentTarget.name + " Successfully Disabled");
+            toast.success("User " + userName + " Successfully Disabled");
             setTimeout(() => {
               props.fetchUsers();
             }, 2500);
@@ -71,7 +84,6 @@ const UsersPage = (props) => {
   };
 
   const resetUserPassword = (id) => {
-    console.log(id);
     setUserId(id);
     setResetPasswordModal(!resetPasswordModal);
   };
@@ -88,6 +100,20 @@ const UsersPage = (props) => {
       Password: values.password
     };
     props.resetPassword(userId, passwordValues, onSuccess, onError);
+  };
+
+  const handleClickOpen = (user) => {
+    setUserId(user.id);
+    setUserName(user.userName);
+    setPerson(user.person);
+    setOpen(true);
+  };
+
+  const handleClose = (answer) => {
+    if (answer === "Yes") {
+      disableUser(userId, userName);
+    }
+    setOpen(false);
   };
 
   return (
@@ -143,26 +169,53 @@ const UsersPage = (props) => {
                   </BSNavLink>
                   <Button
                     color="link"
-                    onClick={disableUser}
+                    onClick={() => handleClickOpen(row.user)}
                     id={row.user.id}
                     name={row.userName}
                   >
                     <MdDelete size="15" />{" "}
                     <span style={{ color: "#000" }}>Disable User</span>
                   </Button>
+                  <br />
                   <Button
                   color="link"
                   onClick={() => resetUserPassword(row.user.id)}
                   id={row.user.id}
-                  name={row.userName}>
+                  name={row.userName}
+                  style={{ "text-align": "left" }}>
                     <MdVerifiedUser size={"15"} />
                     {" "}
                     <span style={{ color: "#000" }}>Reset User Password</span>
                   </Button>
                 </>
-
               ),
             }))}
+            components={{
+              Header: props => {
+                return (
+                  <TableHead>
+                    <TableRow>
+                      <TableCell align="left">Name</TableCell>
+                      <TableCell align="left">Email</TableCell>
+                      <TableCell align="left">Role</TableCell>
+                      <TableCell align="left">Organization</TableCell>
+                      <TableCell align="left" colSpan={2}>Actions</TableCell>
+                    </TableRow>
+                  </TableHead>
+                );
+              },
+              Row: ({ data }) => {
+                return (
+                  <TableRow>
+                    <TableCell align="left">{data.name}</TableCell>
+                    <TableCell align="left">{data.email}</TableCell>
+                    <TableCell align="left">{data.roleId}</TableCell>
+                    <TableCell align="left">{data.organization}</TableCell>
+                    <TableCell align="left" colSpan={2}>{data.actions}</TableCell>
+                  </TableRow>
+                );
+              }
+            }}
             title={<Link to="/register">
             <Button
               variant="contained"
@@ -212,6 +265,27 @@ const UsersPage = (props) => {
           </ModalFooter>
         </Form>
       </Modal>
+      <Dialog
+        open={open}
+        onClose={() => handleClose("No")}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">Disable User</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to disable { person ? person.name : "" }?.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => handleClose("No")} color="primary">
+            No
+          </Button>
+          <Button onClick={() => handleClose("Yes")} color="primary" autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Page>
   );
 }
