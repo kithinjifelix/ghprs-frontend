@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5ab1d925-986c-4142-a68a-63c3895ceeb5" name="Changes" comment="- Upload MER Data, Facility Data and community Data">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/UsersPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/UsersPage.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/node_modules/reactstrap/src/NavItem.js" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.2.2\plugins\maven\lib\maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="24EFHjsrSwPxJVls7ZqAFb1xh7m" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/felixkithinji/source/DIAS/TZ/ghprs-frontend&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.stylelint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.stylelint&quot;: &quot;/Users/felixkithinji/source/DIAS/TZ/ghprs-frontend/node_modules/stylelint&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5ab1d925-986c-4142-a68a-63c3895ceeb5" name="Changes" comment="" />
+      <created>1643187764915</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1643187764915</updated>
+      <workItem from="1643187767517" duration="1110000" />
+      <workItem from="1643360732157" duration="555000" />
+      <workItem from="1643628273204" duration="603000" />
+      <workItem from="1643786887612" duration="1511000" />
+      <workItem from="1643877386142" duration="12530000" />
+      <workItem from="1644216953782" duration="6804000" />
+      <workItem from="1644307463986" duration="2580000" />
+      <workItem from="1644409580820" duration="4000" />
+      <workItem from="1644478615911" duration="5396000" />
+      <workItem from="1644489499208" duration="2976000" />
+      <workItem from="1644515183017" duration="3367000" />
+      <workItem from="1644563550763" duration="1037000" />
+      <workItem from="1646217373488" duration="870000" />
+      <workItem from="1646378484173" duration="2775000" />
+      <workItem from="1647254789080" duration="554000" />
+      <workItem from="1648121965754" duration="65000" />
+      <workItem from="1648535905764" duration="806000" />
+      <workItem from="1657018824559" duration="694000" />
+      <workItem from="1657700951009" duration="9505000" />
+      <workItem from="1657797504200" duration="5000" />
+      <workItem from="1657797552959" duration="671000" />
+      <workItem from="1658114125679" duration="3237000" />
+      <workItem from="1658134436079" duration="627000" />
+      <workItem from="1658313178403" duration="669000" />
+      <workItem from="1659340875293" duration="1806000" />
+      <workItem from="1659525891602" duration="609000" />
+      <workItem from="1659599378351" duration="62000" />
+      <workItem from="1659690685876" duration="688000" />
+      <workItem from="1659779344232" duration="112000" />
+      <workItem from="1660548782731" duration="1864000" />
+      <workItem from="1660585772097" duration="628000" />
+      <workItem from="1660599718506" duration="3679000" />
+      <workItem from="1661158953287" duration="786000" />
+      <workItem from="1661408040702" duration="122000" />
+      <workItem from="1661408249342" duration="2970000" />
+      <workItem from="1661426280130" duration="599000" />
+      <workItem from="1661596574308" duration="35000" />
+      <workItem from="1661839075821" duration="1234000" />
+      <workItem from="1662115071558" duration="1399000" />
+      <workItem from="1662368855272" duration="619000" />
+      <workItem from="1662388838814" duration="3235000" />
+      <workItem from="1662444213343" duration="599000" />
+      <workItem from="1662547688972" duration="2415000" />
+      <workItem from="1662610382162" duration="2519000" />
+      <workItem from="1662707582423" duration="1247000" />
+      <workItem from="1662968914361" duration="768000" />
+      <workItem from="1662990836775" duration="1987000" />
+      <workItem from="1663142178237" duration="974000" />
+      <workItem from="1663145708613" duration="3445000" />
+      <workItem from="1663223684700" duration="24000" />
+      <workItem from="1663228479384" duration="2617000" />
+      <workItem from="1663316215483" duration="1201000" />
+      <workItem from="1663577417716" duration="799000" />
+      <workItem from="1663606265394" duration="998000" />
+      <workItem from="1663663941508" duration="6579000" />
+      <workItem from="1663832853810" duration="1322000" />
+      <workItem from="1663854212189" duration="1262000" />
+      <workItem from="1664179592122" duration="1223000" />
+      <workItem from="1664209960015" duration="8618000" />
+      <workItem from="1664263398753" duration="847000" />
+      <workItem from="1664367417327" duration="613000" />
+      <workItem from="1664436235604" duration="12000" />
+      <workItem from="1664797627323" duration="800000" />
+    </task>
+    <task id="LOCAL-00001" summary="edit user&#10;edit links&#10;edit organization">
+      <created>1643894421966</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1643894421966</updated>
+    </task>
+    <task id="LOCAL-00002" summary="edit template">
+      <created>1644224744958</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1644224744958</updated>
+    </task>
+    <task id="LOCAL-00003" summary="- complete reset password">
+      <created>1644489105875</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1644489105876</updated>
+    </task>
+    <task id="LOCAL-00004" summary="- USAID submit data for organisation">
+      <created>1644518605551</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1644518605551</updated>
+    </task>
+    <task id="LOCAL-00005" summary="- Show user role on Users page">
+      <created>1646382184358</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1646382184358</updated>
+    </task>
+    <task id="LOCAL-00006" summary="- Upload MER Data, Facility Data and community Data">
+      <created>1659341099854</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1659341099854</updated>
+    </task>
+    <task id="LOCAL-00007" summary="- Upload MER Data, Facility Data and community Data">
+      <created>1660643256373</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1660643256374</updated>
+    </task>
+    <task id="LOCAL-00008" summary="- Upload MER Data, Facility Data and community Data">
+      <created>1664216872558</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1664216872558</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="edit user&#10;edit links&#10;edit organization" />
+    <MESSAGE value="edit template" />
+    <MESSAGE value="- complete reset password" />
+    <MESSAGE value="- USAID submit data for organisation" />
+    <MESSAGE value="- Show user role on Users page" />
+    <MESSAGE value="- Upload MER Data, Facility Data and community Data" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Upload MER Data, Facility Data and community Data" />
+  </component>
+</project>
