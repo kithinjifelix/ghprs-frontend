@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Page from '../components/Page';
 import { Button, Card, CardBody, CardHeader, Col, Form, FormGroup, FormText, Input, Label, Row } from 'reactstrap';
 import { uploadMERData } from '../actions/upload';
@@ -27,7 +27,7 @@ const MERUploadPage = (props) => {
         setFileType(".txt");
         uploadTemplate.uploadTypeId = 1;
       } else if (Number(e.target.value) === 2) {
-        setFileType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel");
+        setFileType(".txt");
         uploadTemplate.uploadTypeId = 2;
       }
     }
@@ -40,6 +40,10 @@ const MERUploadPage = (props) => {
   const handleSubmit = event => {
     SetLoading(true);
     event.preventDefault();
+    if (file && file.type != "text/plain") {
+      toast.error("File type is not txt");
+      return;
+    }
     values.file = file;
 
     const onSuccess = () => {
@@ -66,7 +70,7 @@ const MERUploadPage = (props) => {
             <Card>
               <CardHeader>Submit</CardHeader>
               <CardBody>
-                Upload a MER data file
+                Upload MER and PLHIV data file
               </CardBody>
             </Card>
           </Col>
@@ -88,6 +92,7 @@ const MERUploadPage = (props) => {
                           onChange={typeOfUploadChange}>
                             <option value=""></option>
                             <option key="1" value="1">MER DATA UPLOAD</option>
+                            <option key="2" value="2">PLHIV DATA UPLOAD</option>
                         </Input>
                       </FormGroup>
                   </Col>
@@ -104,7 +109,7 @@ const MERUploadPage = (props) => {
                         accept={fileType}
                       />
                       <FormText color="muted">
-                        Upload a MER data file
+                        Upload MER and PLHIV data file
                       </FormText>
                     </FormGroup>
                   </Col>

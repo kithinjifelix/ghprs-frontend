@@ -35,8 +35,8 @@ if (authentication.currentRole === 'Administrator') {
     { to: '/download-Template', name: 'Downloads', exact: true, Icon: MdFileDownload },
     { to: '/review', name: 'Review', exact: true, Icon: MdDone },
     { to: '/upload-Template', name: 'Submit', exact: true, Icon: MdFileUpload },
-    { to: '/upload-MER', name: 'Submit MER', exact: true, Icon: MdFileUpload },
-    { to: '/files-upload', name: 'MER Uploads', exact: true, Icon: MdViewList }
+    { to: '/upload-MER', name: 'Submit MER/PLHIV', exact: true, Icon: MdFileUpload },
+    { to: '/files-upload', name: 'MER/PLHIV Uploads', exact: true, Icon: MdViewList }
   ];
 } else if (authentication.currentRole === 'User') {
   navTemplates = [
@@ -51,7 +51,7 @@ if (authentication.currentRole === 'Administrator') {
 
 const navItems = [
   { to: '/', name: 'Home', exact: false, Icon: MdDashboard },
-  { to: '/dashboards', name: 'Dashboards', exact: false, Icon: MdWeb },
+  // { to: '/dashboards', name: 'Dashboards', exact: false, Icon: MdWeb },
 ];
 
 const bem = bn.create('sidebar');

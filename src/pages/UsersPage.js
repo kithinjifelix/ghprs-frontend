@@ -29,6 +29,7 @@ import {
   TableHead,
   TableRow,
 } from '@material-ui/core';
+import store from '../store';
 const UsersPage = (props) => {
   const [resetPasswordModal, setResetPasswordModal] = useState(false);
   const [userId, setUserId] = useState(null);
@@ -94,7 +95,7 @@ const UsersPage = (props) => {
       toast.success("User Password Reset Successfully");
     };
     const onError = () => {
-      toast.error("Something went wrong");
+      toast.error(store.getState().users.errorMessage);
     };
     const passwordValues = {
       Password: values.password

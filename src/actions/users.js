@@ -85,7 +85,7 @@ export const resetPassword = (id, data, onSuccess, onError) => (dispatch) => {
     .catch((error) => {
       dispatch({
         type: ACTION_TYPES.RESET_PASSWORD_ERROR,
-        payload: "Something went wrong",
+        payload: error.response.data.message,
       });
       onError();
       if (

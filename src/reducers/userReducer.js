@@ -33,6 +33,9 @@ const userReducer = (state = initialState, action) => {
     case ACTION_TYPES.LOGOUT:
       return { ...state, userTokenDetails: {}, authenticated: false };
 
+    case ACTION_TYPES.RESET_PASSWORD_ERROR:
+      return { ...state, errorMessage: action.payload };
+
     default:
       return state;
   }
