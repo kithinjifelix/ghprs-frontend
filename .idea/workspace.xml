@@ -4,14 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ab1d925-986c-4142-a68a-63c3895ceeb5" name="Changes" comment="- Upload MER Data, Facility Data and community Data">
+    <list default="true" id="5ab1d925-986c-4142-a68a-63c3895ceeb5" name="Changes" comment="- PUBLISH HIGHCHARTS">
+      <change afterPath="$PROJECT_DIR$/src/actions/dashboard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/upload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/upload.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Layout/Sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Layout/Sidebar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/MERUploadPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/MERUploadPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/UsersPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/UsersPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/userReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/userReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/types.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/types.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/DataTypePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/DataTypePage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/HomePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/HomePage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducers/uploadReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/uploadReducer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,7 +140,10 @@
       <workItem from="1664797627323" duration="800000" />
       <workItem from="1665734635320" duration="5000" />
       <workItem from="1666166606860" duration="8031000" />
-      <workItem from="1667377784722" duration="6399000" />
+      <workItem from="1667377784722" duration="17624000" />
+      <workItem from="1667552383753" duration="598000" />
+      <workItem from="1667802585168" duration="563000" />
+      <workItem from="1667805754421" duration="9806000" />
     </task>
     <task id="LOCAL-00001" summary="edit user&#10;edit links&#10;edit organization">
       <created>1643894421966</created>
@@ -197,7 +201,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664216872558</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="- bug fixes for users reset password and rename links">
+      <created>1667460426486</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1667460426486</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -231,6 +242,8 @@
     <MESSAGE value="- USAID submit data for organisation" />
     <MESSAGE value="- Show user role on Users page" />
     <MESSAGE value="- Upload MER Data, Facility Data and community Data" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Upload MER Data, Facility Data and community Data" />
+    <MESSAGE value="- bug fixes for users reset password and rename links" />
+    <MESSAGE value="- PUBLISH HIGHCHARTS" />
+    <option name="LAST_COMMIT_MESSAGE" value="- PUBLISH HIGHCHARTS" />
   </component>
 </project>

@@ -176,13 +176,11 @@ const DataTypePage = (props) => {
                               id={index}
                               placeholder="Select Type"
                               onChange={handleInputChange}
-                              defaultValue={type}
+                              defaultValue='NUMERIC'
                             >
-                              {props.dataTypes.map(({ name, value }) => (
-                                <option key={value} value={value}>
-                                  {name}
-                                </option>
-                              ))}
+                              <option key="NUMERIC" value="NUMERIC">NUMBER</option>
+                              <option key="TEXT" value="TEXT">TEXT</option>
+                              <option key="DATE" value="DATE">DATE</option>
                             </Input>)}
                           </Col>
                         </Row>

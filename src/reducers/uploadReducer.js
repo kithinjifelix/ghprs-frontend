@@ -31,6 +31,9 @@ const uploadReducer = (state = initialState, action) => {
         case ACTION_TYPES.UPLOAD_ERROR:
             return { ...state, error: action.payload };
 
+        case ACTION_TYPES.DASHBOARD_DATA:
+            return { ...state, dashboard: action.payload };
+
         default:
             return state;
     }
