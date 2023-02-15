@@ -5,6 +5,7 @@ const initialState = {
     upload: {},
     view: [],
     error: {},
+    merfiles: [],
 };
 
 const uploadReducer = (state = initialState, action) => {
@@ -33,6 +34,10 @@ const uploadReducer = (state = initialState, action) => {
 
         case ACTION_TYPES.DASHBOARD_DATA:
             return { ...state, dashboard: action.payload };
+        case ACTION_TYPES.UPLOAD_PROGRESS:
+            return { ...state, uploadProgress: action.payload };
+        case ACTION_TYPES.MER_FILES:
+            return { ...state, merfiles: action.payload };
 
         default:
             return state;

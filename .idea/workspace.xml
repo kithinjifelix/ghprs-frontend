@@ -5,13 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ab1d925-986c-4142-a68a-63c3895ceeb5" name="Changes" comment="- PUBLISH HIGHCHARTS">
-      <change afterPath="$PROJECT_DIR$/src/actions/dashboard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/CircularProgressWithLabel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/actions/types.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/types.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/DataTypePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/DataTypePage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/HomePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/HomePage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/upload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/upload.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/FilesUploads.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/FilesUploads.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/MERUploadPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/MERUploadPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/reducers/uploadReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/uploadReducer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -53,7 +56,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/felixkithinji/source/DIAS/TZ/ghprs-frontend&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/felixkithinji/source/DIAS/TZ/tz-data-portal-front-end&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.stylelint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -61,6 +64,7 @@
     &quot;node.js.selected.package.stylelint&quot;: &quot;/Users/felixkithinji/source/DIAS/TZ/ghprs-frontend/node_modules/stylelint&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Applications/WebStorm.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -143,7 +147,16 @@
       <workItem from="1667377784722" duration="17624000" />
       <workItem from="1667552383753" duration="598000" />
       <workItem from="1667802585168" duration="563000" />
-      <workItem from="1667805754421" duration="9806000" />
+      <workItem from="1667805754421" duration="10431000" />
+      <workItem from="1667906504209" duration="1233000" />
+      <workItem from="1668419538097" duration="588000" />
+      <workItem from="1668497429338" duration="598000" />
+      <workItem from="1669201789637" duration="618000" />
+      <workItem from="1670329094233" duration="167000" />
+      <workItem from="1675159406583" duration="12561000" />
+      <workItem from="1675234472161" duration="312000" />
+      <workItem from="1675251298088" duration="99000" />
+      <workItem from="1676451237338" duration="11991000" />
     </task>
     <task id="LOCAL-00001" summary="edit user&#10;edit links&#10;edit organization">
       <created>1643894421966</created>
@@ -208,7 +221,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667460426486</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="- PUBLISH HIGHCHARTS">
+      <created>1667895909652</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1667895909652</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -227,11 +247,41 @@
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
+        <entry key="32c81ecb-4fef-425f-a0ff-010fbfaeda1a">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="roots">
+                    <value>
+                      <list>
+                        <option value="$PROJECT_DIR$" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
         <entry key="MAIN">
           <value>
             <State />
           </value>
         </entry>
+      </map>
+    </option>
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="32c81ecb-4fef-425f-a0ff-010fbfaeda1a" value="TOOL_WINDOW" />
       </map>
     </option>
   </component>

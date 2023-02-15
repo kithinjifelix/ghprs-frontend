@@ -111,14 +111,14 @@ const FilesUploads = (props) => {
             <MaterialTable
               columns={[
                 { title: 'Name', field: 'name' },
-                { title: 'User', field: 'user' },
+                // { title: 'User', field: 'user' },
                 { title: 'Upload Date', field: 'date' },
                 { title: 'Status', field: 'status' },
               { title: 'Content Type', field: 'contentType' },
               ]}
               data={props.uploads.map((row) => ({
                 name: row.name,
-                user: row.user.userName,
+                // user: row.user.userName,
                 date: moment(row.createdAt).format('YYYY-MMM-DD'),
                 status: row.status,
                 contentType: row.contentType == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ? '.xlsx' : row.contentType

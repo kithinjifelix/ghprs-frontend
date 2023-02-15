@@ -1,76 +1,101 @@
 import { connect } from "react-redux";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from 'react';
 import Page from '../components/Page';
-import { Button, Card, CardBody, CardHeader, Col, Form, FormGroup, FormText, Input, Label, Row } from 'reactstrap';
-import { uploadMERData } from '../actions/upload';
-import PageSpinner from '../components/PageSpinner';
-import useForm from '../functions/UseForm';
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Col,
+  Form, FormGroup, Input, Label, Modal,
+  ModalBody, ModalFooter,
+  ModalHeader,
+  Row,
+} from 'reactstrap';
+import { uploadMERData, ProcessBlob } from '../actions/upload';
+import { HubConnectionBuilder } from "@microsoft/signalr";
+import MaterialTable from 'material-table';
+import { FcProcess } from 'react-icons/fc';
 import { toast } from 'react-toastify';
+import useForm from '../functions/UseForm';
+import { hubUrl } from '../api';
 
-const uploadTemplate = {
-  file: '',
-  currentUser: '',
-  uploadTypeId: 0
+const processForm = {
+  fileType: ''
 };
 
 const MERUploadPage = (props) => {
-  const [file, setFile] = useState();
-  const [loading, SetLoading] = useState(false);
-  const [fileType, setFileType] = useState(".txt");
-  const saveFile = e => {
-    setFile(e.target.files[0]);
-  };
-
-  const typeOfUploadChange = e => {
-    if (e.target.value) {
-      if (Number(e.target.value) === 1) {
-        setFileType(".txt");
-        uploadTemplate.uploadTypeId = 1;
-      } else if (Number(e.target.value) === 2) {
-        setFileType(".txt");
-        uploadTemplate.uploadTypeId = 2;
-      }
-    }
-  };
-
+  const [modal, setModal] = useState(false);
+  const [name, setName] = useState();
+  const [progress, setProgress] = useState(new Map());
   const { values, handleInputChange, resetForm } = useForm(
-    uploadTemplate
+    processForm
   );
 
-  const handleSubmit = event => {
-    SetLoading(true);
-    event.preventDefault();
-    if (file && file.type != "text/plain") {
-      toast.error("File type is not txt");
-      return;
-    }
-    values.file = file;
 
+  const loadConnection = useCallback(async () => {
+    try {
+      const connection = new HubConnectionBuilder()
+        .withUrl(`${hubUrl}progressHub`, { withCredentials: false })
+        .withAutomaticReconnect()
+        .build();
+      connection
+        .start()
+        .then(() => {
+          connection.on("Progress", (value) => {
+            setProgress((prevList) => {
+              console.log(value);
+              const nextMap = new Map(prevList);
+              nextMap.set(value.name, value.value);
+              return nextMap;
+            });
+          });
+        })
+        .catch((error) => console.log(error));
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
+
+  useEffect(() => {
+    props.fetchMerFiles();
+    loadConnection();
+  }, [loadConnection]);
+
+  const toggleProcess = (name) => {
+    setName(name);
+    setModal(!modal);
+  };
+
+  const handleProcess = event => {
+    event.preventDefault();
     const onSuccess = () => {
-      toast.success("Template uploaded successfully");
+      toast.success("Successfully Submitted For Processing");
       resetForm();
-      SetLoading(false);
-      props.history.push("/files-upload");
     };
     const onError = () => {
       toast.error("Something went wrong");
-      SetLoading(false);
     };
-    props.uploadMERData(values, onSuccess, onError);
+    console.log(values);
+    props.ProcessBlob(name, values, onSuccess, onError);
   };
+
+  function getProgress(map1, name) {
+    console.log(map1);
+    if (map1 && map1.get(name)) {
+      return map1.get(name);
+    }
+  }
 
   return (
     <>
-      <Page
-        className="DashboardPage"
-        hidden={loading}
-      >
+      <Page className="DashboardPage">
         <Row>
           <Col xl={12} lg={12} md={12}>
             <Card>
               <CardHeader>Submit</CardHeader>
               <CardBody>
-                Upload MER and PLHIV data file
+                List MER and PLHIV data file
               </CardBody>
             </Card>
           </Col>
@@ -79,69 +104,91 @@ const MERUploadPage = (props) => {
           <Col lg="12" md="12" sm="12" xs="12">
             <Card>
               <CardBody>
-              <Form onSubmit={handleSubmit}>
-                <Row>
-                  <Col md={4}>
-                    <FormGroup>
-                        <Label for="">Upload Type</Label>
-                        <Input
-                          type="select"
-                          name="uploadTypeId"
-                          id="uploadTypeId"
-                          placeholder="Upload Type"
-                          onChange={typeOfUploadChange}>
-                            <option value=""></option>
-                            <option key="1" value="1">MER DATA UPLOAD</option>
-                            <option key="2" value="2">PLHIV DATA UPLOAD</option>
-                        </Input>
-                      </FormGroup>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md={4}>
-                    <FormGroup>
-                      <Label for="excelFile">File</Label>
-                      <Input
-                        type="file"
-                        name="file"
-                        placeholder="File"
-                        onChange={saveFile}
-                        accept={fileType}
-                      />
-                      <FormText color="muted">
-                        Upload MER and PLHIV data file
-                      </FormText>
-                    </FormGroup>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md={4}>
-                    <FormGroup>
-                      <Label>&nbsp;</Label>
-                      <Button>Upload</Button>
-                    </FormGroup>
-                  </Col>
-                </Row>
-                </Form>
+                <MaterialTable
+                  columns={[
+                    {
+                      headerName: 'Name',
+                      field: 'name',
+                      render: (params) => (
+                        <>
+                          {params.name} {getProgress(progress, params.name) ? "  progress: " + getProgress(progress, params.name): ""}
+                        </>
+                      ),
+                    },
+                    { title: 'Action', field: 'actions' },
+                  ]}
+                  data={props.merfiles.length > 0 ? props.merfiles.map((row) => ({
+                    name: row,
+                    actions: (
+                      <div>
+                        <Button
+                          size="sm"
+                          color="link"
+                          onClick={() => toggleProcess(row)}
+                        >
+                          <FcProcess size="15" />{" "}
+                          <span style={{ color: "#000" }}>Process</span>
+                        </Button>
+                      </div>
+                    ),
+                  })) : []}
+                  title="Data Submissions"
+                />
               </CardBody>
             </Card>
           </Col>
         </Row>
+        <Modal isOpen={modal} backdrop={true}>
+          <Form onSubmit={handleProcess}>
+            <ModalHeader>Process</ModalHeader>
+            <ModalBody>
+              <FormGroup>
+                <Label for="fileType">File Type</Label>
+                <Input
+                  type="select"
+                  name="fileType"
+                  id="fileType"
+                  placeholder="File Type"
+                  value={values.fileType}
+                  onChange={handleInputChange}
+                >
+                  <option value=""> </option>
+                  <option value="1">MER</option>
+                  <option value="2">PLHIV</option>
+                </Input>
+              </FormGroup>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                type="submit"
+                onClick={() => toggleProcess(name)}
+              >
+                Save
+              </Button>
+              <Button
+                onClick={() => toggleProcess(name)}
+              >
+                <span style={{ textTransform: "capitalize" }}>
+                  Cancel
+                      </span>
+              </Button>
+            </ModalFooter>
+          </Form>
+        </Modal>
       </Page>
-      {(loading) &&<PageSpinner />}
     </>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-    uploadMERData: state.uploads.uploadMERData,
-    currentUser: state.users.currentUser
+    merfiles: state.uploads.merfiles,
   };
 };
 
 const mapActionToProps = {
-  uploadMERData: uploadMERData
+  fetchMerFiles: uploadMERData,
+  ProcessBlob: ProcessBlob,
 };
 
 export default connect(mapStateToProps, mapActionToProps)(MERUploadPage);

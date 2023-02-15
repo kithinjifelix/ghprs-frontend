@@ -151,32 +151,60 @@ export const upload = (organizationId, data, onSuccess, onError) => (dispatch) =
       });
   };
 
-export const uploadMERData = (data, onSuccess, onError) => (dispatch) => {
+export const uploadMERData = (data, onSuccess, onError) => async (dispatch) => {
   try {
-    let formData = new FormData();
-    formData.append('file', data.file);
-    formData.append('uploadTypeId', data.uploadTypeId);
-    axios.post(`${url}uploads/MER_UPLOAD`, formData)
+    axios.get(`${url}uploads/MER_UPLOAD`)
       .then((response) => {
         dispatch({
-          type: ACTION_TYPES.UPLOAD_UPLOAD,
+          type: ACTION_TYPES.MER_FILES,
           payload: response.data,
         });
-        onSuccess && onSuccess();
-        toast.success("File Uploaded Successfully!");
+        if (onSuccess) {
+          onSuccess();
+        }
       })
       .catch((error) => {
-        dispatch({
-          type: ACTION_TYPES.UPLOAD_ERROR,
-          payload: "Something went wrong",
-        });
-        onError();
-        console.log(error);
-        toast.error("Something went wrong");
+        if (onError) {
+          onError();
+          toast.error("Something went wrong fetching Upload");
+        }
       });
   } catch (e) {
-
+    dispatch({
+      type: ACTION_TYPES.UPLOAD_ERROR,
+      payload: "Something went wrong",
+    });
+    onError();
   }
+};
+
+export const ProcessBlob = (name, uploadType, onSuccess, onError) => async (dispatch) => {
+  let formData =new FormData();
+  formData.append('name', name);
+  axios({
+    method: 'post',
+    url: `${url}uploads/ProcessBlob/${uploadType.fileType}`,
+    data: formData
+  })
+    .then((response) => {
+      onSuccess && onSuccess();
+      toast.success("Saved Successfully!");
+    })
+    .catch(error => {
+      onError();
+      console.log(error);
+      toast.error("Something went wrong");
+    });
+  // axios.post(`${url}uploads/ProcessBlob/${uploadType.fileType}`, JSON.stringify({name: name}), customConfig)
+  //   .then((response) => {
+  //     onSuccess && onSuccess();
+  //     toast.success("Saved Successfully!");
+  //   })
+  //   .catch((error) => {
+  //     onError();
+  //     console.log(error);
+  //     toast.error("Something went wrong");
+  //   });
 };
 
   export const review = (id, data, onSuccess, onError) => (dispatch) => {

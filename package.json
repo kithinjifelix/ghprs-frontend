@@ -35,6 +35,7 @@
     "react-redux": "^7.2.2",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
+    "react-signalr": "^0.2.14",
     "react-simple-maps": "^0.12.1",
     "react-sizeme": "^2.5.2",
     "react-toastify": "^6.2.0",
