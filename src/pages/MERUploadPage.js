@@ -2,7 +2,6 @@ import { connect } from "react-redux";
 import React, { useCallback, useEffect, useState } from 'react';
 import Page from '../components/Page';
 import {
-  Button,
   Card,
   CardBody,
   CardHeader,
@@ -19,12 +18,14 @@ import { FcProcess } from 'react-icons/fc';
 import { toast } from 'react-toastify';
 import useForm from '../functions/UseForm';
 import { hubUrl } from '../api';
+import { Button } from '@material-ui/core';
 
 const processForm = {
   fileType: ''
 };
 
 const MERUploadPage = (props) => {
+  const [isProcessButtonDisabled, setIsProcessButtonDisabled] = useState(false);
   const [modal, setModal] = useState(false);
   const [name, setName] = useState();
   const [progress, setProgress] = useState(new Map());
@@ -76,12 +77,11 @@ const MERUploadPage = (props) => {
     const onError = () => {
       toast.error("Something went wrong");
     };
-    console.log(values);
+    setIsProcessButtonDisabled(true);
     props.ProcessBlob(name, values, onSuccess, onError);
   };
 
   function getProgress(map1, name) {
-    console.log(map1);
     if (map1 && map1.get(name)) {
       return map1.get(name);
     }
@@ -111,7 +111,7 @@ const MERUploadPage = (props) => {
                       field: 'name',
                       render: (params) => (
                         <>
-                          {params.name} {getProgress(progress, params.name) ? "  progress: " + getProgress(progress, params.name): ""}
+                        {params.name} {getProgress(progress, params.name) ? <div style={{ color: "orange"}}>{"  Records Read : " + getProgress(progress, params.name)}</div>: ""}
                         </>
                       ),
                     },
@@ -122,9 +122,11 @@ const MERUploadPage = (props) => {
                     actions: (
                       <div>
                         <Button
+                          variant="contained"
                           size="sm"
                           color="link"
                           onClick={() => toggleProcess(row)}
+                          disabled={isProcessButtonDisabled}
                         >
                           <FcProcess size="15" />{" "}
                           <span style={{ color: "#000" }}>Process</span>
@@ -163,7 +165,7 @@ const MERUploadPage = (props) => {
                 type="submit"
                 onClick={() => toggleProcess(name)}
               >
-                Save
+                Continue
               </Button>
               <Button
                 onClick={() => toggleProcess(name)}
